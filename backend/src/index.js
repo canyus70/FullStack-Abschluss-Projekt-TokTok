@@ -47,5 +47,5 @@ mongoose
     console.log("Error connection to database");
     console.log(error);
     console.log("Server will not start. Aborting...");
-    process.exit();
+    process.exit(1);
   });
