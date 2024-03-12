@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema(
   {
@@ -31,6 +32,35 @@ const userSchema = new mongoose.Schema(
   },
   { collection: "users" }
 );
+
+userSchema.methods.toProfileInfo = function () {
+  return {
+    firstname: this.firstname,
+    lastname: this.lastname,
+    username: this.username,
+    email: this.email,
+    profession: this.profession,
+    avatar: this.avatar,
+    qrcode: this.qrcode,
+    bio: this.bio,
+    website: this.website,
+    sixDigitCode: this.sixDigitCode,
+    emailVerified: this.emailVerified,
+    _id: this._id,
+  };
+};
+
+userSchema.pre("save", async function () {
+  const user = this;
+
+  if (user.isModified("email")) {
+    user.email = user.email.toLowerCase();
+  }
+  if (user.isModified("password")) {
+    const hash = await bcrypt.hash(user.password, 10);
+    user.password = hash;
+  }
+});
 
 const User = mongoose.model("User", userSchema);
 export default User;
