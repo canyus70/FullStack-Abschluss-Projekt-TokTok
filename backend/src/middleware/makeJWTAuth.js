@@ -1,9 +1,9 @@
 
 
-export const makeJWTAuth = ({ tokenType = "access" }) => {
-    const doJWTAuth = catchAsync(
-        (req, _, next) => {
+// export const makeJWTAuth = ({ tokenType = "access" }) => {
+//     const doJWTAuth = catchAsync(
+//         (req, _, next) => {
 
-        }, { message: "Invalid authorization", status: 401 }
-    );
-};
+//         }, { message: "Invalid authorization", status: 401 }
+//     );
+// };

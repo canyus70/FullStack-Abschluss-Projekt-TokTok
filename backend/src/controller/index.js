@@ -1,4 +1,5 @@
-//=====================User CONTROLLER=====================//
+//=====================USER CONTROLLER=====================//
+
 
 import { getAllUsersCtrl } from "./user/getAllUsersCtrl.js";
 import { getUserProfileByIdCtrl } from "./user/getUserProfileByIdCtrl.js";
@@ -22,16 +23,20 @@ export const UserController = {
   editUserProfileCtrl,
   addFollowCtrl,
   unFollowCtrl,
-};
-//=====================BLOG CONTROLLER=====================//
-import { getAllBlogPostsCtrl } from "./blog/getAllBlogPostsCtrl.js";
-import { createNewBlogPostCtrl } from "./blog/createNewBlogPostCtrl.js";
-import { getBlogPostByIdCtrl } from "./blog/getBlogPostByIdCtrl.js";
-import { getAllFromOneCtrl } from "./blog/getAllFromOneCtrl.js";
 
-export const BlogController = {
-  getAllBlogPostsCtrl,
-  createNewBlogPostCtrl,
-  getBlogPostByIdCtrl,
-  getAllFromOneCtrl,
 };
+//=====================BLOG POSTS CONTROLLER=====================//
+import { getAllBlogPostsCtrl } from "./posts/getAllBlogPostsCtrl.js";
+import { createNewBlogPostCtrl } from "./posts/createNewBlogPostCtrl.js";
+import { getBlogPostByIdCtrl } from "./posts/getBlogPostByIdCtrl.js";
+import { getAllFromOneCtrl } from "./posts/getAllFromOneCtrl.js";
+
+
+
+export const PostController = {
+    getAllBlogPostsCtrl,
+    createNewBlogPostCtrl,
+    getBlogPostByIdCtrl,
+    getAllFromOneCtrl
+}
+

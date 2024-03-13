@@ -47,6 +47,8 @@ userSchema.methods.toProfileInfo = function () {
     phonenumber: this.phonenumber,
     website: this.website,
     gender: this.gender,
+    followers: this.followers,
+    following: this.following,
 
     _id: this._id,
   };
