@@ -1,4 +1,5 @@
-import "./App.css";
+
+import "./App.scss";
 import Navbar from "./components/navbar/Navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
@@ -8,7 +9,7 @@ import UserProfile from "./pages/UserProfile.jsx";
 
 
 function App() {
-  return <>
+  return
   <BrowserRouter>
     <Routes>
     <Route path="/" element={<Home/>}/>
@@ -19,7 +20,8 @@ function App() {
   <Navbar/>
   </BrowserRouter>
     
-  </>;
+ ;
+
 }
 
 export default App;

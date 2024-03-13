@@ -1,3 +1,4 @@
+
 import './navbar.scss'
 import IconHome from '../SVG/IconHome.svg'
 import IconSearch from '../SVG/IconSearch.svg'
@@ -43,3 +44,4 @@ const Navbar = () => {
 }
 
 export default Navbar;
+
