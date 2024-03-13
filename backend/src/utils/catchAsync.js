@@ -13,7 +13,7 @@ export function catchAsync(
             res.status(status).json({
                 success: false,
                 error: err,
-                message: error.message || message,
+                message: err.message || message,
             });
         });
     };

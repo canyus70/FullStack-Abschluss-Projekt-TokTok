@@ -1,3 +1,4 @@
+//=====================USER CONTROLLER=====================//
 import { getAllUsersCtrl } from "./user/getAllUsersCtrl.js";
 import { getUserProfileByIdCtrl } from "./user/getUserProfileByIdCtrl.js";
 import { patchVerifyEmailCtrl } from "./user/patchVerifyEmailCtrl.js";
@@ -12,18 +13,19 @@ export const UserController = {
     patchVerifyEmailCtrl,
     postLogoutCtrl,
     refreshTokenCtrl,
-    getAllUsersCtrl,
     getUserProfileByIdCtrl,
+    getAllUsersCtrl
+
 };
-//=====================BLOG CONTROLLER=====================//
-import { getAllBlogPostsCtrl } from "./blog/getAllBlogPostsCtrl.js";
-import { createNewBlogPostCtrl } from "./blog/createNewBlogPostCtrl.js";
-import { getBlogPostByIdCtrl } from "./blog/getBlogPostByIdCtrl.js";
-import { getAllFromOneCtrl } from "./blog/getAllFromOneCtrl.js";
+//=====================BLOG POSTS CONTROLLER=====================//
+import { getAllBlogPostsCtrl } from "./posts/getAllBlogPostsCtrl.js";
+import { createNewBlogPostCtrl } from "./posts/createNewBlogPostCtrl.js";
+import { getBlogPostByIdCtrl } from "./posts/getBlogPostByIdCtrl.js";
+import { getAllFromOneCtrl } from "./posts/getAllFromOneCtrl.js";
 
 
 
-export const BlogController = {
+export const PostController = {
     getAllBlogPostsCtrl,
     createNewBlogPostCtrl,
     getBlogPostByIdCtrl,

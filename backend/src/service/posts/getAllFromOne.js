@@ -1,4 +1,4 @@
-import Post from "../../models/Post";
+import Post from "../../models/Post.js";
 
 export async function getAllFromOne(userId) {
     // Posts des Benutzers holen
@@ -14,7 +14,7 @@ export async function getAllFromOne(userId) {
     const userDetail = await User.findById(userId)
         .populate('followers', 'username')
         .populate('following', 'username')
-        .populate('likes', 'title') // Annahme, dass 'likes' auf Posts verweisen
+        .populate('likes', 'title')
         .exec();
 
     // Kombiniere die Informationen für die Antwort
