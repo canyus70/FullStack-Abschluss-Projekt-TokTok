@@ -1,6 +1,6 @@
 export function catchAsync(
     controllerFn,
-    { message = "Internal server error", status = 500 }
+    { message = "Internal server error", status = 500 } = {}
 ) {
     console.log(controllerFn, message);
     return (req, res, next) => {
