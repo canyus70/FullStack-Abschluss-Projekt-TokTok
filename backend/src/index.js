@@ -4,6 +4,7 @@ import morgan from "morgan";
 import mongoose from "mongoose";
 import cookieSession from "cookie-session";
 import cors from "cors";
+import UserRouter from "./routes/user/UserRouter.js";
 
 dotenv.config();
 
@@ -29,7 +30,7 @@ const cookieSessionOptions = {
 app.use(cookieSession(cookieSessionOptions));
 app.use(morgan("dev"));
 app.use(express.json());
-//app.use("/api/v1/users", userRouter.default);
+app.use("/api/v1/users", UserRouter);
 app.use("/api/v1/posts", PostRouter);
 //app.use("/api/v1/comments", PostRouter.default);
 //app.use("/api/v1/activities", PostRouter.default);

@@ -1,0 +1,12 @@
+.avatar {
+  width: 3.75rem;
+  img {
+    width: 100%;
+  }
+  &.small {
+    width: 3rem;
+  }
+  &.large {
+    width: 8.75rem;
+  }
+}

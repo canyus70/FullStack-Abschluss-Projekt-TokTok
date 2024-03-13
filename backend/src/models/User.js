@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema(
   {
@@ -7,13 +8,13 @@ const userSchema = new mongoose.Schema(
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    profession: { type: String, required: true },
+    profession: { type: String },
     avatar: { type: String },
     qrcode: { type: String },
     phonenumber: { type: Number },
-    bio: { type: String, required: true },
-    gender: { type: String, enum: [male, female, divers] },
-    birthday: { type: Date },
+    bio: { type: String },
+    gender: { type: String, enum: ["male", "female", "divers"] },
+    birthday: { type: Date, required: true },
     website: { type: String },
     sixDigitCode: {
       type: String,
@@ -31,6 +32,42 @@ const userSchema = new mongoose.Schema(
   },
   { collection: "users" }
 );
+
+userSchema.methods.toProfileInfo = function () {
+  return {
+    firstname: this.firstname,
+    lastname: this.lastname,
+    username: this.username,
+    email: this.email,
+    profession: this.profession,
+    avatar: this.avatar,
+    qrcode: this.qrcode,
+    bio: this.bio,
+    birthday: this.birthday,
+    phonenumber: this.phonenumber,
+    website: this.website,
+    gender: this.gender,
+
+    _id: this._id,
+  };
+};
+
+userSchema.pre("save", async function () {
+  const user = this;
+
+  if (user.isModified("email")) {
+    user.email = user.email.toLowerCase();
+  }
+  if (user.isModified("password")) {
+    const hash = await bcrypt.hash(user.password, 10);
+    user.password = hash;
+  }
+});
+
+userSchema.statics.findByEmail = function (email) {
+  if (typeof email !== "string") return null;
+  return this.findOne({ email: email.toLowerCase() });
+};
 
 const User = mongoose.model("User", userSchema);
 export default User;
