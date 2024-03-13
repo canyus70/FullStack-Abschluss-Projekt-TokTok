@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: "Urbanist", sans-serif;
+}
+
+:root {
+  --red: 255, 77, 103;
+  --text-darkGray: 33, 33, 33;
+  --text-lightGray: 97, 97, 97;
+  --nav-gray: 158, 158, 158;
+  --input-gray: 245, 245, 245;
+  --postBG-gray: 189, 189, 189;
+}
+
+button {
+  height: 1.5rem;
+  appearance: none;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  text-align: center;
+  img {
+    height: 100%;
+  }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
