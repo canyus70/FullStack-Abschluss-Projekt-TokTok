@@ -1,0 +1,39 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.Navbar {
+    background-color: rgba(255, 255, 255, 0.499);
+    backdrop-filter: blur(0.625rem);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    z-index: 8;
+    padding-top: 1rem;
+    img{
+        padding-bottom: 1.25rem;
+        width: 5rem;
+    }
+    
+
+    .navLink {
+        font-size: 0.875rem;
+      
+        .navImage {
+          transition: filter 0.3s ease;
+          filter: brightness(100%) contrast(100%) hue-rotate(0deg); /* Standardwerte */
+        }
+      
+        &.active .navImage {
+          filter: brightness(100%) contrast(100%) hue-rotate(0deg); /* Standardwerte beibehalten */
+          filter: invert(50%) sepia(90%) saturate(7499%) hue-rotate(10deg) brightness(101%) contrast(94%);
+        }
+      }
+
+
+}
