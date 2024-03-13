@@ -22,10 +22,19 @@ import { getAllBlogPosts } from "./posts/getAllBlogPosts.js";
 import { createNewBlogPost } from "./posts/createNewBlogPost.js";
 import { getAllFromOne } from "./posts/getAllFromOne.js";
 import { getBlogPostById } from "./posts/getBlogPostById.js";
+import { addLikeToPost } from "./posts/likes/addLikeToPost.js";
+import { removeLikeFromPost } from "./posts/likes/removeLikeFromPost.js";
+import { savePostForUser } from "./posts/savePostForUser.js";
+import { removeSavedPost } from "./posts/removeSavedPost.js";
 
 export const PostService = {
   getAllBlogPosts,
   createNewBlogPost,
   getAllFromOne,
   getBlogPostById,
+  addLikeToPost,
+  savePostForUser,
+  removeSavedPost,
+  //======LIKES HANDLER======//
+  removeLikeFromPost
 };

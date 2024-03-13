@@ -1,4 +1,4 @@
-import User from "../../models/User/index.js";
+import User from "../../models/User.js";
 
 export async function unFollow(userFollowId, authenticatedUserId) {
   const foundUserFollow = await User.findOneAndUpdate(

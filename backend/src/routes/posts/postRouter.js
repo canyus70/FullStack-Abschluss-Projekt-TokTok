@@ -12,9 +12,20 @@ const PostRouter = express
         // makeJWTAuth({ tokenType: "access" }),
         PostController.getAllFromOneCtrl)
     .post("/add",
-        upload.array('images', 2),
+        upload.array('images', 7),
         // makeJWTAuth({ tokenType: "access" }),
-        PostController.createNewBlogPostCtrl
-    );
+        PostController.createNewBlogPostCtrl)
+    .post("/:postId/like",
+        //     makeJWTAuth({ tokenType: "access" }),
+        PostController.addLikeToPostCtrl)
+    .delete("/:postId/unlike",
+        //     makeJWTAuth({ tokenType: "access" }),
+        PostController.removeLikeFromPostCtrl)
+    .post("/:postId/saved",
+        //     makeJWTAuth({ tokenType: "access" }),
+        PostController.savePostCtrl)
+    .delete("/:postId/remove-saved",
+        //     makeJWTAuth({ tokenType: "access" }),
+        PostController.removeSavedPostCtrl)
 
 export default PostRouter;
