@@ -30,9 +30,9 @@ app.use(cookieSession(cookieSessionOptions));
 app.use(morgan("dev"));
 app.use(express.json());
 //app.use("/api/v1/users", userRouter.default);
-//app.use("/api/v1/blogs", blogRouter.default);
-//app.use("/api/v1/comments", blogRouter.default);
-//app.use("/api/v1/activities", blogRouter.default);
+app.use("/api/v1/posts", PostRouter);
+//app.use("/api/v1/comments", PostRouter.default);
+//app.use("/api/v1/activities", PostRouter.default);
 
 const serverListenertoPort = () =>
   app.listen(PORT, () => console.log("Server is listening at port", PORT));

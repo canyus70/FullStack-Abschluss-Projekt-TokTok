@@ -1,4 +1,4 @@
-import Blog from "../../models/Blog.js";
+import Blog from "../../models/Post.js";
 
 export async function getAllBlogPosts() {
     const blogs = await Blog.find({});

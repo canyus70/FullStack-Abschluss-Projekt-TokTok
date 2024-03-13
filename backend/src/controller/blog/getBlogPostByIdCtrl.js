@@ -1,10 +1,10 @@
 import { catchAsync } from "../../utils/catchAsync.js";
-import { BlogService } from "../../service/index.js";
+import { PostService } from "../../service/index.js";
 
-export const geBlogPostsByIdCtrl = catchAsync(
+export const getBlogPostsByIdCtrl = catchAsync(
     async (req, res) => {
-        const blogId = req.params.blogId;
-        const result = await BlogService.getBlogPostsById(blogId);
+        const postId = req.params.postId;
+        const result = await PostService.getBlogPostById(postId);
         res.json({ success: true, result });
     },
     { message: "Failed to get all blog posts" }
