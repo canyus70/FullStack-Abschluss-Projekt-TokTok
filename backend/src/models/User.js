@@ -8,13 +8,13 @@ const userSchema = new mongoose.Schema(
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    profession: { type: String, required: true },
+    profession: { type: String },
     avatar: { type: String },
     qrcode: { type: String },
     phonenumber: { type: Number },
-    bio: { type: String, required: true },
-    gender: { type: String, enum: [male, female, divers] },
-    birthday: { type: Date },
+    bio: { type: String },
+    gender: { type: String, enum: ["male", "female", "divers"] },
+    birthday: { type: Date, required: true },
     website: { type: String },
     sixDigitCode: {
       type: String,
@@ -43,9 +43,11 @@ userSchema.methods.toProfileInfo = function () {
     avatar: this.avatar,
     qrcode: this.qrcode,
     bio: this.bio,
+    birthday: this.birthday,
+    phonenumber: this.phonenumber,
     website: this.website,
-    sixDigitCode: this.sixDigitCode,
-    emailVerified: this.emailVerified,
+    gender: this.gender,
+
     _id: this._id,
   };
 };
@@ -61,6 +63,11 @@ userSchema.pre("save", async function () {
     user.password = hash;
   }
 });
+
+userSchema.statics.findByEmail = function (email) {
+  if (typeof email !== "string") return null;
+  return this.findOne({ email: email.toLowerCase() });
+};
 
 const User = mongoose.model("User", userSchema);
 export default User;
