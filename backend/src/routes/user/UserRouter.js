@@ -7,9 +7,7 @@ const UserRouter = express.Router();
 UserRouter.post("/register", UserController.postRegisterUserCtrl);
 UserRouter.patch("/verify-email", UserController.patchVerifyEmailCtrl);
 UserRouter.post("/login", UserController.postLoginUserCtrl);
-UserRouter.post("/logout",
-     // doJwtAuth,
-     UserController.postLogoutCtrl);
+UserRouter.post("/logout", doJwtAuth, UserController.postLogoutCtrl);
 
 UserRouter.get("/", UserController.getAllUsersCtrl);
 
@@ -27,11 +25,5 @@ UserRouter.patch(
 UserRouter.post("/:userId/add-follow", doJwtAuth, UserController.addFollowCtrl);
 UserRouter.post("/:userId/not-follow", doJwtAuth, UserController.unFollowCtrl);
 UserRouter.get("/search-Users", UserController.searchUserCtrl);
-
-
-
-
-
-
 
 export default UserRouter;
