@@ -13,6 +13,7 @@ import { unFollowCtrl } from "./user/unFollowCtrl.js";
 import { searchUserCtrl } from "./user/searchUserCtrl.js";
 
 export const UserController = {
+
   postLoginUserCtrl,
   postRegisterUserCtrl,
   patchVerifyEmailCtrl,
@@ -24,16 +25,29 @@ export const UserController = {
   addFollowCtrl,
   unFollowCtrl,
   searchUserCtrl,
+
 };
 //=====================BLOG POSTS CONTROLLER=====================//
 import { getAllBlogPostsCtrl } from "./posts/getAllBlogPostsCtrl.js";
 import { createNewBlogPostCtrl } from "./posts/createNewBlogPostCtrl.js";
 import { getBlogPostByIdCtrl } from "./posts/getBlogPostByIdCtrl.js";
 import { getAllFromOneCtrl } from "./posts/getAllFromOneCtrl.js";
+import { addLikeToPostCtrl } from "./posts/likes/addLikeToPostCtrl.js";
+import { removeLikeFromPostCtrl } from "./posts/likes/removeLikeFromPostCtrl.js";
+import { savePostCtrl } from "./posts/savePostCtrl.js";
+import { removeSavedPostCtrl } from "./posts/removeSavedPostCtrl.js";
 
 export const PostController = {
-  getAllBlogPostsCtrl,
-  createNewBlogPostCtrl,
-  getBlogPostByIdCtrl,
-  getAllFromOneCtrl,
-};
+
+    getAllBlogPostsCtrl,
+    createNewBlogPostCtrl,
+    getBlogPostByIdCtrl,
+    getAllFromOneCtrl,
+    savePostCtrl,
+    removeSavedPostCtrl,
+    //==========LIKES HANDLER==========//
+    addLikeToPostCtrl,
+    removeLikeFromPostCtrl
+}
+
+
