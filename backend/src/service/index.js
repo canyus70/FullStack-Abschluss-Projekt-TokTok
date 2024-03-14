@@ -6,6 +6,7 @@ import { verifyEmail } from "./user/verifyEmail.js";
 import { editUser } from "./user/editUser.js";
 import { addFollow } from "./user/addFollow.js";
 import { unFollow } from "./user/unFollow.js";
+import { searchUsers } from "./user/searchUsers.js";
 
 export const UserService = {
   loginUser,
@@ -16,6 +17,7 @@ export const UserService = {
   editUser,
   addFollow,
   unFollow,
+  searchUsers,
 };
 //=====================BLOG SERVICE=====================//
 import { getAllBlogPosts } from "./posts/getAllBlogPosts.js";
