@@ -1,0 +1,47 @@
+.uploadPage {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  .uploadField {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 2rem;
+    background-color: var(--gray-400);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      img {
+        width: 1.5rem;
+      }
+    }
+    & > div {
+      height: 0;
+      width: 0;
+      overflow: hidden;
+    }
+  }
+
+  .description,
+  .location,
+  .setting {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .socialMedia {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    & > div {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  button {
+    margin-top: 0.5rem;
+  }
+}

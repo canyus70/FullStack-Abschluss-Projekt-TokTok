@@ -1,4 +1,5 @@
 .avatar {
+  position: relative;
   width: 3.75rem;
   img {
     width: 100%;
@@ -7,6 +8,14 @@
     width: 3rem;
   }
   &.large {
-    width: 8.75rem;
+    width: 7.5rem;
+  }
+
+  .edit {
+    margin: 0.25rem;
+    width: 1.875rem;
+    position: absolute;
+    bottom: 0;
+    right: 0;
   }
 }

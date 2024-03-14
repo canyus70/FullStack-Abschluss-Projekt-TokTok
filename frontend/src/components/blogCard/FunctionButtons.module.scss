@@ -6,6 +6,17 @@
   & > div {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
+    img {
+      height: 1.5rem;
+    }
+    & > p {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--gray-800);
+    }
+  }
+  .transparent {
+    opacity: 0;
   }
 }

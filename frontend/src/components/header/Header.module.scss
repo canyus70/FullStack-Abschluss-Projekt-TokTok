@@ -1,0 +1,12 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 0.75rem;
+  img {
+    width: 1.5rem;
+  }
+  .large {
+    width: 2rem;
+  }
+}

@@ -1,9 +1,11 @@
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 
 import Ellipse from "../SVG/Ellipse.svg";
 import styles from "./Avatar.module.scss";
+import EditRed from "../SVG/EditRed.svg";
 
-const Avatar = ({ avatar, small, large }) => {
+const Avatar = ({ avatar, small, large, edit, path }) => {
   return (
     <div
       className={clsx(
@@ -16,6 +18,12 @@ const Avatar = ({ avatar, small, large }) => {
         <img src={avatar} alt="avatar" />
       ) : (
         <img src={Ellipse} alt="ellipse" />
+      )}
+
+      {edit && (
+        <Link to={path}>
+          <img src={EditRed} alt="edit" className={styles.edit} />
+        </Link>
       )}
     </div>
   );
