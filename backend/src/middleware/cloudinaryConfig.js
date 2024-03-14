@@ -15,7 +15,7 @@ const storage = new CloudinaryStorage({
     params: {
         folder: 'TOKTOK',
         format: async (req, file) => 'jpg',
-        public_id: (req, file) => 'computed-filename',
+        public_id: (req, file) => `${Date.now()}`,
     },
 });
 

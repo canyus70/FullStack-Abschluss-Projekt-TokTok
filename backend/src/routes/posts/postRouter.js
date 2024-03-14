@@ -1,31 +1,30 @@
 import express from "express";
 import { PostController } from "../../controller/index.js";
 import upload from "../../middleware/multerConfig.js";
-// import { makeJWTAuth } from "../../middleware/makeJwtAuth.js";
+import { doJwtAuth } from "../../middleware/doJwtAuth.js";
 
 const PostRouter = express
     .Router()
     .get("/",
-        // makeJWTAuth({ tokenType: "access" }),
         PostController.getAllBlogPostsCtrl)
-    .get("/feed/:postId",
-        // makeJWTAuth({ tokenType: "access" }),
+    .get("/:userId/feed",
+        // doJwtAuth,
         PostController.getAllFromOneCtrl)
     .post("/add",
         upload.array('images', 7),
-        // makeJWTAuth({ tokenType: "access" }),
+        doJwtAuth,
         PostController.createNewBlogPostCtrl)
     .post("/:postId/like",
-        //     makeJWTAuth({ tokenType: "access" }),
+        doJwtAuth,
         PostController.addLikeToPostCtrl)
     .delete("/:postId/unlike",
-        //     makeJWTAuth({ tokenType: "access" }),
+        doJwtAuth,
         PostController.removeLikeFromPostCtrl)
     .post("/:postId/saved",
-        //     makeJWTAuth({ tokenType: "access" }),
+        //  doJwtAuth,
         PostController.savePostCtrl)
     .delete("/:postId/remove-saved",
-        //     makeJWTAuth({ tokenType: "access" }),
+        //   doJwtAuth,
         PostController.removeSavedPostCtrl)
 
 export default PostRouter;

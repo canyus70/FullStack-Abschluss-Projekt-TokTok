@@ -8,7 +8,7 @@ export async function getAllFromOne(userId) {
             populate: { path: 'author', select: 'username' }
         })
         .populate('author', 'username')
-        .exec();
+        .exec(1);
 
     // Zusätzliche Informationen des Benutzers holen, wie followers, following, likes
     const userDetail = await User.findById(userId)
