@@ -1,8 +1,8 @@
 import annie from "../../images/annie.jpg";
-
-import styles from "./BlogCard.module.scss";
 import FunctionButtons from "./FunctionButtons";
 import UserConciseInfos from "./UserConciseInfos";
+
+import styles from "./BlogCard.module.scss";
 
 const BlogCard = () => {
   return (

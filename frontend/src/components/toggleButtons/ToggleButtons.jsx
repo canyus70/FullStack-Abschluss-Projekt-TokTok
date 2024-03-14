@@ -1,7 +1,7 @@
 import { useState } from "react";
-import RedHeart from "../SVG/RedHeart.svg";
-import Heart from "../SVG/Heart.svg";
 
+import HeartRed from "../SVG/HeartRed.svg";
+import Heart from "../SVG/Heart.svg";
 import RedSaved from "../SVG/RedSaved.svg";
 import Saved from "../SVG/Saved.svg";
 
@@ -16,7 +16,7 @@ export const ToggleLike = () => {
   return (
     <button onClick={() => toggle(like, setLike)}>
       {like ? (
-        <img src={RedHeart} alt="redHeart" />
+        <img src={HeartRed} alt="HeartRed" />
       ) : (
         <img src={Heart} alt="heart" />
       )}

@@ -21,9 +21,9 @@ const userSchema = new mongoose.Schema(
       default: () => Math.random().toString().slice(2, 8),
     },
     emailVerified: { type: Boolean, default: false },
-    blogs: [{ type: mongoose.Schema.Types.ObjectId, ref: "Blog" }],
-    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Blog" }],
-    saved: [{ type: mongoose.Schema.Types.ObjectId, ref: "Blog" }],
+    blogs: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
+    saved: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     activities: [{ type: mongoose.Schema.Types.ObjectId, ref: "Activity" }],
@@ -47,6 +47,8 @@ userSchema.methods.toProfileInfo = function () {
     phonenumber: this.phonenumber,
     website: this.website,
     gender: this.gender,
+    followers: this.followers,
+    following: this.following,
 
     _id: this._id,
   };

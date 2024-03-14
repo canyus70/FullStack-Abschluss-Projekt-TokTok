@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const commentSchema = new mongoose.Schema({
   message: { type: String },
   author: { type: mongoose.Schema.Types.ObjectId, ref: "User" },

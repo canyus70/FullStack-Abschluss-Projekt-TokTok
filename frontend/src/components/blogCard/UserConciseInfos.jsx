@@ -1,20 +1,22 @@
+import { Link } from "react-router-dom";
+
 import Avatar from "../avatar/Avatar";
-import MoreSettings from "../SVG/MoreSettings.svg";
+import Checked from "../SVG/Checked.svg";
 import styles from "./UserConciseInfos.module.scss";
 
 const UserConciseInfos = () => {
   return (
     <div className={styles.userConciseInfo}>
       <div className={styles.userInfo}>
-        <Avatar small />
+        <Link to="/:userId/other-user-profile">
+          <Avatar small />
+        </Link>
         <div>
           <h3>annie_wilson</h3>
-          <p>Marketing Coordinator</p>
+          <h4>Marketing Coordinator</h4>
         </div>
       </div>
-      <button>
-        <img src={MoreSettings} alt="moreSettings" />
-      </button>
+      <img src={Checked} alt="checked" />
     </div>
   );
 };

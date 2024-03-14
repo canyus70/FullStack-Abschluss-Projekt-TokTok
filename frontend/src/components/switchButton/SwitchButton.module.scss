@@ -1,0 +1,21 @@
+.switchButton {
+  width: 2.75rem;
+  height: 1.5rem;
+  border-radius: 0.75rem;
+  background-color: var(--gray-400);
+  padding: 2px;
+  display: flex;
+  justify-content: flex-start;
+  transition: 0.1s;
+
+  & > div {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background-color: white;
+  }
+  &.buttonON {
+    background-color: var(--primary-red);
+    justify-content: flex-end;
+  }
+}
