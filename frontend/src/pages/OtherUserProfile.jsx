@@ -1,30 +1,25 @@
-import Header from "../components/header/Header";
+import Header from "../components/header/Header.jsx";
 import Navbar from "../components/navbar/Navbar.jsx";
-import Avatar from "../components/avatar/Avatar";
+import Avatar from "../components/avatar/Avatar.jsx";
 
-import Post from "../components/SVG/Post.svg";
-import Setting from "../components/SVG/Setting.svg";
-import Edit from "../components/SVG/Edit.svg";
+import MoreSettings from "../components/SVG/MoreSettings.svg";
 import Feeds from "../components/SVG/Feeds.svg";
-import Logo from "../components/SVG/Logo.svg";
+import Back from "../components/SVG/Back.svg";
+import FollowUser from "../components/SVG/FollowUser.svg";
 import annie from "../../src/images/annie.jpg";
 
 import styles from "./UserProfile.module.scss";
 
-const UserProfile = () => {
+const OtherUserProfile = () => {
   return (
     <>
       <main className={styles.userProfilePage}>
         <div className={styles.profileHeader}>
-          <Header image={Logo} title="john_doe" />
-          <div>
-            <img src={Post} alt="post" />
-            <img src={Edit} alt="edit" />
-            <img src={Setting} alt="setting" />
-          </div>
+          <Header image={Back} title="john_doe" path="/" />
+          <img src={MoreSettings} alt="moreSettings" />
         </div>
         <div className={styles.infos}>
-          <Avatar large edit path="/edit-profile" />
+          <Avatar large />
           <div className={styles.personalInfo}>
             <h1>John Doe</h1>
             <h5>UI/UX Designer</h5>
@@ -49,6 +44,9 @@ const UserProfile = () => {
             </div>
           </div>
         </div>
+        <button className="primaryButton">
+          <img src={FollowUser} alt="followUser" /> Follow
+        </button>
         <hr />
         <div className={styles.feeds}>
           <div className={styles.title}>
@@ -56,12 +54,6 @@ const UserProfile = () => {
             <h3>Feeds</h3>
           </div>
           <div className={styles.blogs}>
-            <div className={styles.image}>
-              <img src={annie} alt="annie" />
-            </div>
-            <div className={styles.image}>
-              <img src={annie} alt="annie" />
-            </div>
             <div className={styles.image}>
               <img src={annie} alt="annie" />
             </div>
@@ -73,4 +65,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default OtherUserProfile;

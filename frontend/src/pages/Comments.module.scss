@@ -1,0 +1,52 @@
+.commentPage {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  margin-bottom: 2.5rem;
+  .timeStamp {
+    color: var(--gray-700);
+    font-size: 0.75rem;
+  }
+
+  .blogInfos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .content {
+    margin-block: 0.75rem;
+    color: var(--gray-900);
+    font-size: 0.875rem;
+  }
+  .tags {
+    color: var(--indigo);
+    font-size: 0.875rem;
+  }
+
+  .comments {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+.inputField {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background-color: rgba(255, 255, 255, 0.499);
+  backdrop-filter: blur(0.625rem);
+  border-top-right-radius: 1.5rem;
+  border-top-left-radius: 1.5rem;
+  padding: 1.5rem 1.5rem 2rem 1.5rem;
+  border-top: 1px solid var(--gray-200);
+
+  .sendCommentButton {
+    color: var(--primary-red);
+    font-size: 1rem;
+    font-weight: 700;
+  }
+}
