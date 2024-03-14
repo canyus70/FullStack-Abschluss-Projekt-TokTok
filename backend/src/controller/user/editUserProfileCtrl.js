@@ -4,10 +4,10 @@ export async function editUserProfileCtrl(req, res) {
   try {
     const authenticatedUserId = req.verifiedUserClaims.sub;
     const userInfo = req.body;
-    // hier muss noch multer rein :
-    // if (req.file) {
-    // userInfo.avatar = http://localhost:4444/api/v1/users/${req.file.originalname}`;
-    // }
+
+    if (req.file) {
+      userInfo.avatar = `http://localhost:4444/api/v1/users/${req.file.originalname}`;
+    }
     const result = await UserService.editUser(authenticatedUserId, userInfo);
     res.json({ success: true, result });
   } catch (error) {

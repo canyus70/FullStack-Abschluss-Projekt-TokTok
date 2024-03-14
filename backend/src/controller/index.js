@@ -1,6 +1,5 @@
 //=====================USER CONTROLLER=====================//
 
-
 import { getAllUsersCtrl } from "./user/getAllUsersCtrl.js";
 import { getUserProfileByIdCtrl } from "./user/getUserProfileByIdCtrl.js";
 import { patchVerifyEmailCtrl } from "./user/patchVerifyEmailCtrl.js";
@@ -11,6 +10,7 @@ import { refreshTokenCtrl } from "./user/refreshTokenCtrl.js";
 import { editUserProfileCtrl } from "./user/editUserProfileCtrl.js";
 import { addFollowCtrl } from "./user/addFollowCtrl.js";
 import { unFollowCtrl } from "./user/unFollowCtrl.js";
+import { searchUserCtrl } from "./user/searchUserCtrl.js";
 
 export const UserController = {
   postLoginUserCtrl,
@@ -23,7 +23,7 @@ export const UserController = {
   editUserProfileCtrl,
   addFollowCtrl,
   unFollowCtrl,
-
+  searchUserCtrl,
 };
 //=====================BLOG POSTS CONTROLLER=====================//
 import { getAllBlogPostsCtrl } from "./posts/getAllBlogPostsCtrl.js";
@@ -31,12 +31,9 @@ import { createNewBlogPostCtrl } from "./posts/createNewBlogPostCtrl.js";
 import { getBlogPostByIdCtrl } from "./posts/getBlogPostByIdCtrl.js";
 import { getAllFromOneCtrl } from "./posts/getAllFromOneCtrl.js";
 
-
-
 export const PostController = {
-    getAllBlogPostsCtrl,
-    createNewBlogPostCtrl,
-    getBlogPostByIdCtrl,
-    getAllFromOneCtrl
-}
-
+  getAllBlogPostsCtrl,
+  createNewBlogPostCtrl,
+  getBlogPostByIdCtrl,
+  getAllFromOneCtrl,
+};
