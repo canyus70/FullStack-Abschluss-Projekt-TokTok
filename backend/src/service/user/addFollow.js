@@ -66,7 +66,7 @@ export async function addFollow(authenticatedUserId, userFollowId) {
     _id: authenticatedUserId,
     following: { $in: [userFollowId] },
   });
-  if (foundUserFollow) throw new Error("You are already follwing this User");
+  if (foundUserFollow) throw new Error("You are already following this User");
 
   const foundUsertobeFollowed = await User.findByIdAndUpdate(
     { _id: userFollowId },
@@ -77,7 +77,7 @@ export async function addFollow(authenticatedUserId, userFollowId) {
   if (!foundUsertobeFollowed) throw new Error("User doesnt exist");
 
   const followingUser = await User.findByIdAndUpdate(
-    { _id: authenticatedUserId },
+    authenticatedUserId,
     { $push: { following: userFollowId } },
     { new: true }
   );
