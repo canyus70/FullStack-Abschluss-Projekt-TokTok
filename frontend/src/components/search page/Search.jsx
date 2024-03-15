@@ -15,7 +15,7 @@ const Seach = () => {
             prefix={<UserOutlined />}
           />
         </form>
-        <div class="image-container">
+        <div className="image-container">
           <img src={IconMimik} alt="" />
         </div>
         <div className="border"></div>

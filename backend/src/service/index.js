@@ -26,17 +26,31 @@ import { getAllFromOne } from "./posts/getAllFromOne.js";
 import { getBlogPostById } from "./posts/getBlogPostById.js";
 import { addLikeToPost } from "./posts/likes/addLikeToPost.js";
 import { removeLikeFromPost } from "./posts/likes/removeLikeFromPost.js";
-import { savePostForUser } from "./posts/savePostForUser.js";
-import { removeSavedPost } from "./posts/removeSavedPost.js";
+import { savePostForUser } from "./posts/save/savePostForUser.js";
+import { removeSavedPost } from "./posts/save/removeSavedPost.js";
+import { commentAPost } from "./posts/comments/commentAPost.js";
+import { updateBlogPost } from "./posts/updateBlogPost.js";
+import { removeCommentFromAPost } from "./posts/comments/removeCommentFromAPost.js";
+import { updateComment } from "./posts/comments/updateComment.js";
+import { deletePost } from "./posts/deletePost.js";
+
 
 export const PostService = {
   getAllBlogPosts,
   createNewBlogPost,
   getAllFromOne,
   getBlogPostById,
+  updateBlogPost,
+  deletePost,
+  //======LIKES HANDLER======//
+  removeLikeFromPost,
   addLikeToPost,
+  //========COMMENTS HANDLER=========//
+  commentAPost,
+  removeCommentFromAPost,
+  updateComment,
+  //=========SAVED HADNLER===========//
   savePostForUser,
   removeSavedPost,
-  //======LIKES HANDLER======//
-  removeLikeFromPost
+
 };

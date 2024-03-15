@@ -3,7 +3,7 @@ import { PostService } from "../../service/index.js";
 
 export async function createNewBlogPostCtrl(req, res) {
     try {
-        // const authenticatedUserId = req.verifiedUserClaims.sub;
+        const authenticatedUserId = req.verifiedUserClaims.sub;
         const newPostInfo = req.body;
 
         if (req.files) {
@@ -11,7 +11,7 @@ export async function createNewBlogPostCtrl(req, res) {
         }
 
         const result = await PostService.createNewBlogPost(
-            // authenticatedUserId,
+            authenticatedUserId,
             newPostInfo);
         res.status(201).json({ success: true, result });
 
