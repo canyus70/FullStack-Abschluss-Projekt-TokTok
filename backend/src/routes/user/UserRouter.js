@@ -25,6 +25,7 @@ UserRouter.patch(
 );
 UserRouter.post("/:userId/add-follow", doJwtAuth, UserController.addFollowCtrl);
 UserRouter.post("/:userId/not-follow", doJwtAuth, UserController.unFollowCtrl);
-UserRouter.get("/search-Users", UserController.searchUserCtrl);
+UserRouter.get("/search-users", UserController.searchUserCtrl);
+UserRouter.post("/resend-password", UserController.forgotPasswordCtrl);
 
 export default UserRouter;
