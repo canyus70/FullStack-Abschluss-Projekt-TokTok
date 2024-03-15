@@ -4,6 +4,10 @@ import Home from "./pages/Home.jsx";
 import Search from "./components/search page/Search.jsx";
 import UserPostUpload from "./pages/UserPostUpload.jsx";
 import UserProfile from "./pages/UserProfile.jsx";
+
+import Navbar from "./components/navbar/Navbar.jsx";
+
+
 import SignUp from "./components/Sign Up/Sign-Up.jsx";
 import SignIn from "./components/SignIn/SignIn.jsx";
 import SixDigit from "./components/SixDigit/SixDigit.jsx";
@@ -11,8 +15,8 @@ import Comments from "./pages/Comments.jsx";
 import EditProfile from "./pages/EditProfile.jsx";
 import OtherUserProfile from "./pages/OtherUserProfile.jsx";
 
-
 function App() {
+
   return(  
   <BrowserRouter>
     <Routes>
@@ -31,6 +35,7 @@ function App() {
       />
     </Routes>
   </BrowserRouter>
+
   );
 }
 
