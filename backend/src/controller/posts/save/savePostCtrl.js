@@ -1,5 +1,5 @@
-import { catchAsync } from "../../utils/catchAsync.js";
-import { PostService } from "../../service/index.js";
+import { catchAsync } from "../../../utils/catchAsync.js";
+import { PostService } from "../../../service/index.js";
 
 export const savePostCtrl = catchAsync(
     async (req, res) => {

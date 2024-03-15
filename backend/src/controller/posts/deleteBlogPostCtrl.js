@@ -1,13 +1,12 @@
 import { catchAsync } from "../../utils/catchAsync.js";
 import { PostService } from "../../service/index.js";
 
-export const removeSavedPostCtrl = catchAsync(
+export const deleteBlogPostCtrl = catchAsync(
     async (req, res) => {
         const authenticatedUserId = req.verifiedUserClaims.sub;
         const postId = req.params.postId;
-
-        const user = await PostService.removeSavedPost(authenticatedUserId, postId);
-        res.status(201).json({ success: true, user });
+        const result = await PostService.deletePost(authenticatedUserId, postId);
+        res.json({ success: true, result });
     },
-    { message: "Failed to remove post" }
+    { message: "Failed to delete post" }
 );

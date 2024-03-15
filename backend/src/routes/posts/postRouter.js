@@ -8,23 +8,48 @@ const PostRouter = express
     .get("/",
         PostController.getAllBlogPostsCtrl)
     .get("/:userId/feed",
-        // doJwtAuth,
+        doJwtAuth,
         PostController.getAllFromOneCtrl)
     .post("/add",
         upload.array('images', 7),
         doJwtAuth,
         PostController.createNewBlogPostCtrl)
+    .patch("/:postId",
+        doJwtAuth,
+        PostController.updateBlogPostCtrl)
+    .delete("/:postId",
+        doJwtAuth,
+        PostController.deleteBlogPostCtrl)
+
+
     .post("/:postId/like",
         doJwtAuth,
         PostController.addLikeToPostCtrl)
     .delete("/:postId/unlike",
         doJwtAuth,
         PostController.removeLikeFromPostCtrl)
+
+
     .post("/:postId/saved",
-        //  doJwtAuth,
+        doJwtAuth,
         PostController.savePostCtrl)
     .delete("/:postId/remove-saved",
-        //   doJwtAuth,
+        doJwtAuth,
         PostController.removeSavedPostCtrl)
+
+
+
+
+    .post("/:postId/comment",
+        doJwtAuth,
+        PostController.commentAPostCtrl)
+    .patch("/:postId/comment/:commentId",
+        doJwtAuth,
+        PostController.updateCommentCtrl)
+    .delete("/:postId/comment/:commentId",
+        doJwtAuth,
+        PostController.removeCommentFromPostCtrl)
+
+
 
 export default PostRouter;

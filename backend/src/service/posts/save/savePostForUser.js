@@ -1,5 +1,5 @@
-import Post from "../../models/Post.js";
-import User from "../../models/User.js";
+import Post from "../../../models/Post.js";
+import User from "../../../models/User.js";
 
 export async function savePostForUser(authenticatedUserId, postId) {
     const user = await User.findById(authenticatedUserId);
