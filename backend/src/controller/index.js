@@ -10,19 +10,21 @@ import { editUserProfileCtrl } from "./user/editUserProfileCtrl.js";
 import { addFollowCtrl } from "./user/addFollowCtrl.js";
 import { unFollowCtrl } from "./user/unFollowCtrl.js";
 import { searchUserCtrl } from "./user/searchUserCtrl.js";
+import { forgotPasswordCtrl } from "./user/forgotPasswordCtrl.js";
 
 export const UserController = {
-    postLoginUserCtrl,
-    postRegisterUserCtrl,
-    patchVerifyEmailCtrl,
-    postLogoutCtrl,
-    refreshTokenCtrl,
-    getAllUsersCtrl,
-    getUserProfileByIdCtrl,
-    editUserProfileCtrl,
-    addFollowCtrl,
-    unFollowCtrl,
-    searchUserCtrl,
+  postLoginUserCtrl,
+  postRegisterUserCtrl,
+  patchVerifyEmailCtrl,
+  postLogoutCtrl,
+  refreshTokenCtrl,
+  getAllUsersCtrl,
+  getUserProfileByIdCtrl,
+  editUserProfileCtrl,
+  addFollowCtrl,
+  unFollowCtrl,
+  searchUserCtrl,
+  forgotPasswordCtrl,
 };
 //=====================BLOG POSTS CONTROLLER=====================//
 import { getAllBlogPostsCtrl } from "./posts/getAllBlogPostsCtrl.js";
@@ -39,24 +41,21 @@ import { removeCommentFromPostCtrl } from "./posts/comments/removeCommentFormPos
 import { updateCommentCtrl } from "./posts/comments/updateCommentCtrl.js";
 import { deleteBlogPostCtrl } from "./posts/deleteBlogPostCtrl.js";
 
-
 export const PostController = {
-    getAllBlogPostsCtrl,
-    createNewBlogPostCtrl,
-    getBlogPostByIdCtrl,
-    getAllFromOneCtrl,
-    updateBlogPostCtrl,
-    deleteBlogPostCtrl,
-    //==========LIKES HANDLER==========//
-    addLikeToPostCtrl,
-    removeLikeFromPostCtrl,
-    //========COMMENTS HANDLER=========//
-    commentAPostCtrl,
-    removeCommentFromPostCtrl,
-    updateCommentCtrl,
-    //=========SAVED HADNLER===========//
-    savePostCtrl,
-    removeSavedPostCtrl,
-}
-
-
+  getAllBlogPostsCtrl,
+  createNewBlogPostCtrl,
+  getBlogPostByIdCtrl,
+  getAllFromOneCtrl,
+  updateBlogPostCtrl,
+  deleteBlogPostCtrl,
+  //==========LIKES HANDLER==========//
+  addLikeToPostCtrl,
+  removeLikeFromPostCtrl,
+  //========COMMENTS HANDLER=========//
+  commentAPostCtrl,
+  removeCommentFromPostCtrl,
+  updateCommentCtrl,
+  //=========SAVED HADNLER===========//
+  savePostCtrl,
+  removeSavedPostCtrl,
+};
