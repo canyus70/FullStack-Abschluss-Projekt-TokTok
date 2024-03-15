@@ -3,10 +3,12 @@
   align-items: center;
   gap: 1rem;
   padding-block: 0.75rem;
-  img {
-    width: 1.5rem;
-  }
-  .large {
+
+  &.large img {
     width: 2rem;
+  }
+
+  img {
+    width: 1.25rem;
   }
 }

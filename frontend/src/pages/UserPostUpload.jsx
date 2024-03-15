@@ -9,20 +9,43 @@ import Camera from "../components/SVG/Camera.svg";
 import Location from "../components/SVG/Location.svg";
 
 import styles from "./UserPostUpload.module.scss";
+import { useState } from "react";
 
 const UserPostUpload = () => {
-  const getFile = () => {};
+  const [image, setImage] = useState("");
+
+  const onSelectPhotos = (event) => {
+    if (event.target.files) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        setImage(e.target.result);
+      };
+
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  };
+
   return (
     <>
       <main className={styles.uploadPage}>
-        <Header image={Logo} title="New Post" />
+        <Header image={Logo} large title="New Post" />
         <div className={styles.uploadField}>
-          <button className="primaryButton" onClick={getFile}>
+          {image && (
+            <div className={styles.uploadPreview}>
+              <img src={image} alt="upload preview" />
+            </div>
+          )}
+          <div className={styles.uploadButton}>
             <img src={Camera} alt="camera" /> Upload
-          </button>
-          <div>
-            <input type="file" multiple name="photos" />
           </div>
+          <input
+            className={styles.uploadButton}
+            type="file"
+            multiple
+            name="photos"
+            onChange={onSelectPhotos}
+          />
         </div>
 
         <div className={styles.description}>
