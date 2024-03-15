@@ -5,7 +5,7 @@ import Search from "./components/search page/Search.jsx";
 import UserPostUpload from "./pages/UserPostUpload.jsx";
 import UserProfile from "./pages/UserProfile.jsx";
 
-import SignUp from "./components/Sign Up/Sign-Up.jsx";
+import SignUp from "./components/SignUp/SignUp.jsx";
 import SignIn from "./components/SignIn/SignIn.jsx";
 import SixDigit from "./components/SixDigit/SixDigit.jsx";
 import Comments from "./pages/Comments.jsx";

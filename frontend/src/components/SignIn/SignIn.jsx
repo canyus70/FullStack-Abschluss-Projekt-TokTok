@@ -1,10 +1,44 @@
 import TokTokLogo from '../SVG/TokTokLogo.svg'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Input } from 'antd';
 import './SignIn.scss'
+import { useState } from 'react';
 
 
 const SignIn = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
+    const navigate = useNavigate();
+
+
+    const loginUser = (event) => {
+        event.preventDefault();
+        if (!email || !password) {
+        setErrorMessage("email and password must be defined");
+        return;
+        }
+
+        fetch("http://localhost:4444/api/v1/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+        })
+        .then((res) => res.json())
+        .then(({ success, result, message }) => {
+            if (!success){
+                setErrorMessage(message || "Login failed");
+                return 
+            } 
+            setErrorMessage(""); 
+            setSuccessMessage(
+            "Login successful, please go to Dashboard and enjoy!"
+            );
+            navigate('/')
+        });
+        
+    };
     return ( 
         <header>
         <div className='text1'>
@@ -18,18 +52,23 @@ const SignIn = () => {
             <Input      
             type='email'              
             className="reg-input1"
-            placeholder="✉️ Email"/>
+            placeholder="✉️ Email"
+            value={email}
+                onChange={(e)=> setEmail(e.target.value)}/>
             
             <Input.Password 
             className="reg-input1" 
-            placeholder="🔓 Password" />
-            <Link to='/'>
+            placeholder="🔓 Password"
+            value={password}
+                onChange={(e)=> setPassword(e.target.value)} />
+            {/* <Link to='/'> */}
             <Input
                 type="submit"
                 value="SignIn"
                 className="registration-button1"
+                onClick={loginUser}
             />
-            </Link>
+            {/* </Link> */}
 <div className='forgot1'>
                     <p>Forgot the password?</p>
                 </div>

@@ -1,5 +1,5 @@
 import TokTokLogo from "../SVG/TokTokLogo.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Input } from "antd";
 
 import "./SignUp.scss";
@@ -9,17 +9,25 @@ const SignUp = () => {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [username, setUserName] = useState("");
-  const [birthday, setBirthDay] = useState("");
+  const [birthday, setBirthday] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmedpassword, setConfirmedPassword] = useState("");
   const [successMessageRegister, setSuccessMessageRegister] = useState("");
   const [errormessage, setErrorMessage] = useState("");
-  const [userid, setUserId] = useState("");
+  // const [userid, setUserId] = useState("")
+  const navigate = useNavigate();
 
   const registerUser = (event) => {
     event.preventDefault();
-    if ((!firstname, !lastname, !email, !password, !username, !birthday)) {
+    if (
+      !firstname ||
+      !lastname ||
+      !username ||
+      !birthday ||
+      !email ||
+      !password
+    ) {
       setErrorMessage("All fields must be defined");
       return;
     }
@@ -27,27 +35,29 @@ const SignUp = () => {
       setErrorMessage("Password confirmation missmatches");
       return;
     }
-    fetch("http://localhost:4444/api/v1/users/register", {
+    fetch("http://localhost:4444/api/v1/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         firstname,
         lastname,
-        email,
-        password,
         username,
         birthday,
+        email,
+        password,
       }),
     })
       .then((res) => res.json())
       .then(({ success, result, message }) => {
         if (!success) return setErrorMessage(message || "Registration failed");
-        setUserId(result._id);
+        // console.log(result)
+        // setUserId(result);
         setSuccessMessageRegister(
           "Register successful, please go to the next step and enjoy!"
         );
         setErrorMessage("");
       });
+    navigate("/sixdigit");
   };
 
   return (
@@ -96,11 +106,11 @@ const SignUp = () => {
             className="reg-input"
             placeholder="Birthdate"
             value={birthday}
-            onChange={(e) => setBirthDay(e.target.value)}
+            onChange={(e) => setBirthday(e.target.value)}
           />
           <Input
             type="email"
-            className="reg-inpuy"
+            className="reg-input"
             placeholder="✉️ Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -118,14 +128,14 @@ const SignUp = () => {
             value={confirmedpassword}
             onChange={(e) => setConfirmedPassword(e.target.value)}
           />
-          <Link className="LinkFrom" to="/SixDigit">
-            <Input
-              type="submit"
-              value="SignUp"
-              className="registration-button"
-              onClick={registerUser}
-            />
-          </Link>
+          {/* <Link className='LinkFrom' to='/sixdigit'> */}
+          <Input
+            type="submit"
+            value="SignUp"
+            className="registration-button"
+            onClick={registerUser}
+          />
+          {/* </Link> */}
         </form>
         <div className="SigIn">
           <p>Already have an account?</p>
