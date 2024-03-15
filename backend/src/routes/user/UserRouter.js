@@ -8,8 +8,8 @@ UserRouter.post("/register", UserController.postRegisterUserCtrl);
 UserRouter.patch("/verify-email", UserController.patchVerifyEmailCtrl);
 UserRouter.post("/login", UserController.postLoginUserCtrl);
 UserRouter.post("/logout",
-     // doJwtAuth,
-     UserController.postLogoutCtrl);
+    doJwtAuth,
+    UserController.postLogoutCtrl);
 
 UserRouter.get("/", UserController.getAllUsersCtrl);
 

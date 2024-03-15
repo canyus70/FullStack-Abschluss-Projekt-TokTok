@@ -2,6 +2,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
 import IconMimik from '../SVG/IconMimik.svg'
 import './Search.scss'
+import Navbar from '../navbar/Navbar';
 
 
 const Seach = () => {
@@ -14,12 +15,12 @@ const Seach = () => {
             placeholder="Search" 
             prefix={<UserOutlined />} />
         </form>
-        <div class="image-container">
+        <div className="image-container">
             <img src={IconMimik} alt="" />
         </div>
         <div className='border'></div>
         </section>
-        
+        <Navbar/>
         </>
         
     );
