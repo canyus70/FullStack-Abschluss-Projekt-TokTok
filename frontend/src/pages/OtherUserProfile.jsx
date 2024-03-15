@@ -1,5 +1,5 @@
 import Header from "../components/header/Header.jsx";
-import Navbar from "../components/navbar/Navbar.jsx";
+
 import Avatar from "../components/avatar/Avatar.jsx";
 
 import MoreSettings from "../components/SVG/MoreSettings.svg";
@@ -9,6 +9,7 @@ import FollowUser from "../components/SVG/FollowUser.svg";
 import annie from "../../src/images/annie.jpg";
 
 import styles from "./UserProfile.module.scss";
+import Navbar from "../components/navbar/Navbar.jsx";
 
 const OtherUserProfile = () => {
   return (
@@ -60,7 +61,7 @@ const OtherUserProfile = () => {
           </div>
         </div>
       </main>
-      <Navbar />
+      <Navbar/>
     </>
   );
 };

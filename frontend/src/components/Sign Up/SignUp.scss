@@ -40,7 +40,7 @@ header {
         margin-bottom: 20px; // Erhöhen Sie den Abstand zwischen den Eingabefeldern
         width: 100%;
         padding: 10px;
-        border: 2px solid rgba(0, 0, 0, 0.063);
+        border: 1px solid rgba(0, 0, 0, 0.063);
         border-radius: 10px;
         color:black;
       }
@@ -73,16 +73,22 @@ header {
       
   
       p {
-        margin-top: 20px;
         padding-left: 10px;
         
       }
       .Only{
+        font-size: 18px;
+        padding-top: 9px;
         color: #E98090;
         text-decoration: none;
         font-weight: 700;
     }
     }
+    .select-reg{
+      padding: 40px;
+    }
+  
   }
   
+
 

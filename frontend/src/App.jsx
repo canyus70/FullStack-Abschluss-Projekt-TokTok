@@ -4,7 +4,6 @@ import Home from "./pages/Home.jsx";
 import Search from "./components/search page/Search.jsx";
 import UserPostUpload from "./pages/UserPostUpload.jsx";
 import UserProfile from "./pages/UserProfile.jsx";
-import Navbar from "./components/navbar/navbar.jsx";
 import SignUp from "./components/Sign Up/Sign-Up.jsx";
 import SignIn from "./components/SignIn/SignIn.jsx";
 import SixDigit from "./components/SixDigit/SixDigit.jsx";
@@ -26,10 +25,11 @@ function App() {
     <Route path="/profile" element={<UserProfile />} />
     <Route path="/comment" element={<Comments />} />
     <Route path="/edit-profile" element={<EditProfile />} />
-     <Route
+    <Route
       path="/:userId/other-user-profile"
       element={<OtherUserProfile />}
-   </Routes>
+      />
+    </Routes>
   </BrowserRouter>
   );
 }
