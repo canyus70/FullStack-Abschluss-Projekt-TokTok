@@ -1,7 +1,6 @@
 import TokTokLogo from "../SVG/TokTokLogo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { Input } from "antd";
-
 import "./SignUp.scss";
 import { useState } from "react";
 
@@ -35,7 +34,7 @@ const SignUp = () => {
       setErrorMessage("Password confirmation missmatches");
       return;
     }
-    fetch("http://localhost:4444/api/v1/users", {
+    fetch("http://localhost:4444/api/v1/users/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
