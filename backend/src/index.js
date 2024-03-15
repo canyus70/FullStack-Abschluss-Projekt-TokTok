@@ -7,8 +7,6 @@ import cors from "cors";
 import UserRouter from "./routes/user/UserRouter.js";
 import PostRouter from "./routes/posts/postRouter.js";
 
-
-
 dotenv.config();
 
 const tenDaysInMs = 10 * 24 * 60 * 60 * 1000;
