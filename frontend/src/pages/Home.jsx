@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <>
       <main className={styles.homePage}>
-        <Header image={Logo} title="TokTok" />
+        <Header image={Logo} title="TokTok" large />
         <BlogCard />
       </main>
       <Navbar />

@@ -2,7 +2,7 @@ import Header from "../components/header/Header.jsx";
 import Navbar from "../components/navbar/Navbar.jsx";
 import Avatar from "../components/avatar/Avatar.jsx";
 
-import MoreSettings from "../components/SVG/MoreSettings.svg";
+import Checked from "../components/SVG/Checked.svg";
 import Feeds from "../components/SVG/Feeds.svg";
 import Back from "../components/SVG/Back.svg";
 import FollowUser from "../components/SVG/FollowUser.svg";
@@ -16,7 +16,7 @@ const OtherUserProfile = () => {
       <main className={styles.userProfilePage}>
         <div className={styles.profileHeader}>
           <Header image={Back} title="john_doe" path="/" />
-          <img src={MoreSettings} alt="moreSettings" />
+          <img src={Checked} alt="Checked" />
         </div>
         <div className={styles.infos}>
           <Avatar large />

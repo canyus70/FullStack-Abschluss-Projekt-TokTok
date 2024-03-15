@@ -15,7 +15,7 @@ const Avatar = ({ avatar, small, large, edit, path }) => {
       )}
     >
       {avatar ? (
-        <img src={avatar} alt="avatar" />
+        <img src={avatar} alt="avatar" className={styles.avatarShow} />
       ) : (
         <img src={Ellipse} alt="ellipse" />
       )}

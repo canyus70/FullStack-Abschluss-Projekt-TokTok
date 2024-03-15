@@ -3,28 +3,51 @@ import Navbar from "../components/navbar/Navbar.jsx";
 import Avatar from "../components/avatar/Avatar";
 
 import Post from "../components/SVG/Post.svg";
-import Setting from "../components/SVG/Setting.svg";
+import MoreSettings from "../components/SVG/MoreSettings.svg";
 import Edit from "../components/SVG/Edit.svg";
 import Feeds from "../components/SVG/Feeds.svg";
 import Logo from "../components/SVG/Logo.svg";
 import annie from "../../src/images/annie.jpg";
 
 import styles from "./UserProfile.module.scss";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const UserProfile = () => {
+  const [image, setImage] = useState("");
+
+  const onSelectPhotos = (event) => {
+    if (event.target.files) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        setImage(e.target.result);
+      };
+
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  };
   return (
     <>
       <main className={styles.userProfilePage}>
         <div className={styles.profileHeader}>
-          <Header image={Logo} title="john_doe" />
+          <Header image={Logo} large title="john_doe" />
           <div>
-            <img src={Post} alt="post" />
-            <img src={Edit} alt="edit" />
-            <img src={Setting} alt="setting" />
+            <Link to="/upload">
+              <img src={Post} alt="post" />
+            </Link>
+            <Link to="/edit-profile">
+              <img src={Edit} alt="edit" />
+            </Link>
+
+            <img src={MoreSettings} alt="moreSettings" />
           </div>
         </div>
         <div className={styles.infos}>
-          <Avatar large edit path="/edit-profile" />
+          <div className={styles.uploadAvatar}>
+            <Avatar avatar={image} large edit />
+            <input type="file" name="avatar" onChange={onSelectPhotos} />
+          </div>
           <div className={styles.personalInfo}>
             <h1>John Doe</h1>
             <h5>UI/UX Designer</h5>
