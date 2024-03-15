@@ -9,10 +9,18 @@ import Camera from "../components/SVG/Camera.svg";
 import Location from "../components/SVG/Location.svg";
 
 import styles from "./UserPostUpload.module.scss";
-import { useState } from "react";
+import { useState, useRef, useContext } from "react";
+import AuthorizationContext from "../contexts/AuthorizationContext";
+import UserContext from "../contexts/UserContext";
+import fetchUser from "../services/fetchUser";
 
 const UserPostUpload = () => {
   const [image, setImage] = useState("");
+  const ref = useRef(null);
+  const [accessToken] = useContext(AuthorizationContext);
+  const [user, setUser] = useContext(UserContext);
+
+  if (!user) return null;
 
   const onSelectPhotos = (event) => {
     if (event.target.files) {
@@ -21,9 +29,23 @@ const UserPostUpload = () => {
       reader.onload = function (e) {
         setImage(e.target.result);
       };
-
       reader.readAsDataURL(event.target.files[0]);
     }
+  };
+
+  const uploadPost = async () => {
+    if (!ref.current) return;
+
+    const post = new FormData(ref.current);
+    const response = await fetch("/api/v1/posts/add", {
+      method: "POST",
+      headers: { authorization: `Bearer ${accessToken}` },
+      body: post,
+    });
+
+    await response.json();
+
+    fetchUser(user._id, setUser);
   };
 
   return (
@@ -53,6 +75,7 @@ const UserPostUpload = () => {
           <textarea
             name="description"
             id="description"
+            ref={ref}
             cols="30"
             rows="1"
           ></textarea>
@@ -83,7 +106,9 @@ const UserPostUpload = () => {
           <img src={Setting} alt="setting" />
           <h2>Advanced Settings</h2>
         </div>
-        <button className="primaryButton">Upload</button>
+        <button className="primaryButton" onClick={uploadPost}>
+          Upload
+        </button>
       </main>
       <Navbar />
     </>

@@ -10,7 +10,6 @@ UserRouter.post("/login", UserController.postLoginUserCtrl);
 
 UserRouter.post("/logout", doJwtAuth, UserController.postLogoutCtrl);
 
-
 UserRouter.get("/", UserController.getAllUsersCtrl);
 
 UserRouter.patch("/refresh-token", doJwtAuth, UserController.refreshTokenCtrl);
