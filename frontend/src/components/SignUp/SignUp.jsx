@@ -50,8 +50,7 @@ const SignUp = () => {
       .then((res) => res.json())
       .then(({ success, result, message }) => {
         if (!success) return setErrorMessage(message || "Registration failed");
-        // console.log(result)
-        // setUserId(result);
+
         setSuccessMessageRegister(
           "Register successful, please go to the next step and enjoy!"
         );

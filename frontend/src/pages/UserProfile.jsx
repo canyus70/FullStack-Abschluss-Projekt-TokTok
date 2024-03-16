@@ -11,27 +11,20 @@ import annie from "../../src/images/annie.jpg";
 
 import styles from "./UserProfile.module.scss";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import UserContext from "../contexts/UserContext.jsx";
 
 const UserProfile = () => {
   const [image, setImage] = useState("");
+  const [user] = useContext(UserContext);
 
-  const onSelectPhotos = (event) => {
-    if (event.target.files) {
-      const reader = new FileReader();
+  console.log(Number(user.blogs?.length));
 
-      reader.onload = function (e) {
-        setImage(e.target.result);
-      };
-
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  };
   return (
     <>
       <main className={styles.userProfilePage}>
         <div className={styles.profileHeader}>
-          <Header image={Logo} large title="john_doe" />
+          <Header image={Logo} large title={user.username} />
           <div>
             <Link to="/upload">
               <img src={Post} alt="post" />
@@ -44,30 +37,27 @@ const UserProfile = () => {
           </div>
         </div>
         <div className={styles.infos}>
-          <div className={styles.uploadAvatar}>
-            <Avatar avatar={image} large edit />
-            <input type="file" name="avatar" onChange={onSelectPhotos} />
-          </div>
+          <Avatar avatar={image} large />
+
           <div className={styles.personalInfo}>
-            <h1>John Doe</h1>
-            <h5>UI/UX Designer</h5>
-            <h5>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore.
-            </h5>
-            <h5 className={styles.personalWeb}>www.yourdomain.com</h5>
+            <h1>
+              {user.firstname} {user.lastname}
+            </h1>
+            <h5>{user.profession}</h5>
+            <h5>{user.bio}</h5>
+            <h5 className={styles.personalWeb}>{user.website}</h5>
           </div>
           <div className={styles.socialInfo}>
             <div>
-              <h1>356</h1>
+              <h1>{user.blogs ?? 0}</h1>
               <h5>Posts</h5>
             </div>
             <div>
-              <h1>46,379</h1>
+              <h1>{user.followers ?? 0}</h1>
               <h5>Followers</h5>
             </div>
             <div>
-              <h1>318</h1>
+              <h1>{user.following ?? 0}</h1>
               <h5>Following</h5>
             </div>
           </div>

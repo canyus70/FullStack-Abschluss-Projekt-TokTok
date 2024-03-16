@@ -24,19 +24,20 @@ const SignIn = () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
+      credentials: "include",
     })
       .then((res) => res.json())
       .then(({ success, result, message }) => {
-        if (!success) {
-          setErrorMessage(message || "Login failed");
-          return;
-        }
+        if (!success) return setErrorMessage(message || "Login failed");
+
+        const authorization = `Bearer ${result.tokens.accessToken}`;
+
         setErrorMessage("");
         setSuccessMessage(
           "Login successful, please go to Dashboard and enjoy!"
         );
-        console.log(result);
         setAccessToken(result.tokens.accessToken);
+        localStorage.setItem("refreshToken", result.tokens.refreshToken);
         navigate("/");
       });
   };

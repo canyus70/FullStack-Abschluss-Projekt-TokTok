@@ -5,13 +5,35 @@ import Header from "../components/header/Header";
 import Back from "../components/SVG/Back.svg";
 
 import styles from "./EditProfile.module.scss";
+import { useContext, useState } from "react";
+import UserContext from "../contexts/UserContext";
 
 const EditProfile = () => {
+  const [image, setImage] = useState("");
+  const [user] = useContext(UserContext);
+
+  console.log(user);
+
+  const onSelectPhotos = (event) => {
+    if (event.target.files) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        setImage(e.target.result);
+      };
+
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  };
+
   return (
     <main className={styles.editProfilePage}>
       <Header image={Back} title="Edit Profile" path="/profile" />
       <section>
-        <Avatar large edit />
+        <div className={styles.uploadAvatar}>
+          <Avatar avatar={image} large edit />
+          <input type="file" name="avatar" onChange={onSelectPhotos} />
+        </div>
         <ConfigProvider
           theme={{
             token: {
