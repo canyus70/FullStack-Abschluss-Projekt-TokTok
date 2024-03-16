@@ -7,7 +7,7 @@ import Share from "../SVG/Share.svg";
 
 import styles from "./FunctionButtons.module.scss";
 
-const FunctionButtons = ({ transparent }) => {
+const FunctionButtons = ({ transparent, liked, comments, saved }) => {
   const [shared, setShared] = useState(false);
 
   const copyToClipboard = (e) => {};
@@ -15,7 +15,7 @@ const FunctionButtons = ({ transparent }) => {
     <div className={styles.functionButtons}>
       <div>
         <ToggleLike />
-        <p>20</p>
+        <p>{liked}</p>
       </div>
       <div>
         <Link to="/comment">
@@ -23,12 +23,12 @@ const FunctionButtons = ({ transparent }) => {
             <img src={Comment} alt="comment" />
           </button>
         </Link>
-        <p>20</p>
+        <p>{comments}</p>
       </div>
 
       <div className={transparent && styles.transparent}>
         <ToggleSaved />
-        <p>20</p>
+        <p>{saved}</p>
       </div>
 
       <button

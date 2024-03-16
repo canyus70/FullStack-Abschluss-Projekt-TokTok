@@ -5,9 +5,11 @@ const AuthorizationContextProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState("");
 
   const fetchToken = async () => {
+    const refreshToken = localStorage.getItem("refreshToken");
     const response = await fetch("/api/v1/users/refresh-token", {
       method: "PATCH",
       credentials: "include",
+      headers: { authorization: `Bearer ${refreshToken}` },
     });
 
     const { result } = await response.json();
