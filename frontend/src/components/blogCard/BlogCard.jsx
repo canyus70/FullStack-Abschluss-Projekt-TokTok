@@ -4,14 +4,22 @@ import UserConciseInfos from "./UserConciseInfos";
 
 import styles from "./BlogCard.module.scss";
 
-const BlogCard = () => {
+const BlogCard = ({
+  avatar,
+  name,
+  profession,
+  imageUrl,
+  liked,
+  comments,
+  saved,
+}) => {
   return (
     <section className={styles.blogCard}>
-      <UserConciseInfos />
+      <UserConciseInfos avatar={avatar} name={name} profession={profession} />
       <div className={styles.image}>
-        <img src={annie} alt="annie" />
+        <img src={imageUrl} alt="annie" />
       </div>
-      <FunctionButtons />
+      <FunctionButtons liked={liked} comments={comments} saved={saved} />
     </section>
   );
 };

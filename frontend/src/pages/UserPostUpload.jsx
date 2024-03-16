@@ -16,7 +16,8 @@ import fetchUser from "../services/fetchUser";
 
 const UserPostUpload = () => {
   const [image, setImage] = useState("");
-  const ref = useRef(null);
+  const imageRef = useRef(null);
+  const textRef = useRef(null);
   const [accessToken] = useContext(AuthorizationContext);
   const [user, setUser] = useContext(UserContext);
 
@@ -34,9 +35,11 @@ const UserPostUpload = () => {
   };
 
   const uploadPost = async () => {
-    if (!ref.current) return;
+    const post = new FormData();
 
-    const post = new FormData(ref.current);
+    post.append("images", imageRef.current.files);
+    post.append("description", textRef.current.value);
+
     const response = await fetch("/api/v1/posts/add", {
       method: "POST",
       headers: { authorization: `Bearer ${accessToken}` },
@@ -66,6 +69,7 @@ const UserPostUpload = () => {
             type="file"
             multiple
             name="photos"
+            ref={imageRef}
             onChange={onSelectPhotos}
           />
         </div>
@@ -75,7 +79,7 @@ const UserPostUpload = () => {
           <textarea
             name="description"
             id="description"
-            ref={ref}
+            ref={textRef}
             cols="30"
             rows="1"
           ></textarea>

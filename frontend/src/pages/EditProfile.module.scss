@@ -5,6 +5,17 @@
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
+
+    .uploadAvatar {
+      position: relative;
+      input {
+        position: absolute;
+        bottom: 1rem;
+        right: -6rem;
+        opacity: 0;
+      }
+    }
+
     form {
       width: 100%;
       display: flex;

@@ -12,9 +12,10 @@ const UserContextProvider = ({ children }) => {
     if (!accessToken) return;
 
     const decoded = jwtDecode(accessToken);
-    console.log(decoded);
-    fetchUser(decoded.sub ?? "", setUser);
+
+    fetchUser(decoded.sub ?? "", setUser, accessToken);
   }, [accessToken, setUser]);
+  console.log(user);
 
   return (
     <UserContext.Provider value={[user, setUser]}>
