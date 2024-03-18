@@ -12,7 +12,7 @@ const UserConciseInfos = ({ post }) => {
   return (
     <div className={styles.userConciseInfo}>
       <div className={styles.userInfo}>
-        <Link to={`/${post.author?._id}/profile`}>
+        <Link to={`/${post.author?._id}/other-user-profile`}>
           <Avatar avatar={post.author?.avatar} small />
         </Link>
         <div>
