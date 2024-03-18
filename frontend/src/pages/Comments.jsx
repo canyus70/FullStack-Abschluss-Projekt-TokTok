@@ -12,10 +12,12 @@ import { useEffect, useState } from "react";
 const Comments = () => {
   const [post, setPost] = useState({});
   const { postId } = useParams();
+  console.log(postId);
 
   const fetchPost = async () => {
     try {
-      const response = await fetch(`/api/v1/post/${postId}`); //缺少endpoint, machen wir zusammen
+      const response = await fetch(`/api/v1/post/${postId}`);
+
       const { result } = await response.json();
 
       setPost(result);
