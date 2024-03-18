@@ -9,10 +9,19 @@ import Camera from "../components/SVG/Camera.svg";
 import Location from "../components/SVG/Location.svg";
 
 import styles from "./UserPostUpload.module.scss";
-import { useState } from "react";
+import { useState, useRef, useContext } from "react";
+import AuthorizationContext from "../contexts/AuthorizationContext";
+import UserContext from "../contexts/UserContext";
+import fetchUser from "../services/fetchUser";
 
 const UserPostUpload = () => {
   const [image, setImage] = useState("");
+  const imageRef = useRef(null);
+  const textRef = useRef(null);
+  const [accessToken] = useContext(AuthorizationContext);
+  const [user, setUser] = useContext(UserContext);
+
+  if (!user) return null;
 
   const onSelectPhotos = (event) => {
     if (event.target.files) {
@@ -21,9 +30,23 @@ const UserPostUpload = () => {
       reader.onload = function (e) {
         setImage(e.target.result);
       };
-
       reader.readAsDataURL(event.target.files[0]);
     }
+  };
+
+  const uploadPost = async () => {
+    const post = new FormData();
+
+    post.append("images", imageRef.current.files);
+    post.append("description", textRef.current.value);
+
+    const response = await fetch("/api/v1/posts/add", {
+      method: "POST",
+      headers: { authorization: `Bearer ${accessToken}` },
+      body: post,
+    });
+
+    const newPost = await response.json();
   };
 
   return (
@@ -44,6 +67,7 @@ const UserPostUpload = () => {
             type="file"
             multiple
             name="photos"
+            ref={imageRef}
             onChange={onSelectPhotos}
           />
         </div>
@@ -53,6 +77,7 @@ const UserPostUpload = () => {
           <textarea
             name="description"
             id="description"
+            ref={textRef}
             cols="30"
             rows="1"
           ></textarea>
@@ -83,7 +108,9 @@ const UserPostUpload = () => {
           <img src={Setting} alt="setting" />
           <h2>Advanced Settings</h2>
         </div>
-        <button className="primaryButton">Upload</button>
+        <button className="primaryButton" onClick={uploadPost}>
+          Upload
+        </button>
       </main>
       <Navbar />
     </>

@@ -5,33 +5,44 @@ import Avatar from "../components/avatar/Avatar";
 import Post from "../components/SVG/Post.svg";
 import MoreSettings from "../components/SVG/MoreSettings.svg";
 import Edit from "../components/SVG/Edit.svg";
+import Delete from "../components/SVG/Delete.svg";
 import Feeds from "../components/SVG/Feeds.svg";
 import Logo from "../components/SVG/Logo.svg";
-import annie from "../../src/images/annie.jpg";
 
 import styles from "./UserProfile.module.scss";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import UserContext from "../contexts/UserContext.jsx";
+import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
 
 const UserProfile = () => {
+  const [accessToken] = useContext(AuthorizationContext);
   const [image, setImage] = useState("");
+  const [user] = useContext(UserContext);
+  const [feeds, setFeeds] = useState([]);
 
-  const onSelectPhotos = (event) => {
-    if (event.target.files) {
-      const reader = new FileReader();
+  const fetchAllFeedsFromUser = async () => {
+    if (!accessToken || !user) return;
 
-      reader.onload = function (e) {
-        setImage(e.target.result);
-      };
+    const response = await fetch(`api/v1/posts/${user._id}/feed`, {
+      headers: { authorization: `Bearer ${accessToken}` },
+    });
+    const { result } = await response.json();
 
-      reader.readAsDataURL(event.target.files[0]);
-    }
+    setFeeds(result.posts);
   };
+
+  useEffect(() => {
+    fetchAllFeedsFromUser();
+  }, [accessToken, user]);
+
+  if (!user) return;
+
   return (
     <>
       <main className={styles.userProfilePage}>
         <div className={styles.profileHeader}>
-          <Header image={Logo} large title="john_doe" />
+          <Header image={Logo} large title={user.username} />
           <div>
             <Link to="/upload">
               <img src={Post} alt="post" />
@@ -44,30 +55,27 @@ const UserProfile = () => {
           </div>
         </div>
         <div className={styles.infos}>
-          <div className={styles.uploadAvatar}>
-            <Avatar avatar={image} large edit />
-            <input type="file" name="avatar" onChange={onSelectPhotos} />
-          </div>
+          <Avatar avatar={image} large />
+
           <div className={styles.personalInfo}>
-            <h1>John Doe</h1>
-            <h5>UI/UX Designer</h5>
-            <h5>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore.
-            </h5>
-            <h5 className={styles.personalWeb}>www.yourdomain.com</h5>
+            <h1>
+              {user.firstname} {user.lastname}
+            </h1>
+            <h5>{user.profession}</h5>
+            <h5>{user.bio}</h5>
+            <h5 className={styles.personalWeb}>{user.website}</h5>
           </div>
           <div className={styles.socialInfo}>
             <div>
-              <h1>356</h1>
+              <h1>{user.blogs ?? 0}</h1>
               <h5>Posts</h5>
             </div>
             <div>
-              <h1>46,379</h1>
+              <h1>{user.followers?.length ?? 0}</h1>
               <h5>Followers</h5>
             </div>
             <div>
-              <h1>318</h1>
+              <h1>{user.following?.length ?? 0}</h1>
               <h5>Following</h5>
             </div>
           </div>
@@ -79,15 +87,16 @@ const UserProfile = () => {
             <h3>Feeds</h3>
           </div>
           <div className={styles.blogs}>
-            <div className={styles.image}>
-              <img src={annie} alt="annie" />
-            </div>
-            <div className={styles.image}>
-              <img src={annie} alt="annie" />
-            </div>
-            <div className={styles.image}>
-              <img src={annie} alt="annie" />
-            </div>
+            {feeds &&
+              feeds.map((feed) => (
+                <div key={feed._id} className={styles.image}>
+                  <img src={feed.images[0]} alt="postImage" />
+                  <div className={styles.buttons}>
+                    <img src={Edit} alt="edit" />{" "}
+                    <img src={Delete} alt="delete" />{" "}
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
       </main>

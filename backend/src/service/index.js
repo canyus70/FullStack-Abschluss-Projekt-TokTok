@@ -7,6 +7,7 @@ import { editUser } from "./user/editUser.js";
 import { addFollow } from "./user/addFollow.js";
 import { unFollow } from "./user/unFollow.js";
 import { searchUsers } from "./user/searchUsers.js";
+import { forgotPassword } from "./user/forgotPassword.js";
 
 export const UserService = {
   loginUser,
@@ -18,6 +19,7 @@ export const UserService = {
   addFollow,
   unFollow,
   searchUsers,
+  forgotPassword,
 };
 //=====================BLOG SERVICE=====================//
 import { getAllBlogPosts } from "./posts/getAllBlogPosts.js";
@@ -33,7 +35,6 @@ import { updateBlogPost } from "./posts/updateBlogPost.js";
 import { removeCommentFromAPost } from "./posts/comments/removeCommentFromAPost.js";
 import { updateComment } from "./posts/comments/updateComment.js";
 import { deletePost } from "./posts/deletePost.js";
-
 
 export const PostService = {
   getAllBlogPosts,
@@ -52,5 +53,4 @@ export const PostService = {
   //=========SAVED HADNLER===========//
   savePostForUser,
   removeSavedPost,
-
 };

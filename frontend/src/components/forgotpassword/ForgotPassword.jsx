@@ -1,51 +1,44 @@
 import TokTokLogo from "../SVG/TokTokLogo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { Input } from "antd";
-import "./SignIn.scss";
-import { useContext, useState } from "react";
-import AuthorizationContext from "../../contexts/AuthorizationContext";
+import "./ForgotPassword.scss";
+import { useState } from "react";
 
-const SignIn = () => {
+const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
-  //const [_, setAccessToken] = useContext(AuthorizationContext);
 
-  const loginUser = (event) => {
+  const resendPassword = (event) => {
     event.preventDefault();
-    if (!email || !password) {
-      setErrorMessage("Email or password is wrong");
+    if (!email) {
+      setErrorMessage("User with this email doesnt exist");
       return;
     }
 
-    fetch("http://localhost:4444/api/v1/users/login", {
+    fetch("http://localhost:4444/api/v1/users/resend-password", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-      credentials: "include",
+      body: JSON.stringify({ email }),
     })
       .then((res) => res.json())
       .then(({ success, result, message }) => {
-        if (!success) return setErrorMessage(message || "Login failed");
-
-        const authorization = `Bearer ${result.tokens.accessToken}`;
-
+        if (!success) {
+          setErrorMessage(message || "Resend password failed");
+          return;
+        }
         setErrorMessage("");
         setSuccessMessage(
-          "Login successful, please go to Dashboard and enjoy!"
+          "Resend password was succesfull! Please check your email"
         );
-
         console.log(result);
-        //setAccessToken(result.tokens.accessToken);
         setTimeout(() => {
-          navigate("/");
+          navigate("/signin");
         }, "2500");
-        localStorage.setItem("refreshToken", result.tokens.refreshToken);
-
       });
   };
+
   return (
     <header>
       <div className="text1">
@@ -66,24 +59,12 @@ const SignIn = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <Input.Password
-          className="reg-input1"
-          placeholder="🔓 Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
         <Input
           type="submit"
-          value="SignIn"
+          value="ResendPassword"
           className="registration-button1"
-          onClick={loginUser}
+          onClick={resendPassword}
         />
-        <Link className="Only1" to="/resend-password">
-          <div className="forgot1">
-            <p>Forgot the password?</p>
-          </div>
-        </Link>
       </form>
       <p style={{ color: "red" }}>{errorMessage}</p>
       <p style={{ color: "green" }}>{successMessage}</p>
@@ -97,4 +78,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default ForgotPassword;
