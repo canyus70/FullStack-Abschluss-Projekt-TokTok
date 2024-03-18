@@ -8,9 +8,8 @@ import Share from "../SVG/Share.svg";
 import styles from "./FunctionButtons.module.scss";
 
 const FunctionButtons = ({ transparent, post }) => {
-  const [liked, setLiked] = useState(post.likedBy.length);
-
   if (!post) return;
+  const [liked, setLiked] = useState(post.likedBy?.length);
 
   //  the count of liked automatic changed
   const onClickLike = (next) => {
