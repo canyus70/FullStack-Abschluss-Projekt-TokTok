@@ -4,9 +4,9 @@ export async function searchUsers(query) {
   try {
     const searchedUsers = await User.find({
       $or: [
-        { firstname: { $regex: query, $options: "i" } },
-        { lastname: { $regex: query, $options: "i" } },
-        { username: { $regex: query, $options: "i" } },
+        { firstname: { $regex: `${query}`, $options: "i" } },
+        { lastname: { $regex: `${query}`, $options: "i" } },
+        { username: { $regex: `${query}`, $options: "i" } },
       ],
     });
 
