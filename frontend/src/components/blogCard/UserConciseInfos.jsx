@@ -6,6 +6,7 @@ import styles from "./UserConciseInfos.module.scss";
 
 const UserConciseInfos = ({ post }) => {
   if (!post) return;
+  console.log(post);
 
   console.log(post.author?.username);
 
