@@ -11,6 +11,7 @@ import { addFollowCtrl } from "./user/addFollowCtrl.js";
 import { unFollowCtrl } from "./user/unFollowCtrl.js";
 import { searchUserCtrl } from "./user/searchUserCtrl.js";
 import { forgotPasswordCtrl } from "./user/forgotPasswordCtrl.js";
+import { getUserProgressCtrl } from "./user/getUserProgressCtrl.js";
 
 export const UserController = {
   postLoginUserCtrl,
@@ -25,6 +26,8 @@ export const UserController = {
   unFollowCtrl,
   searchUserCtrl,
   forgotPasswordCtrl,
+  //======USER INFO=========//
+  getUserProgressCtrl
 };
 //=====================BLOG POSTS CONTROLLER=====================//
 import { getAllBlogPostsCtrl } from "./posts/getAllBlogPostsCtrl.js";
