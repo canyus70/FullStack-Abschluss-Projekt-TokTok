@@ -12,7 +12,6 @@ import styles from "./UserPostUpload.module.scss";
 import { useState, useRef, useContext } from "react";
 import AuthorizationContext from "../contexts/AuthorizationContext";
 import UserContext from "../contexts/UserContext";
-import fetchUser from "../services/fetchUser";
 
 const UserPostUpload = () => {
   const [image, setImage] = useState("");
