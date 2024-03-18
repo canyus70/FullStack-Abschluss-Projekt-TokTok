@@ -13,8 +13,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmedpassword, setConfirmedPassword] = useState("");
   const [successMessageRegister, setSuccessMessageRegister] = useState("");
-  const [errormessage, setErrorMessage] = useState("");
-  // const [userid, setUserId] = useState("")
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const registerUser = (event) => {
@@ -54,8 +53,10 @@ const SignUp = () => {
           "Register successful, please go to the next step and enjoy!"
         );
         setErrorMessage("");
+        setTimeout(() => {
+          navigate("/sixdigit/" + result._id);
+        }, "2500");
       });
-    navigate("/sixdigit");
   };
 
   return (
@@ -126,15 +127,16 @@ const SignUp = () => {
             value={confirmedpassword}
             onChange={(e) => setConfirmedPassword(e.target.value)}
           />
-          {/* <Link className='LinkFrom' to='/sixdigit'> */}
+
           <Input
             type="submit"
             value="SignUp"
             className="registration-button"
             onClick={registerUser}
           />
-          {/* </Link> */}
         </form>
+        <p style={{ color: "red" }}>{errorMessage}</p>
+        <p style={{ color: "green" }}>{successMessageRegister}</p>
         <div className="SigIn">
           <p>Already have an account?</p>
           <Link className="Only" to="/SignIn">
