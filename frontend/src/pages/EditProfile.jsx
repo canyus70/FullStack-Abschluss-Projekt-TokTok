@@ -5,14 +5,18 @@ import Header from "../components/header/Header";
 import Back from "../components/SVG/Back.svg";
 
 import styles from "./EditProfile.module.scss";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import UserContext from "../contexts/UserContext";
+import AuthorizationContext from "../contexts/AuthorizationContext";
+import fetchUser from "../services/fetchUser";
 
 const EditProfile = () => {
+  const ref = useRef();
   const [image, setImage] = useState("");
-  const [user] = useContext(UserContext);
+  const [user, setUser] = useContext(UserContext);
+  const [accessToken] = useContext(AuthorizationContext);
 
-  console.log(user);
+  if (!user) return null;
 
   const onSelectPhotos = (event) => {
     if (event.target.files) {
@@ -24,6 +28,21 @@ const EditProfile = () => {
 
       reader.readAsDataURL(event.target.files[0]);
     }
+  };
+
+  const editProfile = async () => {
+    if (!ref.current) return;
+
+    const profile = new FormData(ref.current);
+
+    const response = await fetch(`api/v1/users/${user._id}/profile`, {
+      method: "PATCH",
+      headers: { authorization: `Bearer ${accessToken}` },
+      body: profile,
+    });
+
+    await response.json();
+    await fetchUser(user._id, setUser, accessToken);
   };
 
   return (
@@ -43,46 +62,50 @@ const EditProfile = () => {
             },
           }}
         >
-          <form>
+          <form ref={ref}>
             <Input
               type="text"
               name="firstName"
               id="firstName"
               placeholder="First Name"
+              defaultValue={user.firstname}
             />
             <Input
               type="text"
               name="lastName"
               id="lastName"
               placeholder="Last Name"
+              defaultValue={user.lastname}
             />
             <Input
               type="text"
               name="userName"
               id="userName"
               placeholder="User Name"
+              defaultValue={user.username}
             />
+
+            <Input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
+              defaultValue={user.email}
+            />
+
             <Input
               type="date"
               name="birthday"
               id="birthday"
               placeholder="dd.mm.yyyy"
+              defaultValue={user.birthday}
             />
-
-            <Input type="email" name="email" id="email" placeholder="Email" />
-
-            <Input
-              type="text"
-              name="telephoneNumber"
-              id="telephoneNumber"
-              placeholder="Telephone Number"
-            />
-
             <Select
               style={{ color: "red" }}
               className={styles.selectField}
               variant="borderless"
               placeholder="Gender"
+              defaultValue={user.gender}
               options={[
                 { value: "male", label: "Male" },
                 { value: "female", label: "Female" },
@@ -91,13 +114,39 @@ const EditProfile = () => {
 
             <Input
               type="text"
+              name="profession"
+              id="profession"
+              placeholder="profession"
+              defaultValue={user.profession}
+            />
+            <Input
+              type="text"
+              name="bio"
+              id="bio"
+              placeholder="Bio"
+              defaultValue={user.bio}
+            />
+
+            <Input
+              type="text"
+              name="telephoneNumber"
+              id="telephoneNumber"
+              placeholder="Telephone Number"
+              defaultValue={user.phonenumber}
+            />
+
+            <Input
+              type="text"
               name="website"
               id="website"
               placeholder="Website"
+              defaultValue={user.website}
             />
           </form>
         </ConfigProvider>
-        <button className="primaryButton">Update</button>
+        <button className="primaryButton" onClick={editProfile}>
+          Update
+        </button>
       </section>
     </main>
   );

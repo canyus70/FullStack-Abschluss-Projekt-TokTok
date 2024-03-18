@@ -5,7 +5,7 @@ import fetchUser from "../../services/fetchUser";
 import UserContext from "../../contexts/UserContext";
 
 const UserContextProvider = ({ children }) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(undefined);
   const [accessToken] = useContext(AuthorizationContext);
 
   useEffect(() => {
@@ -15,7 +15,6 @@ const UserContextProvider = ({ children }) => {
 
     fetchUser(decoded.sub ?? "", setUser, accessToken);
   }, [accessToken, setUser]);
-  console.log(user);
 
   return (
     <UserContext.Provider value={[user, setUser]}>

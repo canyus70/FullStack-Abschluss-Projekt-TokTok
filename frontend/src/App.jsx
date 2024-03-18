@@ -28,12 +28,9 @@ function App() {
 
             <Route path="/upload" element={<UserPostUpload />} />
             <Route path="/profile" element={<UserProfile />} />
-            <Route path="/comment" element={<Comments />} />
+            <Route path="/:postId/comment" element={<Comments />} />
             <Route path="/edit-profile" element={<EditProfile />} />
-            <Route
-              path="/:userId/other-user-profile"
-              element={<OtherUserProfile />}
-            />
+            <Route path="/:userId/profile" element={<OtherUserProfile />} />
           </Routes>
         </UserContextProvider>
       </AuthorizationContextProvider>
