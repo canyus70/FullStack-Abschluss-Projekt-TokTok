@@ -48,7 +48,7 @@ const Search = () => {
         <div className="border"></div>
       </section>
       {query && ( // Nur anzeigen, wenn query nicht leer ist
-        <ul>
+        <ul className="vallhalla">
           {searchResult.map((user) => (
             <li key={user._id}>
               {user.firstname} {user.lastname} - @{user.username}
