@@ -22,8 +22,6 @@ const Home = () => {
     fetchPosts();
   }, []);
 
-  console.log(posts);
-
   return (
     <>
       <main className={styles.homePage}>
@@ -35,6 +33,10 @@ const Home = () => {
               liked={post.likedBy.length}
               comments={post.comments.length}
               name={`${post?.author?.firstname} ${post.author?.lastname}`}
+              id={post.author?._id}
+              post={post}
+              postId={post._id}
+              userId={post.author?._id}
             />
           ))}
       </main>

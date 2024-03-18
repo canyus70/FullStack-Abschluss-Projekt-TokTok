@@ -1,3 +1,5 @@
+import { useParams, useSearchParams } from "react-router-dom";
+
 import FunctionButtons from "../components/blogCard/FunctionButtons";
 import UserConciseInfos from "../components/blogCard/UserConciseInfos";
 import Avatar from "../components/avatar/Avatar";
@@ -5,8 +7,29 @@ import Header from "../components/header/Header";
 import Back from "../components/SVG/Back.svg";
 
 import styles from "./Comments.module.scss";
+import { useEffect, useState } from "react";
 
 const Comments = () => {
+  const [post, setPost] = useState({});
+  const { postId } = useParams();
+
+  const fetchPost = async () => {
+    try {
+      const response = await fetch(`/api/v1/post/${postId}`); //缺少endpoint
+      const { result } = await response.json();
+
+      setPost(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPost();
+  }, []);
+
+  if (!post) return null;
+
   return (
     <>
       <main className={styles.commentPage}>
@@ -14,18 +37,11 @@ const Comments = () => {
         <div className={styles.blogInfos}>
           <UserConciseInfos />
           <hr />
-          <p className={styles.content}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
+          <p className={styles.content}>{post.description}</p>
           <p className={styles.tags}>
-            #girl #girls #babygirl #girlpower #girlswholift #polishgirl
-            #girlboss #girly #girlfriend #fitgirl #birthdaygirl #instagirl
-            #girlsnight #animegirl #mygirl
+            {post && post.tags?.map((tag) => <span>{tag}</span>)}
           </p>
-          <p className={styles.timeStamp}> 6 hours ago</p>
+          <p className={styles.timeStamp}> {post.updatedAt}</p>
           <FunctionButtons />
           <hr />
         </div>

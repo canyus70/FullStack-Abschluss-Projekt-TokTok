@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import Header from "../components/header/Header.jsx";
 
 import Avatar from "../components/avatar/Avatar.jsx";
@@ -10,37 +11,52 @@ import annie from "../../src/images/annie.jpg";
 
 import styles from "./UserProfile.module.scss";
 import Navbar from "../components/navbar/Navbar.jsx";
+import { useContext, useEffect, useState } from "react";
+import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
+import fetchUser from "../services/fetchUser.js";
 
 const OtherUserProfile = () => {
+  const { userId } = useParams();
+  const [accessToken] = useContext(AuthorizationContext);
+
+  const [user, setUser] = useState(undefined);
+
+  useEffect(() => {
+    if (!accessToken) return;
+
+    fetchUser(userId, setUser, accessToken);
+  }, [userId, setUser, accessToken]);
+
+  if (!user) return null;
+
   return (
     <>
       <main className={styles.userProfilePage}>
         <div className={styles.profileHeader}>
-          <Header image={Back} title="john_doe" path="/" />
+          <Header image={Back} title={user.username} path="/" />
           <img src={Checked} alt="Checked" />
         </div>
         <div className={styles.infos}>
           <Avatar large />
           <div className={styles.personalInfo}>
-            <h1>John Doe</h1>
-            <h5>UI/UX Designer</h5>
-            <h5>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore.
-            </h5>
-            <h5 className={styles.personalWeb}>www.yourdomain.com</h5>
+            <h1>
+              {user.firstname} {user.lastname}
+            </h1>
+            <h5>{user.profession}</h5>
+            <h5>{user.bio}</h5>
+            <h5 className={styles.personalWeb}>{user.website}</h5>
           </div>
           <div className={styles.socialInfo}>
             <div>
-              <h1>356</h1>
+              <h1>{user.blogs?.length ?? 0}</h1>
               <h5>Posts</h5>
             </div>
             <div>
-              <h1>46,379</h1>
+              <h1>{user.followers?.length ?? 0}</h1>
               <h5>Followers</h5>
             </div>
             <div>
-              <h1>318</h1>
+              <h1>{user.follows?.length ?? 0}</h1>
               <h5>Following</h5>
             </div>
           </div>
@@ -61,7 +77,7 @@ const OtherUserProfile = () => {
           </div>
         </div>
       </main>
-      <Navbar/>
+      <Navbar />
     </>
   );
 };

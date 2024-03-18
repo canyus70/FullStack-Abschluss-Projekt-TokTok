@@ -3,23 +3,40 @@ import FunctionButtons from "./FunctionButtons";
 import UserConciseInfos from "./UserConciseInfos";
 
 import styles from "./BlogCard.module.scss";
+import right from "../SVG/right.svg";
+import left from "../SVG/left.svg";
+import { useState } from "react";
 
-const BlogCard = ({
-  avatar,
-  name,
-  profession,
-  imageUrl,
-  liked,
-  comments,
-  saved,
-}) => {
+const BlogCard = ({ post }) => {
+  const [imageIndex, setImageIndex] = useState(0);
+
+  const lastImage = () => {
+    if (!post || !post.images || post.images.length <= 1) return;
+
+    setImageIndex((imageIndex - 1) % post.images.length);
+  };
+
+  const nextImage = () => {
+    if (!post || !post.images || post.images.length <= 1) return;
+
+    setImageIndex((imageIndex + 1) % post.images.length);
+  };
+
   return (
     <section className={styles.blogCard}>
-      <UserConciseInfos avatar={avatar} name={name} profession={profession} />
+      <UserConciseInfos post={post} />
+
       <div className={styles.image}>
-        <img src={imageUrl} alt="annie" />
+        <button onClick={lastImage} className={styles.iconButton}>
+          <img src={left} alt="left" />
+        </button>
+        <img src={post.images.at(imageIndex)} alt="image" />
+        <button onClick={nextImage} className={styles.iconButton}>
+          <img src={right} alt="right" />
+        </button>
       </div>
-      <FunctionButtons liked={liked} comments={comments} saved={saved} />
+
+      <FunctionButtons post={post} />
     </section>
   );
 };

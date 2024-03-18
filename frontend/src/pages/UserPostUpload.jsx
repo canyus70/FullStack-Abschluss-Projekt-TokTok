@@ -46,9 +46,7 @@ const UserPostUpload = () => {
       body: post,
     });
 
-    await response.json();
-
-    fetchUser(user._id, setUser);
+    const newPost = await response.json();
   };
 
   return (

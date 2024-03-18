@@ -5,20 +5,38 @@ import Avatar from "../components/avatar/Avatar";
 import Post from "../components/SVG/Post.svg";
 import MoreSettings from "../components/SVG/MoreSettings.svg";
 import Edit from "../components/SVG/Edit.svg";
+import Delete from "../components/SVG/Delete.svg";
 import Feeds from "../components/SVG/Feeds.svg";
 import Logo from "../components/SVG/Logo.svg";
-import annie from "../../src/images/annie.jpg";
 
 import styles from "./UserProfile.module.scss";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext.jsx";
+import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
 
 const UserProfile = () => {
+  const [accessToken] = useContext(AuthorizationContext);
   const [image, setImage] = useState("");
   const [user] = useContext(UserContext);
+  const [feeds, setFeeds] = useState([]);
 
-  console.log(Number(user.blogs?.length));
+  const fetchAllFeedsFromUser = async () => {
+    if (!accessToken || !user) return;
+
+    const response = await fetch(`api/v1/posts/${user._id}/feed`, {
+      headers: { authorization: `Bearer ${accessToken}` },
+    });
+    const { result } = await response.json();
+
+    setFeeds(result.posts);
+  };
+
+  useEffect(() => {
+    fetchAllFeedsFromUser();
+  }, [accessToken, user]);
+
+  if (!user) return;
 
   return (
     <>
@@ -53,11 +71,11 @@ const UserProfile = () => {
               <h5>Posts</h5>
             </div>
             <div>
-              <h1>{user.followers ?? 0}</h1>
+              <h1>{user.followers?.length ?? 0}</h1>
               <h5>Followers</h5>
             </div>
             <div>
-              <h1>{user.following ?? 0}</h1>
+              <h1>{user.following?.length ?? 0}</h1>
               <h5>Following</h5>
             </div>
           </div>
@@ -69,15 +87,16 @@ const UserProfile = () => {
             <h3>Feeds</h3>
           </div>
           <div className={styles.blogs}>
-            <div className={styles.image}>
-              <img src={annie} alt="annie" />
-            </div>
-            <div className={styles.image}>
-              <img src={annie} alt="annie" />
-            </div>
-            <div className={styles.image}>
-              <img src={annie} alt="annie" />
-            </div>
+            {feeds &&
+              feeds.map((feed) => (
+                <div key={feed._id} className={styles.image}>
+                  <img src={feed.images[0]} alt="postImage" />
+                  <div className={styles.buttons}>
+                    <img src={Edit} alt="edit" />{" "}
+                    <img src={Delete} alt="delete" />{" "}
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
       </main>
