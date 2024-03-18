@@ -37,7 +37,7 @@ const OtherUserProfile = () => {
           <img src={Checked} alt="Checked" />
         </div>
         <div className={styles.infos}>
-          <Avatar large />
+          <Avatar avatar={user.avatar} large />
           <div className={styles.personalInfo}>
             <h1>
               {user.firstname} {user.lastname}
