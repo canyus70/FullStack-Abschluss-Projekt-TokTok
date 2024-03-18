@@ -1,6 +1,7 @@
 import express from "express";
 import { UserController } from "../../controller/index.js";
 import { doJwtAuth } from "../../middleware/doJwtAuth.js";
+import upload from "../../middleware/multerConfig.js";
 
 const UserRouter = express.Router();
 
@@ -20,6 +21,7 @@ UserRouter.get(
 );
 UserRouter.patch(
   "/:userId/profile",
+  upload.single("avatar"),
   doJwtAuth,
   UserController.editUserProfileCtrl
 );

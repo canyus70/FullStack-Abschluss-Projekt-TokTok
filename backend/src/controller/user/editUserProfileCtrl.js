@@ -6,7 +6,7 @@ export async function editUserProfileCtrl(req, res) {
     const userInfo = req.body;
 
     if (req.file) {
-      userInfo.avatar = `http://localhost:4444/api/v1/users/${req.file.originalname}`;
+      userInfo.avatar = req.file.path;
     }
     const result = await UserService.editUser(authenticatedUserId, userInfo);
     res.json({ success: true, result });

@@ -19,16 +19,17 @@ const EditProfile = () => {
   if (!user) return null;
 
   const onSelectPhotos = (event) => {
-    if (event.target.files) {
+    if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
-
+  
       reader.onload = function (e) {
         setImage(e.target.result);
       };
-
+  
       reader.readAsDataURL(event.target.files[0]);
     }
   };
+  
 
   const editProfile = async () => {
     if (!ref.current) return;
@@ -49,10 +50,7 @@ const EditProfile = () => {
     <main className={styles.editProfilePage}>
       <Header image={Back} title="Edit Profile" path="/profile" />
       <section>
-        <div className={styles.uploadAvatar}>
-          <Avatar avatar={image} large edit />
-          <input type="file" name="avatar" onChange={onSelectPhotos} />
-        </div>
+
         <ConfigProvider
           theme={{
             token: {
@@ -63,6 +61,10 @@ const EditProfile = () => {
           }}
         >
           <form ref={ref}>
+          <div className={styles.uploadAvatar}>
+          <Avatar avatar={image} large edit />
+          <input type="file" name="avatar" onChange={onSelectPhotos} />
+          </div>
             <Input
               type="text"
               name="firstName"
@@ -70,6 +72,7 @@ const EditProfile = () => {
               placeholder="First Name"
               defaultValue={user.firstname}
             />
+            
             <Input
               type="text"
               name="lastName"
