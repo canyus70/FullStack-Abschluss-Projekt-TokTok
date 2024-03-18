@@ -1,39 +1,8 @@
-import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import TokTokLogo from '../SVG/TokTokLogo.svg'
 import { Input } from 'antd';
 import './SixDigit.scss';
 
-const SixDigit = () => {
-    const navigate = useNavigate();
-    const [verificationCode, setVerificationCode] = useState('');
-
-    const verifyUser = (event) => {
-        event.preventDefault();
-        if (!email || !password) {
-        setErrorMessage("email and password must be defined");
-        return;
-        }
-
-        fetch("http://localhost:4444/api/v1/users/verify-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-        })
-        .then((res) => res.json())
-        .then(({ success, result, message }) => {
-            if (!success){
-                setErrorMessage(message || "Login failed");
-                return 
-            } 
-            setErrorMessage(""); 
-            setSuccessMessage(
-            "Verify not match"
-            );
-            navigate('/Signin')
-        });
-        
-    };
 
     return ( 
         <header>
@@ -67,6 +36,5 @@ const SixDigit = () => {
             </div>
         </header>
     );
-}
 
 export default SixDigit;
