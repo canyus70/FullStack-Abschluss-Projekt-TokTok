@@ -55,7 +55,7 @@ const UserProfile = () => {
           </div>
         </div>
         <div className={styles.infos}>
-          <Avatar avatar={image} large />
+          <Avatar avatar={user.avatar} large />
 
           <div className={styles.personalInfo}>
             <h1>

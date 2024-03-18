@@ -36,8 +36,11 @@ const UserPostUpload = () => {
   const uploadPost = async () => {
     const post = new FormData();
 
-    post.append("images", imageRef.current.files);
+    for (const file of imageRef.current.files) {
+      post.append("images", file);
+    }
     post.append("description", textRef.current.value);
+    
 
     const response = await fetch("/api/v1/posts/add", {
       method: "POST",

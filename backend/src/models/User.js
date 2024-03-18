@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: () => Math.random().toString().slice(2, 8),
     },
+    profession: { type: String },
     emailVerified: { type: Boolean, default: false },
     blogs: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],

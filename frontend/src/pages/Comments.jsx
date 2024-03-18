@@ -15,7 +15,7 @@ const Comments = () => {
 
   const fetchPost = async () => {
     try {
-      const response = await fetch(`/api/v1/post/${postId}`); //缺少endpoint
+      const response = await fetch(`/api/v1/post/${postId}`); //缺少endpoint, machen wir zusammen
       const { result } = await response.json();
 
       setPost(result);

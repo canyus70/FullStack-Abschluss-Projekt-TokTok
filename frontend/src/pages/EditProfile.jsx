@@ -20,7 +20,7 @@ const EditProfile = () => {
   if (!user) return null;
 
   const onSelectPhotos = (event) => {
-    if (event.target.files) {
+    if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
 
       reader.onload = function (e) {
@@ -71,6 +71,7 @@ const EditProfile = () => {
               placeholder="First Name"
               defaultValue={user.firstname}
             />
+
             <Input
               type="text"
               name="lastName"
