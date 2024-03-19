@@ -1,7 +1,7 @@
 import Post from "../../models/Post.js";
 
 export async function getBlogPostById(postId) {
-    const blogPost = await Post.findById(postId)
+    const blogPost = await Post.findById(postId).populate("likedBy", "username avatar ")
         .populate("author", "username avatar profession qrcode");
     if (!blogPost) throw new Error("Post post not found");
     return blogPost;

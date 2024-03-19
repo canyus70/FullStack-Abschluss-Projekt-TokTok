@@ -11,11 +11,14 @@
   },
   "dependencies": {
     "antd": "^5.15.2",
+    "blob-util": "^2.0.2",
     "clsx": "^2.1.0",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
+    "react-slider": "^2.0.6",
+    "react-webcam": "^7.2.0",
     "sass": "^1.71.1",
     "use-detect-keyboard-open": "^0.4.0"
   },
