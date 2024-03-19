@@ -12,6 +12,7 @@ import fetchUser from "../services/fetchUser";
 
 const EditProfile = () => {
   const ref = useRef();
+
   const [image, setImage] = useState("");
   const [user, setUser] = useContext(UserContext);
   const [accessToken] = useContext(AuthorizationContext);
@@ -19,7 +20,7 @@ const EditProfile = () => {
   if (!user) return null;
 
   const onSelectPhotos = (event) => {
-    if (event.target.files) {
+    if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
 
       reader.onload = function (e) {
@@ -49,10 +50,6 @@ const EditProfile = () => {
     <main className={styles.editProfilePage}>
       <Header image={Back} title="Edit Profile" path="/profile" />
       <section>
-        <div className={styles.uploadAvatar}>
-          <Avatar avatar={image} large edit />
-          <input type="file" name="avatar" onChange={onSelectPhotos} />
-        </div>
         <ConfigProvider
           theme={{
             token: {
@@ -63,6 +60,10 @@ const EditProfile = () => {
           }}
         >
           <form ref={ref}>
+            <div className={styles.uploadAvatar}>
+              <Avatar avatar={image} large edit />
+              <input type="file" name="avatar" onChange={onSelectPhotos} />
+            </div>
             <Input
               type="text"
               name="firstName"
@@ -70,6 +71,7 @@ const EditProfile = () => {
               placeholder="First Name"
               defaultValue={user.firstname}
             />
+
             <Input
               type="text"
               name="lastName"
@@ -84,7 +86,6 @@ const EditProfile = () => {
               placeholder="User Name"
               defaultValue={user.username}
             />
-
             <Input
               type="email"
               name="email"
@@ -92,7 +93,6 @@ const EditProfile = () => {
               placeholder="Email"
               defaultValue={user.email}
             />
-
             <Input
               type="date"
               name="birthday"
@@ -111,7 +111,6 @@ const EditProfile = () => {
                 { value: "female", label: "Female" },
               ]}
             />
-
             <Input
               type="text"
               name="profession"
@@ -126,7 +125,6 @@ const EditProfile = () => {
               placeholder="Bio"
               defaultValue={user.bio}
             />
-
             <Input
               type="text"
               name="telephoneNumber"
@@ -134,7 +132,6 @@ const EditProfile = () => {
               placeholder="Telephone Number"
               defaultValue={user.phonenumber}
             />
-
             <Input
               type="text"
               name="website"
@@ -144,7 +141,7 @@ const EditProfile = () => {
             />
           </form>
         </ConfigProvider>
-        <button className="primaryButton" onClick={editProfile}>
+        <button type="button" className="primaryButton" onClick={editProfile}>
           Update
         </button>
       </section>

@@ -39,7 +39,7 @@ function App() {
 
             <Route path="/upload" element={<UserPostUpload />} />
             <Route path="/profile" element={<UserProfile />} />
-            <Route path="/comment" element={<Comments />} />
+            <Route path="/:postId/comment" element={<Comments />} />
             <Route path="/edit-profile" element={<EditProfile />} />
             <Route path="/saved" element={<Saved/>} />
             <Route path="/favoriten" element={<Favo/>} />

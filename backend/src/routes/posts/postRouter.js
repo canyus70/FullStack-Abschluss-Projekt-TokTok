@@ -7,6 +7,7 @@ const PostRouter = express
   .Router()
   .get("/", PostController.getAllBlogPostsCtrl)
   .get("/:userId/feed", doJwtAuth, PostController.getAllFromOneCtrl)
+  .get("/:postId", doJwtAuth, PostController.getBlogPostByIdCtrl)
   .post(
     "/add",
     upload.array("images", 7),

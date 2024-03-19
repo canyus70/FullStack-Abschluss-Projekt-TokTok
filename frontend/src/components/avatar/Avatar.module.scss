@@ -2,6 +2,7 @@
   position: relative;
   aspect-ratio: 1;
   width: 3.5rem;
+  height: 3.5rem;
   img {
     width: 100%;
   }
@@ -15,9 +16,11 @@
   }
   &.small {
     width: 3rem;
+    height: 3rem;
   }
   &.large {
     width: 7.5rem;
+    height: 7.5rem;
   }
 
   .edit {

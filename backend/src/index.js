@@ -33,6 +33,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use("/api/v1/users", UserRouter);
 app.use("/api/v1/posts", PostRouter);
+app.get("/", (_, res) => res.send("it works :)"));
 //app.use("/api/v1/comments", PostRouter);
 //app.use("/api/v1/activities", PostRouter);
 

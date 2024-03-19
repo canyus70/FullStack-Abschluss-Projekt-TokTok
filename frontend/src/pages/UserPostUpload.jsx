@@ -1,79 +1,197 @@
-import Header from "../components/header/Header";
-import Navbar from "../components/navbar/Navbar";
-import Avatar from "../components/avatar/Avatar";
-import SwitchButton from "../components/switchButton/SwitchButton";
+import React, {
+  useState,
+  useRef,
+  useContext,
+  useCallback,
+  useEffect,
+} from "react";
+import Webcam from "react-webcam";
+import Header from "../components/header/Header.jsx";
+import Navbar from "../components/navbar/Navbar.jsx";
+import styles from "./UserPostUpload.module.scss";
 
 import Setting from "../components/SVG/Setting.svg";
 import Logo from "../components/SVG/Logo.svg";
 import Camera from "../components/SVG/Camera.svg";
 import Location from "../components/SVG/Location.svg";
+import Avatar from "../components/avatar/Avatar";
 
-import styles from "./UserPostUpload.module.scss";
-import { useState, useRef, useContext } from "react";
-import AuthorizationContext from "../contexts/AuthorizationContext";
-import UserContext from "../contexts/UserContext";
-import fetchUser from "../services/fetchUser";
+import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
+import UserContext from "../contexts/UserContext.jsx";
+import {
+  FabricCanvas,
+  applyFilterToImage,
+  FILTERS,
+  convertDataURLToBlob,
+} from "../utils/fabricUtils.jsx";
 
 const UserPostUpload = () => {
   const [image, setImage] = useState("");
+  const [images, setImages] = useState([]);
+  const [showWebcam, setShowWebcam] = useState(false);
+  const [camera, setCamera] = useState("user");
+  const webcamRef = useRef(null);
   const imageRef = useRef(null);
-  const textRef = useRef(null);
+  const [showCanvas, setShowCanvas] = useState(false);
+  const [fabricCanvas, setFabricCanvas] = useState(null);
   const [accessToken] = useContext(AuthorizationContext);
   const [user, setUser] = useContext(UserContext);
+  const textRef = useRef(null);
 
-  if (!user) return null;
+  const capture = useCallback(() => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setImage(imageSrc);
+    setShowWebcam(false);
+    setShowCanvas(true);
+    setTimeout(() => updateCanvasWithImage(imageSrc, "none"), 500);
+  }, [webcamRef]);
+
+  const switchCamera = () => {
+    setCamera((prevCamera) => (prevCamera === "user" ? "environment" : "user"));
+  };
+
+  useEffect(() => {
+    if (showCanvas && image && fabricCanvas) {
+      updateCanvasWithImage(image, "none");
+    }
+  }, [showCanvas, image, fabricCanvas]);
+
+  const updateCanvasWithImage = (imgSrc, filterName) => {
+    if (!fabricCanvas) return;
+
+    fabric.Image.fromURL(imgSrc, (img) => {
+      img.scaleToWidth(fabricCanvas.getWidth());
+      img.scaleToHeight(fabricCanvas.getHeight());
+      fabricCanvas.clear();
+      fabricCanvas.add(img);
+      fabricCanvas.centerObject(img);
+      applyFilterToImage(img, filterName);
+    });
+  };
 
   const onSelectPhotos = (event) => {
-    if (event.target.files) {
-      const reader = new FileReader();
+    if (event.target.files.length) {
+      const files = Array.from(event.target.files);
+      const imagePromises = files.map((file) => {
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = (e) => resolve(e.target.result);
+          reader.readAsDataURL(file);
+        });
+      });
 
-      reader.onload = function (e) {
-        setImage(e.target.result);
-      };
-      reader.readAsDataURL(event.target.files[0]);
+      Promise.all(imagePromises).then((imageSrcs) => {
+        setImages(imageSrcs); // Speichert alle ausgewählten Bilder
+        setImage(imageSrcs[0]); // Setzt das erste Bild als Vorschau
+        setShowCanvas(true);
+      });
     }
   };
 
   const uploadPost = async () => {
-    const post = new FormData();
+    if (!image && images.length === 0) return;
 
-    post.append("images", imageRef.current.files);
-    post.append("description", textRef.current.value);
+    const formData = new FormData();
 
-    const response = await fetch("/api/v1/posts/add", {
-      method: "POST",
-      headers: { authorization: `Bearer ${accessToken}` },
-      body: post,
-    });
+    if (image) {
+      const blob = await convertDataURLToBlob(image);
+      formData.append("images", blob);
+    }
 
-    const newPost = await response.json();
+    for (const imageSrc of images) {
+      const blob = await convertDataURLToBlob(imageSrc);
+      formData.append("images", blob);
+    }
+
+    formData.append("description", textRef.current?.value);
+
+    try {
+      const response = await fetch("/api/v1/posts/add", {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Upload erfolgreich:", result);
+    } catch (error) {
+      console.error("Fehler beim Upload:", error);
+    }
   };
+
+  if (!user) return null;
 
   return (
     <>
       <main className={styles.uploadPage}>
-        <Header image={Logo} large title="New Post" />
+        <Header title="New Post" image={Logo} large />
         <div className={styles.uploadField}>
-          {image && (
-            <div className={styles.uploadPreview}>
-              <img src={image} alt="upload preview" />
-            </div>
+          {showCanvas && (
+            <>
+              <FabricCanvas onCanvasReady={setFabricCanvas} />
+              <div className={styles.filterButtons}>
+                {Object.keys(FILTERS).map((filterName) => (
+                  <button
+                    key={filterName}
+                    onClick={() => updateCanvasWithImage(image, filterName)}
+                  >
+                    {filterName.charAt(0).toUpperCase() + filterName.slice(1)}
+                  </button>
+                ))}
+              </div>
+            </>
           )}
-          <div className={styles.uploadButton}>
-            <img src={Camera} alt="camera" /> Upload
-          </div>
-          <input
-            className={styles.uploadButton}
-            type="file"
-            multiple
-            name="photos"
-            ref={imageRef}
-            onChange={onSelectPhotos}
-          />
+          {showWebcam ? (
+            <div>
+              <Webcam
+                audio={false}
+                ref={webcamRef}
+                screenshotFormat="image/jpeg"
+                width="100%"
+                videoConstraints={{ facingMode: camera }}
+              />
+              <button onClick={capture}>Capture</button>
+              <button onClick={switchCamera}>Switch Camera</button>
+            </div>
+          ) : (
+            !showCanvas &&
+            image && (
+              <div className={styles.uploadPreview}>
+                <img src={image} alt="Upload Preview" />
+              </div>
+            )
+          )}
+          {!showCanvas && (
+            <>
+              <div
+                className={styles.uploadButton}
+                onClick={() => setShowWebcam(!showWebcam)}
+              >
+                {showWebcam ? "Close Camera" : "Open Camera"}
+              </div>
+              <input
+                id="file-upload"
+                multiple
+                className={styles.fileInput}
+                type="file"
+                name="photos"
+                onChange={onSelectPhotos}
+                style={{ display: "none" }}
+              />
+              <label htmlFor="file-upload" className={styles.uploadButton}>
+                Upload
+              </label>
+            </>
+          )}
         </div>
-
         <div className={styles.description}>
-          <Avatar />
+          <Avatar avatar={user.avatar} />
           <textarea
             name="description"
             id="description"
@@ -83,32 +201,7 @@ const UserPostUpload = () => {
           ></textarea>
         </div>
         <hr />
-        <div className={styles.location}>
-          <img src={Location} alt="location" />
-          <h2>Add Location</h2>
-        </div>
-        <hr />
-        <div className={styles.socialMedia}>
-          <h2>Also post to</h2>
-          <div>
-            <h2>Facebook</h2>
-            <SwitchButton />
-          </div>
-          <div>
-            <h2>Twitter</h2>
-            <SwitchButton />
-          </div>
-          <div>
-            <h2>Tumblr</h2>
-            <SwitchButton />
-          </div>
-        </div>
-        <hr />
-        <div className={styles.setting}>
-          <img src={Setting} alt="setting" />
-          <h2>Advanced Settings</h2>
-        </div>
-        <button className="primaryButton" onClick={uploadPost}>
+        <button className={styles.primaryButton} onClick={uploadPost}>
           Upload
         </button>
       </main>

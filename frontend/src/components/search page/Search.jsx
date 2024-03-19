@@ -4,6 +4,7 @@ import IconMimik from "../SVG/IconMimik.svg";
 import "./Search.scss";
 import Navbar from "../navbar/Navbar";
 import { useEffect, useState } from "react";
+import Avatar from "../avatar/Avatar";
 
 const Search = () => {
   const [query, setQuery] = useState("");
@@ -50,8 +51,14 @@ const Search = () => {
       {query && ( // Nur anzeigen, wenn query nicht leer ist
         <ul>
           {searchResult.map((user) => (
-            <li key={user._id}>
-              {user.firstname} {user.lastname} - @{user.username}
+            <li key={user._id} className="tengu">
+              <div className="vallhalla">
+                <Avatar avatar={user.avatar} small />
+              </div>
+              <div className="shinto">
+                <h2>{user.username}</h2>
+                <h5>{user.profession}</h5>
+              </div>
             </li>
           ))}
         </ul>
