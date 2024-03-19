@@ -10,6 +10,7 @@ export async function createNewBlogPost(
     const newBlogPostInfo = {
         ...postInfo,
         author: authenticatedUserId
+
     };
 
     const newBlogPost = new Post(newBlogPostInfo);

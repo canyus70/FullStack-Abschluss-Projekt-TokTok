@@ -15,12 +15,14 @@ const PostRouter = express
     doJwtAuth,
     PostController.createNewBlogPostCtrl
   )
+
   .patch(
     "/:postId",
     upload.array("images", 7),
     doJwtAuth,
     PostController.updateBlogPostCtrl
   )
+
   .delete("/:postId", doJwtAuth, PostController.deleteBlogPostCtrl)
 
   .post("/:postId/like", doJwtAuth, PostController.addLikeToPostCtrl)
@@ -34,7 +36,9 @@ const PostRouter = express
   )
 
   .post("/:postId/comment", doJwtAuth, PostController.commentAPostCtrl)
-  .get("/:postId/comments", doJwtAuth, PostController.getAllCommentsForPostCtrl) //added by Runhong
+
+  .get("/:postId/comments", doJwtAuth, PostController.getAllCommentsForPostCtrl)
+
   .patch(
     "/:postId/comment/:commentId",
     doJwtAuth,
