@@ -13,16 +13,27 @@ import OtherUserProfile from "./pages/OtherUserProfile.jsx";
 import AuthorizationContextProvider from "./components/providers/AuthorizationContextProvider.jsx";
 import UserContextProvider from "./components/providers/UserContextProvider.jsx";
 import ForgotPassword from "./components/forgotpassword/ForgotPassword.jsx";
+import Splash from "./pages/splashscreen/SplashScreen.jsx"
+import  { useState, useEffect } from 'react';
+import Favo from "./components/Favo/Favo.jsx";
+import Saved from "./components/Saved/Saved.jsx";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const timeout = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timeout);
+  }, []);
+
   return (
     <BrowserRouter>
       <AuthorizationContextProvider>
         <UserContextProvider>
           <Routes>
+            <Route path="/splash" element={<Splash/>}/>
             <Route path="/" element={<Home />} />
             <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
+            <Route path="/signup" element={loading ? <Splash /> : <SignUp />} />
             <Route path="/sixdigit/:userId" element={<SixDigit />} />
             <Route path="/search" element={<Search />} />
 
@@ -30,6 +41,8 @@ function App() {
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/:postId/comment" element={<Comments />} />
             <Route path="/edit-profile" element={<EditProfile />} />
+            <Route path="/saved" element={<Saved/>} />
+            <Route path="/favoriten" element={<Favo/>} />
             <Route
               path="/:userId/other-user-profile"
               element={<OtherUserProfile />}
