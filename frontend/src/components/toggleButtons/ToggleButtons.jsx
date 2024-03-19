@@ -61,11 +61,51 @@ export const ToggleLike = ({ postId, onClick = () => {} }) => {
   );
 };
 
-export const ToggleSaved = () => {
+export const ToggleSaved = ({ postId, onClick = () => {} }) => {
   const [saved, setSaved] = useState(false);
+  const [user] = useContext(UserContext);
+  const [accessToken] = useContext(AuthorizationContext);
+
+  useEffect(() => {
+    if (!postId) return;
+    const isSaved = user?.saved?.find((save) => save._id === postId);
+    setSaved(!!isSaved);
+  }, [user, postId]);
+
+  // toggle save or unsaved
+  const toggleSaved = async () => {
+    if (!user || !postId) return;
+    if (!accessToken) window.alert("Please sign in");
+
+    const next = !saved;
+    const addSavedEndPoint = `api/v1/posts/${postId}/saved`;
+    const removeSavedEndPoint = `api/v1/posts/${postId}/remove-saved`;
+
+    try {
+      console.log(next);
+      if (next === true) {
+        const response = await fetch(addSavedEndPoint, {
+          method: "POST",
+          headers: { authorization: `Bearer ${accessToken}` },
+        });
+        await response.json();
+      } else if (next === false) {
+        const response = await fetch(removeSavedEndPoint, {
+          method: "DELETE",
+          headers: { authorization: `Bearer ${accessToken}` },
+        });
+        await response.json();
+      }
+
+      setSaved(next);
+      onClick(next);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
-    <button>
+    <button onClick={toggleSaved}>
       {saved ? (
         <img src={RedSaved} alt="redSaved" />
       ) : (
