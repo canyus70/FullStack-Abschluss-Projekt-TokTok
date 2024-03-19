@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Header from "../components/header/Header.jsx";
 
 import Avatar from "../components/avatar/Avatar.jsx";
@@ -7,10 +7,9 @@ import Checked from "../components/SVG/Checked.svg";
 import Feeds from "../components/SVG/Feeds.svg";
 import Back from "../components/SVG/Back.svg";
 import FollowUser from "../components/SVG/FollowUser.svg";
-import annie from "../../src/images/annie.jpg";
 
 import styles from "./UserProfile.module.scss";
-import Navbar from "../components/navbar/Navbar.jsx";
+
 import { useContext, useEffect, useState } from "react";
 import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
 import fetchUser from "../services/fetchUser.js";
@@ -18,16 +17,32 @@ import fetchUser from "../services/fetchUser.js";
 const OtherUserProfile = () => {
   const { userId } = useParams();
   const [accessToken] = useContext(AuthorizationContext);
-
+  const [feeds, setFeeds] = useState([]);
   const [user, setUser] = useState(undefined);
+
+  const fetchAllFeedsFromUser = async () => {
+    if (!accessToken || !user) return;
+
+    const response = await fetch(`/api/v1/posts/${userId}/feed`, {
+      headers: { authorization: `Bearer ${accessToken}` },
+    });
+    const { result } = await response.json();
+
+    setFeeds(result.posts);
+    setUser(result.userDetail);
+  };
 
   useEffect(() => {
     if (!accessToken) return;
 
     fetchUser(userId, setUser, accessToken);
-  }, [userId, setUser, accessToken]);
+
+    fetchAllFeedsFromUser();
+  }, [user, setUser, accessToken]);
 
   if (!user) return null;
+
+  console.log(user.username);
 
   return (
     <>
@@ -44,7 +59,9 @@ const OtherUserProfile = () => {
             </h1>
             <h5>{user.profession}</h5>
             <h5>{user.bio}</h5>
-            <h5 className={styles.personalWeb}>{user.website}</h5>
+            <Link to={user.website}>
+              <h5 className={styles.personalWeb}>{user.website}</h5>
+            </Link>
           </div>
           <div className={styles.socialInfo}>
             <div>
@@ -70,14 +87,19 @@ const OtherUserProfile = () => {
             <img src={Feeds} alt="feeds" />
             <h3>Feeds</h3>
           </div>
+
           <div className={styles.blogs}>
-            <div className={styles.image}>
-              <img src={annie} alt="annie" />
-            </div>
+            {feeds &&
+              feeds.map((feed) => (
+                <div key={feed._id} className={styles.image}>
+                  <Link to={`/${feed._id}/comment`}>
+                    <img src={feed.images[0]} alt="postImage" />
+                  </Link>
+                </div>
+              ))}
           </div>
         </div>
       </main>
-      <Navbar />
     </>
   );
 };

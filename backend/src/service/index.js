@@ -35,6 +35,7 @@ import { updateBlogPost } from "./posts/updateBlogPost.js";
 import { removeCommentFromAPost } from "./posts/comments/removeCommentFromAPost.js";
 import { updateComment } from "./posts/comments/updateComment.js";
 import { deletePost } from "./posts/deletePost.js";
+import { getAllCommentsForPost } from "./posts/comments/getAllCommentsForPost.js";
 
 export const PostService = {
   getAllBlogPosts,
@@ -50,6 +51,7 @@ export const PostService = {
   commentAPost,
   removeCommentFromAPost,
   updateComment,
+  getAllCommentsForPost, //added by Runhong
   //=========SAVED HADNLER===========//
   savePostForUser,
   removeSavedPost,

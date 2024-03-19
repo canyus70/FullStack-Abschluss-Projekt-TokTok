@@ -4,23 +4,31 @@ import Avatar from "../components/avatar/Avatar";
 import SwitchButton from "../components/switchButton/SwitchButton";
 
 import Setting from "../components/SVG/Setting.svg";
-import Logo from "../components/SVG/Logo.svg";
+import Back from "../components/SVG/Back.svg";
 import Camera from "../components/SVG/Camera.svg";
 import Location from "../components/SVG/Location.svg";
 
 import styles from "./UserPostUpload.module.scss";
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import AuthorizationContext from "../contexts/AuthorizationContext";
 import UserContext from "../contexts/UserContext";
 
-const UserPostUpload = () => {
+const EditPost = () => {
   const [image, setImage] = useState("");
   const imageRef = useRef(null);
   const textRef = useRef(null);
   const [accessToken] = useContext(AuthorizationContext);
   const [user, setUser] = useContext(UserContext);
+  const { postId } = useParams();
+  const [post, setPost] = useState(undefined);
 
   if (!user) return null;
+
+  // useEffect(() => {
+  //   if (!accessToken || !post) return;
+  //   fetchPost(postId, accessToken, setPost);
+  // }, []);
 
   const onSelectPhotos = (event) => {
     if (event.target.files) {
@@ -41,19 +49,19 @@ const UserPostUpload = () => {
     }
     post.append("description", textRef.current.value);
 
-    const response = await fetch("/api/v1/posts/add", {
-      method: "POST",
+    const response = await fetch(`/api/v1/posts/${postId}`, {
+      method: "PATCH",
       headers: { authorization: `Bearer ${accessToken}` },
       body: post,
     });
 
-    const newPost = await response.json();
+    await response.json();
   };
 
   return (
     <>
       <main className={styles.uploadPage}>
-        <Header image={Logo} large title="New Post" />
+        <Header image={Back} large title="Edit Post" path="/profile" />
         <div className={styles.uploadField}>
           {image && (
             <div className={styles.uploadPreview}>
@@ -81,6 +89,7 @@ const UserPostUpload = () => {
             ref={textRef}
             cols="30"
             rows="1"
+            // defaultValue={post.description}
           ></textarea>
         </div>
         <hr />
@@ -113,9 +122,8 @@ const UserPostUpload = () => {
           Upload
         </button>
       </main>
-      <Navbar />
     </>
   );
 };
 
-export default UserPostUpload;
+export default EditPost;

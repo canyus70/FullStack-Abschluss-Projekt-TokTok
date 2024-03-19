@@ -13,6 +13,7 @@ import OtherUserProfile from "./pages/OtherUserProfile.jsx";
 import AuthorizationContextProvider from "./components/providers/AuthorizationContextProvider.jsx";
 import UserContextProvider from "./components/providers/UserContextProvider.jsx";
 import ForgotPassword from "./components/forgotpassword/ForgotPassword.jsx";
+import EditPost from "./pages/EditPost.jsx";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
               element={<OtherUserProfile />}
             />
             <Route path="/resend-password" element={<ForgotPassword />} />
+            <Route path="/edit-post/:postId" element={<EditPost />} />
           </Routes>
         </UserContextProvider>
       </AuthorizationContextProvider>
