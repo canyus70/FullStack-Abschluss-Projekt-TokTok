@@ -40,6 +40,7 @@ import { updateBlogPostCtrl } from "./posts/updateBlogPostCtrl.js";
 import { removeCommentFromPostCtrl } from "./posts/comments/removeCommentFormPostCtrl.js";
 import { updateCommentCtrl } from "./posts/comments/updateCommentCtrl.js";
 import { deleteBlogPostCtrl } from "./posts/deleteBlogPostCtrl.js";
+import { getAllCommentsForPostCtrl } from "./posts/comments/getAllCommentsForPostCtrl.js";
 
 export const PostController = {
   getAllBlogPostsCtrl,
@@ -55,6 +56,7 @@ export const PostController = {
   commentAPostCtrl,
   removeCommentFromPostCtrl,
   updateCommentCtrl,
+  getAllCommentsForPostCtrl, //added by Runhong
   //=========SAVED HADNLER===========//
   savePostCtrl,
   removeSavedPostCtrl,

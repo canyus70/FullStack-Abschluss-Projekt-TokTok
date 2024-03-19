@@ -13,10 +13,14 @@ import OtherUserProfile from "./pages/OtherUserProfile.jsx";
 import AuthorizationContextProvider from "./components/providers/AuthorizationContextProvider.jsx";
 import UserContextProvider from "./components/providers/UserContextProvider.jsx";
 import ForgotPassword from "./components/forgotpassword/ForgotPassword.jsx";
+
+import EditPost from "./pages/EditPost.jsx";
+
 import Splash from "./pages/splashscreen/SplashScreen.jsx"
 import  { useState, useEffect } from 'react';
 import Favo from "./components/Favo/Favo.jsx";
 import Saved from "./components/Saved/Saved.jsx";
+
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -48,6 +52,7 @@ function App() {
               element={<OtherUserProfile />}
             />
             <Route path="/resend-password" element={<ForgotPassword />} />
+            <Route path="/edit-post/:postId" element={<EditPost />} />
           </Routes>
         </UserContextProvider>
       </AuthorizationContextProvider>

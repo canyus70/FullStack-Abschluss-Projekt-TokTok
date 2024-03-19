@@ -2,6 +2,7 @@ import express from "express";
 import { PostController } from "../../controller/index.js";
 import upload from "../../middleware/multerConfig.js";
 import { doJwtAuth } from "../../middleware/doJwtAuth.js";
+import { PostService } from "../../service/index.js";
 
 const PostRouter = express
   .Router()
@@ -14,7 +15,14 @@ const PostRouter = express
     doJwtAuth,
     PostController.createNewBlogPostCtrl
   )
-  .patch("/:postId", doJwtAuth, PostController.updateBlogPostCtrl)
+
+  .patch(
+    "/:postId",
+    upload.array("images", 7),
+    doJwtAuth,
+    PostController.updateBlogPostCtrl
+  )
+
   .delete("/:postId", doJwtAuth, PostController.deleteBlogPostCtrl)
 
   .post("/:postId/like", doJwtAuth, PostController.addLikeToPostCtrl)
@@ -28,6 +36,9 @@ const PostRouter = express
   )
 
   .post("/:postId/comment", doJwtAuth, PostController.commentAPostCtrl)
+
+  .get("/:postId/comments", doJwtAuth, PostController.getAllCommentsForPostCtrl)
+
   .patch(
     "/:postId/comment/:commentId",
     doJwtAuth,

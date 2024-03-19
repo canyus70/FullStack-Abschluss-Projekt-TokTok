@@ -24,14 +24,14 @@ const BlogCard = ({ post }) => {
 
   return (
     <section className={styles.blogCard}>
-      <UserConciseInfos post={post} />
+      <UserConciseInfos user={post.author} />
 
       <div className={styles.image}>
-        <button onClick={lastImage} className={styles.iconButton}>
+        <button onClick={lastImage} className="iconButton">
           <img src={left} alt="left" />
         </button>
         <img src={post.images.at(imageIndex)} alt="image" />
-        <button onClick={nextImage} className={styles.iconButton}>
+        <button onClick={nextImage} className="iconButton">
           <img src={right} alt="right" />
         </button>
       </div>

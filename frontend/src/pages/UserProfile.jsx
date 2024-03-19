@@ -32,7 +32,6 @@ const UserProfile = () => {
   };
 
   const [accessToken] = useContext(AuthorizationContext);
-  const [image, setImage] = useState("");
   const [user] = useContext(UserContext);
   const [feeds, setFeeds] = useState([]);
 
@@ -45,6 +44,20 @@ const UserProfile = () => {
     const { result } = await response.json();
 
     setFeeds(result.posts);
+  };
+
+  const deletePost = async (feedId) => {
+    try {
+      const response = fetch(`api/v1/posts/${feedId}`, {
+        method: "DELETE",
+        headers: { authorization: `Bearer ${accessToken}` },
+      });
+
+      (await response).json();
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -126,7 +139,9 @@ const UserProfile = () => {
             </h1>
             <h5>{user.profession}</h5>
             <h5>{user.bio}</h5>
-            <h5 className={styles.personalWeb}>{user.website}</h5>
+            <Link to={user.website}>
+              <h5 className={styles.personalWeb}>{user.website}</h5>
+            </Link>
           </div>
           <div className={styles.socialInfo}>
             <div>
@@ -153,10 +168,21 @@ const UserProfile = () => {
             {feeds &&
               feeds.map((feed) => (
                 <div key={feed._id} className={styles.image}>
-                  <img src={feed.images[0]} alt="postImage" />
+                  <Link to={`/${feed._id}/comment`}>
+                    <img src={feed.images[0]} alt="postImage" />
+                  </Link>
                   <div className={styles.buttons}>
-                    <img src={Edit} alt="edit" />{" "}
-                    <img src={Delete} alt="delete" />{" "}
+                    <Link to={`/edit-post/${feed._id}`}>
+                      <button className="iconButton">
+                        <img src={Edit} alt="edit" />
+                      </button>
+                    </Link>
+                    <button
+                      className="iconButton"
+                      onClick={() => deletePost(feed._id)}
+                    >
+                      <img src={Delete} alt="delete" />
+                    </button>
                   </div>
                 </div>
               ))}
