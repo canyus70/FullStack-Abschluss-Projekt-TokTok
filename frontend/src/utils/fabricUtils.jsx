@@ -1,41 +1,158 @@
-import { fabric } from "fabric";
-import React, { useRef, useEffect } from "react";
+import React, { useState, useRef, useContext, useCallback } from "react";
+import Webcam from "react-webcam";
+import Header from "../components/header/Header.jsx";
+import Navbar from "../components/navbar/Navbar.jsx";
+import styles from "./UserPostUpload.module.scss";
 
-export const FabricCanvas = ({ onCanvasReady }) => {
-  const canvasRef = useRef(null);
+import Logo from "../components/SVG/Logo.svg";
+import Avatar from "../components/avatar/Avatar";
 
-  useEffect(() => {
-    const canvas = new fabric.Canvas(canvasRef.current);
-    onCanvasReady(canvas);
+import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
+import UserContext from "../contexts/UserContext.jsx";
+import { convertDataURLToBlob } from "../utils/fabricUtils.jsx";
 
-    canvas.setHeight(600);
-    canvas.setWidth(800);
-  }, [onCanvasReady]);
+const UserPostUpload = () => {
+  const [image, setImage] = useState("");
+  const [images, setImages] = useState([]);
+  const [showWebcam, setShowWebcam] = useState(false);
+  const [camera, setCamera] = useState("user");
+  const webcamRef = useRef(null);
+  const [accessToken] = useContext(AuthorizationContext);
+  const [user, setUser] = useContext(UserContext);
+  const textRef = useRef(null);
 
-  return <canvas ref={canvasRef} />;
+  const capture = useCallback(() => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setImage(imageSrc);
+    setShowWebcam(false);
+  }, [webcamRef]);
+
+  const switchCamera = () => {
+    setCamera((prevCamera) => (prevCamera === "user" ? "environment" : "user"));
+  };
+
+  const onSelectPhotos = (event) => {
+    if (event.target.files.length) {
+      const files = Array.from(event.target.files);
+      const imagePromises = files.map((file) => {
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = (e) => resolve(e.target.result);
+          reader.readAsDataURL(file);
+        });
+      });
+
+      Promise.all(imagePromises).then((imageSrcs) => {
+        setImages(imageSrcs); // Speichert alle ausgewählten Bilder
+        setImage(imageSrcs[0]); // Setzt das erste Bild als Vorschau
+      });
+    }
+  };
+
+  const uploadPost = async () => {
+    if (!image && images.length === 0) return;
+
+    const formData = new FormData();
+
+    if (image) {
+      const blob = await convertDataURLToBlob(image);
+      formData.append("images", blob);
+    }
+
+    for (const imageSrc of images) {
+      const blob = await convertDataURLToBlob(imageSrc);
+      formData.append("images", blob);
+    }
+
+    formData.append("description", textRef.current?.value);
+
+    try {
+      const response = await fetch("/api/v1/posts/add", {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Upload erfolgreich:", result);
+    } catch (error) {
+      console.error("Fehler beim Upload:", error);
+    }
+  };
+
+  if (!user) return null;
+
+  return (
+    <>
+      <main className={styles.uploadPage}>
+        <Header title="New Post" image={Logo} large />
+        <div className={styles.uploadField}>
+          {showWebcam ? (
+            <div>
+              <Webcam
+                audio={false}
+                ref={webcamRef}
+                screenshotFormat="image/jpeg"
+                width="100%"
+                videoConstraints={{ facingMode: camera }}
+              />
+              <button onClick={capture}>Capture</button>
+              <button onClick={switchCamera}>Switch Camera</button>
+            </div>
+          ) : (
+            image && (
+              <div className={styles.uploadPreview}>
+                <img src={image} alt="Upload Preview" />
+              </div>
+            )
+          )}
+          {!showWebcam && (
+            <>
+              <div
+                className={styles.uploadButton}
+                onClick={() => setShowWebcam(!showWebcam)}
+              >
+                {showWebcam ? "Close Camera" : "Open Camera"}
+              </div>
+              <input
+                id="file-upload"
+                multiple
+                className={styles.fileInput}
+                type="file"
+                name="photos"
+                onChange={onSelectPhotos}
+                style={{ display: "none" }}
+              />
+              <label htmlFor="file-upload" className={styles.uploadButton}>
+                Upload
+              </label>
+            </>
+          )}
+        </div>
+        <div className={styles.description}>
+          <Avatar avatar={user.avatar} />
+          <textarea
+            name="description"
+            id="description"
+            ref={textRef}
+            cols="30"
+            rows="1"
+          ></textarea>
+        </div>
+        <hr />
+        <button className={styles.primaryButton} onClick={uploadPost}>
+          Upload
+        </button>
+      </main>
+      <Navbar />
+    </>
+  );
 };
 
-export const FILTERS = {
-  none: () => new fabric.Image.filters.RemoveColor(),
-  grayscale: () => new fabric.Image.filters.Grayscale(),
-  sepia: () => new fabric.Image.filters.Sepia(),
-  invert: () => new fabric.Image.filters.Invert(),
-  saturation: (value) =>
-    new fabric.Image.filters.Saturation({ saturation: value }),
-};
-
-export const applyFilterToImage = (image, filterName) => {
-  if (!image || !filterName) return;
-
-  const filterFunction = FILTERS[filterName];
-  if (filterFunction) {
-    image.filters = [filterFunction()];
-    image.applyFilters();
-  }
-};
-
-export const convertDataURLToBlob = async (dataURL) => {
-  const response = await fetch(dataURL);
-  const blob = await response.blob();
-  return blob;
-};
+export default UserPostUpload;

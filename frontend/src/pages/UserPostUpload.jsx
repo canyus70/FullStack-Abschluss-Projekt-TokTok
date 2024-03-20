@@ -18,12 +18,6 @@ import Avatar from "../components/avatar/Avatar";
 
 import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
 import UserContext from "../contexts/UserContext.jsx";
-import {
-  FabricCanvas,
-  applyFilterToImage,
-  FILTERS,
-  convertDataURLToBlob,
-} from "../utils/fabricUtils.jsx";
 
 const UserPostUpload = () => {
   const [image, setImage] = useState("");
@@ -31,9 +25,6 @@ const UserPostUpload = () => {
   const [showWebcam, setShowWebcam] = useState(false);
   const [camera, setCamera] = useState("user");
   const webcamRef = useRef(null);
-  const imageRef = useRef(null);
-  const [showCanvas, setShowCanvas] = useState(false);
-  const [fabricCanvas, setFabricCanvas] = useState(null);
   const [accessToken] = useContext(AuthorizationContext);
   const [user, setUser] = useContext(UserContext);
   const textRef = useRef(null);
@@ -42,31 +33,10 @@ const UserPostUpload = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImage(imageSrc);
     setShowWebcam(false);
-    setShowCanvas(true);
-    setTimeout(() => updateCanvasWithImage(imageSrc, "none"), 500);
   }, [webcamRef]);
 
   const switchCamera = () => {
     setCamera((prevCamera) => (prevCamera === "user" ? "environment" : "user"));
-  };
-
-  useEffect(() => {
-    if (showCanvas && image && fabricCanvas) {
-      updateCanvasWithImage(image, "none");
-    }
-  }, [showCanvas, image, fabricCanvas]);
-
-  const updateCanvasWithImage = (imgSrc, filterName) => {
-    if (!fabricCanvas) return;
-
-    fabric.Image.fromURL(imgSrc, (img) => {
-      img.scaleToWidth(fabricCanvas.getWidth());
-      img.scaleToHeight(fabricCanvas.getHeight());
-      fabricCanvas.clear();
-      fabricCanvas.add(img);
-      fabricCanvas.centerObject(img);
-      applyFilterToImage(img, filterName);
-    });
   };
 
   const onSelectPhotos = (event) => {
@@ -83,7 +53,6 @@ const UserPostUpload = () => {
       Promise.all(imagePromises).then((imageSrcs) => {
         setImages(imageSrcs); // Speichert alle ausgewählten Bilder
         setImage(imageSrcs[0]); // Setzt das erste Bild als Vorschau
-        setShowCanvas(true);
       });
     }
   };
@@ -97,9 +66,6 @@ const UserPostUpload = () => {
       const blob = await convertDataURLToBlob(image);
       formData.append("images", blob);
     }
-
-    post.append("description", textRef.current.value);
-
 
     for (const imageSrc of images) {
       const blob = await convertDataURLToBlob(imageSrc);
@@ -135,21 +101,6 @@ const UserPostUpload = () => {
       <main className={styles.uploadPage}>
         <Header title="New Post" image={Logo} large />
         <div className={styles.uploadField}>
-          {showCanvas && (
-            <>
-              <FabricCanvas onCanvasReady={setFabricCanvas} />
-              <div className={styles.filterButtons}>
-                {Object.keys(FILTERS).map((filterName) => (
-                  <button
-                    key={filterName}
-                    onClick={() => updateCanvasWithImage(image, filterName)}
-                  >
-                    {filterName.charAt(0).toUpperCase() + filterName.slice(1)}
-                  </button>
-                ))}
-              </div>
-            </>
-          )}
           {showWebcam ? (
             <div>
               <Webcam
@@ -163,14 +114,13 @@ const UserPostUpload = () => {
               <button onClick={switchCamera}>Switch Camera</button>
             </div>
           ) : (
-            !showCanvas &&
             image && (
               <div className={styles.uploadPreview}>
                 <img src={image} alt="Upload Preview" />
               </div>
             )
           )}
-          {!showCanvas && (
+          {!showWebcam && (
             <>
               <div
                 className={styles.uploadButton}
