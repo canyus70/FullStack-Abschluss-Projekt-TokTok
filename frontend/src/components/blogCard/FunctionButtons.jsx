@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ToggleLike, ToggleSaved } from "../toggleButtons/ToggleButtons";
 import Comment from "../SVG/Comment.svg";
@@ -28,27 +28,37 @@ const FunctionButtons = ({ transparent, post }) => {
     setSaved(count < 0 ? 0 : count);
   };
 
-  const [shareLink, setShareLink] = useState("");
+  const [copied, setCopied] = useState(false);
 
-  const getShareLink = async () => {
-    try {
-      const response = await fetch(`/api/v1/posts/${post._id}/share`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch share link");
-      }
-      const result = await response.json();
-      console.log(result);
-      const shareLink = result.result;
-      setShareLink(shareLink);
-    } catch (error) {
-      console.log(error);
-    }
+
+  const copyToClipboard = () => {
+    const url = `${document.location.origin}/${post?._id}/comment`;
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        setCopied(true);
+      })
+      .catch(() => {
+        console.log("Copy error");
+      });
   };
+
+  useEffect(() => {
+    if (copied) {
+      const button = document.getElementById("copyButton");
+      button.classList.add("copied");
+      setTimeout(() => {
+        button.classList.remove("copied");
+        setCopied(false);
+      }, 1000);
+    }
+  }, [copied]);
+
 
   return (
     <div className={styles.functionButtons}>
       <div>
-        <ToggleLike onClick={onClickLike} postId={post._id} />
+        <ToggleLike onClick={onClickLike} post={post} />
         <p>{liked}</p>
       </div>
       <div>
@@ -66,7 +76,13 @@ const FunctionButtons = ({ transparent, post }) => {
         <p>{saved}</p>
       </div>
 
-      <button className={transparent && styles.transparent}>
+      <button
+        className={`${transparent && styles.transparent} ${
+          copied && styles.copied
+        }`}
+        onClick={copyToClipboard}
+        id="copyButton"
+      >
         <img src={Share} alt="share" />
       </button>
     </div>
