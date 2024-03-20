@@ -17,7 +17,6 @@ import CloseFriends from "../components/SVG/CloseFriends.svg";
 import Heart from "../components/SVG/Heart.svg";
 import InformationCenter from "../components/SVG/InformationCenter.svg";
 
-
 import styles from "./UserProfile.module.scss";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
@@ -82,13 +81,15 @@ const UserProfile = () => {
             <div className={styles.popup}>
               <div className={styles.popup_content}>
                 {/* Hier können Sie Ihre Einstellungen platzieren */}
-                <button className={styles.button} onClick={togglePopup}>____</button>
+                <button className={styles.button} onClick={togglePopup}>
+                  ____
+                </button>
                 <div>
                   <img src={Setting} alt="" />
                   <p>Settings</p>
                 </div>
                 <div>
-                  <img src={Archiv}alt="" />
+                  <img src={Archiv} alt="" />
                   <p>Archive</p>
                 </div>
                 <div>
@@ -109,7 +110,7 @@ const UserProfile = () => {
                   <img src={CloseFriends} alt="" />
                   <p>Close Friends</p>
                 </div>
-                <Link className={styles.link} to="/favoriten" >
+                <Link className={styles.link} to="/favoriten">
                   <div>
                     <img src={Heart} alt="" />
                     <p>Favorites</p>
