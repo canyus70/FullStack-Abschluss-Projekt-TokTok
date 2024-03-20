@@ -50,6 +50,7 @@ const UserProfile = () => {
   }, [accessToken, user]);
 
   if (!user) return;
+  console.log(user);
 
   return (
     <>
@@ -82,7 +83,7 @@ const UserProfile = () => {
           </div>
           <div className={styles.socialInfo}>
             <div>
-              <h1>{user.blogs ?? 0}</h1>
+              <h1>{user.blogs?.length ?? 0}</h1>
               <h5>Posts</h5>
             </div>
             <div>

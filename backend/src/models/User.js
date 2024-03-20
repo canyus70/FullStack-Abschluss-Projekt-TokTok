@@ -52,7 +52,7 @@ userSchema.methods.toProfileInfo = function () {
     gender: this.gender,
     followers: this.followers,
     following: this.following,
-
+    blogs: this.blogs,
     _id: this._id,
   };
 };
