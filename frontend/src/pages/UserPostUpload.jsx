@@ -15,6 +15,7 @@ import Logo from "../components/SVG/Logo.svg";
 import Camera from "../components/SVG/Camera.svg";
 import Location from "../components/SVG/Location.svg";
 import Avatar from "../components/avatar/Avatar";
+import { convertDataURLToBlob } from "../utils/convertDataURLtoBlob.js";
 
 import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
 import UserContext from "../contexts/UserContext.jsx";
