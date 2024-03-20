@@ -18,7 +18,7 @@ const MONGODB_URL = process.env.MONGODB_URL;
 const PORT = process.env.PORT || 4444;
 const app = express();
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: "https://toktok-nks4.onrender.com", credentials: true }));
 app.set("trusty proxy", 1);
 const cookieSessionOptions = {
   name: "session",
