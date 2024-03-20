@@ -39,3 +39,4 @@ export const convertDataURLToBlob = async (dataURL) => {
   const blob = await response.blob();
   return blob;
 };
+

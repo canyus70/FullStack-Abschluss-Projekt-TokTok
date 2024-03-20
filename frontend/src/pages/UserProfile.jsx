@@ -25,12 +25,6 @@ import UserContext from "../contexts/UserContext.jsx";
 import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
 
 const UserProfile = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const togglePopup = () => {
-    setIsOpen(!isOpen);
-  };
-
   const [accessToken] = useContext(AuthorizationContext);
   const [user] = useContext(UserContext);
   const [feeds, setFeeds] = useState([]);
@@ -64,7 +58,7 @@ const UserProfile = () => {
     fetchAllFeedsFromUser();
   }, [accessToken, user]);
 
-  if (!user) return null;
+  if (!user) return;
 
   return (
     <>
@@ -79,7 +73,7 @@ const UserProfile = () => {
               <img src={Edit} alt="edit" />
             </Link>
 
-            <img  src={MoreSettings} alt="moreSettings" onClick={togglePopup} />
+            <img src={MoreSettings} alt="moreSettings" />
           </div>
         </div>
         {isOpen && (
@@ -139,9 +133,9 @@ const UserProfile = () => {
             </h1>
             <h5>{user.profession}</h5>
             <h5>{user.bio}</h5>
-            <Link to={user.website}>
-              <h5 className={styles.personalWeb}>{user.website}</h5>
-            </Link>
+            <a target="_blank" href={user.website}>
+              {user.website}
+            </a>
           </div>
           <div className={styles.socialInfo}>
             <div>

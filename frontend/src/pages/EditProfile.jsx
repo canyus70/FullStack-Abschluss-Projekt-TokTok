@@ -6,6 +6,7 @@ import Back from "../components/SVG/Back.svg";
 
 import styles from "./EditProfile.module.scss";
 import { useContext, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
 import AuthorizationContext from "../contexts/AuthorizationContext";
 import fetchUser from "../services/fetchUser";
@@ -16,6 +17,7 @@ const EditProfile = () => {
   const [image, setImage] = useState("");
   const [user, setUser] = useContext(UserContext);
   const [accessToken] = useContext(AuthorizationContext);
+  const navigate = useNavigate();
 
   if (!user) return null;
 
@@ -44,6 +46,8 @@ const EditProfile = () => {
 
     await response.json();
     await fetchUser(user._id, setUser, accessToken);
+
+    navigate("/profile");
   };
 
   return (

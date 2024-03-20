@@ -8,9 +8,9 @@ export async function removeSavedPost(authenticatedUserId, postId) {
   const user = await User.findById(authenticatedUserId);
   if (!user) throw new Error("User not found");
 
-  //   if (!post.savedBy.includes(user._id)) {
-  //     throw new Error("User did not like this post");
-  //   }
+  if (!post.savedBy.includes(user._id)) {
+    throw new Error("User did not like this post");
+  }
   user.saved.pull(postId);
   post.savedBy.pull(user._id);
   await post.save();
