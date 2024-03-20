@@ -10,7 +10,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="Navbar">
+      <div className="navbarContainer">
         <Link
           to="/"
           className={`navLink ${location.pathname === "/" ? "active" : ""}`}
