@@ -1,6 +1,5 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { backendUrl } from "./src/api";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -8,7 +7,7 @@ export default defineConfig({
 
   server: {
     proxy: {
-      "/api": backendUrl,
+      "/api": "http://localhost:4444",
     },
   },
 });
