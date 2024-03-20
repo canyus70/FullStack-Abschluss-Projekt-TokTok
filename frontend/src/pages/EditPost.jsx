@@ -58,7 +58,7 @@ const EditPost = () => {
     }
     post.append("description", textRef.current.value);
 
-    const response = await fetch(`/api/v1/posts/${postId}`, {
+    const response = await fetch(`${backendUrl}/api/v1/posts/${postId}`, {
       method: "PATCH",
       headers: { authorization: `Bearer ${accessToken}` },
       body: post,

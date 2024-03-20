@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Input } from "antd";
 import "./ForgotPassword.scss";
 import { useState } from "react";
+import { backendUrl } from "../../api";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ const ForgotPassword = () => {
       return;
     }
 
-    fetch("http://localhost:4444/api/v1/users/resend-password", {
+    fetch(`${backendUrl}/api/v1/users/resend-password`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),

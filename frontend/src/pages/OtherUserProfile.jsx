@@ -29,9 +29,12 @@ const OtherUserProfile = () => {
     const fetchAllFeedsFromUser = async () => {
       if (!accessToken || !userId) return;
 
-      const response = await fetch(`/api/v1/posts/${userId}/feed`, {
-        headers: { authorization: `Bearer ${accessToken}` },
-      });
+      const response = await fetch(
+        `${backendUrl}/api/v1/posts/${userId}/feed`,
+        {
+          headers: { authorization: `Bearer ${accessToken}` },
+        }
+      );
       const { result } = await response.json();
 
       setFeeds(result.posts);

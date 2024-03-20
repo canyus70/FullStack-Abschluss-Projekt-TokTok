@@ -38,11 +38,14 @@ const EditProfile = () => {
 
     const profile = new FormData(ref.current);
 
-    const response = await fetch(`api/v1/users/${user._id}/profile`, {
-      method: "PATCH",
-      headers: { authorization: `Bearer ${accessToken}` },
-      body: profile,
-    });
+    const response = await fetch(
+      `${backendUrl}/api/v1/users/${user._id}/profile`,
+      {
+        method: "PATCH",
+        headers: { authorization: `Bearer ${accessToken}` },
+        body: profile,
+      }
+    );
 
     await response.json();
     await fetchUser(user._id, setUser, accessToken);

@@ -76,7 +76,7 @@ const UserPostUpload = () => {
     formData.append("description", textRef.current?.value);
 
     try {
-      const response = await fetch("/api/v1/posts/add", {
+      const response = await fetch(`${backendUrl}/api/v1/posts/add`, {
         method: "POST",
         headers: {
           authorization: `Bearer ${accessToken}`,

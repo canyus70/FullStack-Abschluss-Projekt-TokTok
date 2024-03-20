@@ -37,9 +37,12 @@ const UserProfile = () => {
   const fetchAllFeedsFromUser = async () => {
     if (!accessToken || !user) return;
 
-    const response = await fetch(`api/v1/posts/${user._id}/feed`, {
-      headers: { authorization: `Bearer ${accessToken}` },
-    });
+    const response = await fetch(
+      `${backendUrl}/api/v1/posts/${user._id}/feed`,
+      {
+        headers: { authorization: `Bearer ${accessToken}` },
+      }
+    );
     const { result } = await response.json();
 
     setFeeds(result.posts);
@@ -78,12 +81,12 @@ const UserProfile = () => {
               <img src={Edit} alt="edit" />
             </Link>
 
-            <img src={MoreSettings} alt="moreSettings"onClick={togglePopup} />
+            <img src={MoreSettings} alt="moreSettings" onClick={togglePopup} />
           </div>
         </div>
         {isOpen && (
           <>
-            <div className={styles.overlay} ></div>
+            <div className={styles.overlay}></div>
             <div className={styles.popup}>
               <div className={styles.popup_content}>
                 {/* Hier können Sie Ihre Einstellungen platzieren */}

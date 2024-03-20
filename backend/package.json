@@ -4,10 +4,9 @@
   "description": "FullStack-ABschluss-Projekt: TokTok",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js",
-    "build": "npm install"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "keywords": [],
   "author": "Runhong Huang, Nehbi Ramadani, Nikola Sretkovic, Yusuf Can ",
