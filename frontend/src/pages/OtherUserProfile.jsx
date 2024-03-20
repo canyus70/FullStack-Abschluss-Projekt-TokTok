@@ -20,25 +20,25 @@ const OtherUserProfile = () => {
   const [feeds, setFeeds] = useState([]);
   const [user, setUser] = useState(undefined);
 
-  const fetchAllFeedsFromUser = async () => {
-    if (!accessToken || !user) return;
-
-    const response = await fetch(`/api/v1/posts/${userId}/feed`, {
-      headers: { authorization: `Bearer ${accessToken}` },
-    });
-    const { result } = await response.json();
-
-    setFeeds(result.posts);
-    setUser(result.userDetail);
-  };
+  useEffect(() => {
+    if (!accessToken || !userId) return;
+    fetchUser(userId, setUser, accessToken);
+  }, [userId, accessToken]);
 
   useEffect(() => {
-    if (!accessToken) return;
+    const fetchAllFeedsFromUser = async () => {
+      if (!accessToken || !userId) return;
 
-    fetchUser(userId, setUser, accessToken);
+      const response = await fetch(`/api/v1/posts/${userId}/feed`, {
+        headers: { authorization: `Bearer ${accessToken}` },
+      });
+      const { result } = await response.json();
+
+      setFeeds(result.posts);
+    };
 
     fetchAllFeedsFromUser();
-  }, [user, setUser, accessToken]);
+  }, [userId, accessToken]);
 
   if (!user) return null;
 
