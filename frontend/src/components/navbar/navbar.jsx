@@ -1,9 +1,8 @@
-
-import './navbar.scss'
-import IconHome from '../SVG/IconHome.svg'
-import IconSearch from '../SVG/IconSearch.svg'
-import IconUpload from '../SVG/IconUpload.svg'
-import IconProfile from '../SVG/IconProfile.svg'
+import "./navbar.scss";
+import IconHome from "../SVG/IconHome.svg";
+import IconSearch from "../SVG/IconSearch.svg";
+import IconUpload from "../SVG/IconUpload.svg";
+import IconProfile from "../SVG/IconProfile.svg";
 import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
@@ -11,37 +10,54 @@ const Navbar = () => {
 
   return (
     <>
-    <div className='Navbar'>
-        <Link to="/" className={`navLink ${location.pathname === "/" ? "active" : ""}`}>
-        <div>
+      <div className="Navbar">
+        <Link
+          to="/"
+          className={`navLink ${location.pathname === "/" ? "active" : ""}`}
+        >
+          <div>
             <img
-            src={IconHome}
-            alt="Home"
-            className={`homeImage navImage ${
+              src={IconHome}
+              alt="Home"
+              className={`homeImage navImage ${
                 location.pathname === "/home" ? "active" : ""
-            }`}
+              }`}
             />
-        </div>
+          </div>
         </Link>
-        <Link to="/search" className={`navLink ${location.pathname === "/search" ? "active" : ""}`}>
-        <div>
-            <img src={IconSearch} alt="Search" className='navImage' />
-        </div>
+        <Link
+          to="/search"
+          className={`navLink ${
+            location.pathname === "/search" ? "active" : ""
+          }`}
+        >
+          <div>
+            <img src={IconSearch} alt="Search" className="navImage" />
+          </div>
         </Link>
-        <Link to="/upload" className={`navLink ${location.pathname === "/upload" ? "active" : ""}`}>
-        <div>
-        <img src={IconUpload} alt="Upload" className='navImage'/>
-        </div>
+        <Link
+          to="/upload"
+          className={`navLink ${
+            location.pathname === "/upload" ? "active" : ""
+          }`}
+        >
+          <div>
+            <img src={IconUpload} alt="Upload" className="navImage" />
+          </div>
         </Link>
-        <Link to="/profile" className={`navLink ${location.pathname === "/profile" ? "active" : ""}`}>
-        <div>
-        <img src={IconProfile} alt="" className='navImage' />
-        </div>
+        <Link
+          to="/profile"
+          className={`navLink ${
+            location.pathname === "/profile" ? "active" : ""
+          }`}
+        >
+          <div>
+            <img src={IconProfile} alt="" className="navImage" />
+          </div>
         </Link>
-        </div>
+      </div>
     </>
-);
-}
+  );
+};
 
 export default Navbar;
-
