@@ -1,6 +1,6 @@
 import BlogCard from "../components/blogCard/BlogCard";
 import Logo from "../components/SVG/Logo.svg";
-import Navbar from "../components/navbar/Navbar.jsx";
+import Navbar from "../components/navbar/Navbar";
 
 import styles from "./Home.module.scss";
 import Header from "../components/header/Header.jsx";
