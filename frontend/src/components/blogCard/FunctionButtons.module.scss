@@ -20,3 +20,29 @@
     opacity: 0;
   }
 }
+
+.postDescription {
+  text-align: center;
+}
+
+.copied {
+  animation: vibration 0.5s ease-in-out;
+}
+
+@keyframes vibration {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+  100% {
+    transform: translateX(2px);
+  }
+}
