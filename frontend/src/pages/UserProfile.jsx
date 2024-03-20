@@ -9,7 +9,7 @@ import Delete from "../components/SVG/Delete.svg";
 import Feeds from "../components/SVG/Feeds.svg";
 import Logo from "../components/SVG/Logo.svg";
 import Setting from "../components/SVG/Setting.svg";
-import Archive from "../components/SVG/Archive.svg";
+import Archiv from "../components/SVG/Archiv.svg";
 import Time from "../components/SVG/Time.svg";
 import ScanQRCode from "../components/SVG/ScanQRCode.svg";
 import Saved from "../components/SVG/Saved.svg";
@@ -94,7 +94,7 @@ const UserProfile = () => {
                   <p>Settings</p>
                 </div>
                 <div>
-                  <img src={Archive}alt="" />
+                  <img src={Archiv}alt="" />
                   <p>Archive</p>
                 </div>
                 <div>

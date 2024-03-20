@@ -1,4 +1,4 @@
-import { fabric } from "fabric";
+// import { fabric } from "fabric";
 import React, { useRef, useEffect } from "react";
 
 export const FabricCanvas = ({ onCanvasReady }) => {
