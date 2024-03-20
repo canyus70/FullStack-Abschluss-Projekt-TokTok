@@ -100,7 +100,6 @@ const UserPostUpload = () => {
 
     post.append("description", textRef.current.value);
 
-
     for (const imageSrc of images) {
       const blob = await convertDataURLToBlob(imageSrc);
       formData.append("images", blob);
