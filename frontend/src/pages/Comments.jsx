@@ -102,7 +102,6 @@ const Comments = () => {
   }, [accessToken, setPost, setMessage]);
 
   if (!post) return null;
-  console.log(post);
 
   return (
     <>

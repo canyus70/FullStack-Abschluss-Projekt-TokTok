@@ -134,7 +134,7 @@ const UserPostUpload = () => {
       <main className={styles.uploadPage}>
         <Header title="New Post" image={Logo} large />
         <div className={styles.uploadField}>
-          {showCanvas && (
+          {/* {showCanvas && (
             <>
               <FabricCanvas onCanvasReady={setFabricCanvas} />
               <div className={styles.filterButtons}>
@@ -148,9 +148,9 @@ const UserPostUpload = () => {
                 ))}
               </div>
             </>
-          )}
+          )} */}
           {showWebcam ? (
-            <div>
+            <div className={styles.webcam}>
               <Webcam
                 audio={false}
                 ref={webcamRef}
@@ -158,11 +158,14 @@ const UserPostUpload = () => {
                 width="100%"
                 videoConstraints={{ facingMode: camera }}
               />
-              <button onClick={capture}>Capture</button>
-              <button onClick={switchCamera}>Switch Camera</button>
+              <div className={styles.cameraButtons}>
+                <button onClick={capture} className={styles.capture}>
+                  Capture
+                </button>
+                <button onClick={switchCamera}>Switch Camera</button>
+              </div>
             </div>
           ) : (
-            !showCanvas &&
             image && (
               <div className={styles.uploadPreview}>
                 <img src={image} alt="Upload Preview" />
@@ -171,26 +174,28 @@ const UserPostUpload = () => {
           )}
           {!showCanvas && (
             <>
-              <div
-                className={styles.uploadButton}
-                onClick={() => setShowWebcam(!showWebcam)}
-              >
-                {showWebcam ? "Close Camera" : "Open Camera"}
+              <div className={styles.uploadButton}>
+                <input
+                  id="file-upload"
+                  multiple
+                  className={styles.fileInput}
+                  type="file"
+                  name="photos"
+                  onChange={onSelectPhotos}
+                  style={{ display: "none" }}
+                />
+                <label htmlFor="file-upload" className={styles.uploadButton}>
+                  Upload
+                </label>
               </div>
-              <input
-                id="file-upload"
-                multiple
-                className={styles.fileInput}
-                type="file"
-                name="photos"
-                onChange={onSelectPhotos}
-                style={{ display: "none" }}
-              />
-              <label htmlFor="file-upload" className={styles.uploadButton}>
-                Upload
-              </label>
             </>
           )}
+        </div>
+        <div
+          className={styles.uploadButton}
+          onClick={() => setShowWebcam(!showWebcam)}
+        >
+          {showWebcam ? "Close Camera" : "Open Camera"}
         </div>
         <div className={styles.description}>
           <Avatar avatar={user.avatar} />

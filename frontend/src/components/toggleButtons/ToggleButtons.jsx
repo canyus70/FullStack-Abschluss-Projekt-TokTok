@@ -7,25 +7,26 @@ import Saved from "../SVG/Saved.svg";
 import UserContext from "../../contexts/UserContext";
 import AuthorizationContext from "../../contexts/AuthorizationContext";
 
-export const ToggleLike = ({ postId, onClick = () => {} }) => {
-  const [liked, setLiked] = useState(false);
+export const ToggleLike = ({ post, onClick = () => {} }) => {
   const [user] = useContext(UserContext);
   const [accessToken] = useContext(AuthorizationContext);
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
-    if (!postId) return;
-    const isLiked = user?.likes?.find((like) => like._id === postId);
+    if (!post._id) return;
+    const isLiked = user?.likes?.find((like) => like === post._id);
+
     setLiked(!!isLiked);
-  }, [user, postId]);
+  }, [user, post._id]);
 
   // toggle like or unlike
   const toggleLike = async () => {
-    if (!user || !postId) return;
+    if (!user || !post._id) return;
     if (!accessToken) window.alert("Please sign in");
 
     const next = !liked;
-    const addLikedEndPoint = `api/v1/posts/${postId}/like`;
-    const removeLikedEndPoint = `api/v1/posts/${postId}/unlike`;
+    const addLikedEndPoint = `/api/v1/posts/${post._id}/like`;
+    const removeLikedEndPoint = `/api/v1/posts/${post._id}/unlike`;
 
     try {
       console.log(next);
@@ -42,7 +43,6 @@ export const ToggleLike = ({ postId, onClick = () => {} }) => {
         });
         await response.json();
       }
-
       setLiked(next);
       onClick(next);
     } catch (error) {
@@ -68,7 +68,9 @@ export const ToggleSaved = ({ postId, onClick = () => {} }) => {
 
   useEffect(() => {
     if (!postId) return;
-    const isSaved = user?.saved?.find((save) => save._id === postId);
+
+    const isSaved = user?.saved?.find((save) => save === postId);
+
     setSaved(!!isSaved);
   }, [user, postId]);
 
@@ -78,8 +80,8 @@ export const ToggleSaved = ({ postId, onClick = () => {} }) => {
     if (!accessToken) window.alert("Please sign in");
 
     const next = !saved;
-    const addSavedEndPoint = `api/v1/posts/${postId}/saved`;
-    const removeSavedEndPoint = `api/v1/posts/${postId}/remove-saved`;
+    const addSavedEndPoint = `/api/v1/posts/${postId}/saved`;
+    const removeSavedEndPoint = `/api/v1/posts/${postId}/remove-saved`;
 
     try {
       console.log(next);
@@ -96,7 +98,6 @@ export const ToggleSaved = ({ postId, onClick = () => {} }) => {
         });
         await response.json();
       }
-
       setSaved(next);
       onClick(next);
     } catch (error) {

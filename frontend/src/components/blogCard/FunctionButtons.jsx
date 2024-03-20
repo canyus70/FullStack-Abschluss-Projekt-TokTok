@@ -30,6 +30,7 @@ const FunctionButtons = ({ transparent, post }) => {
 
   const [copied, setCopied] = useState(false);
 
+
   const copyToClipboard = () => {
     const url = `${document.location.origin}/${post?._id}/comment`;
     navigator.clipboard
@@ -53,10 +54,11 @@ const FunctionButtons = ({ transparent, post }) => {
     }
   }, [copied]);
 
+
   return (
     <div className={styles.functionButtons}>
       <div>
-        <ToggleLike onClick={onClickLike} postId={post._id} />
+        <ToggleLike onClick={onClickLike} post={post} />
         <p>{liked}</p>
       </div>
       <div>

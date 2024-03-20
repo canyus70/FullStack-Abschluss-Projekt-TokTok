@@ -8,15 +8,6 @@ import Edit from "../components/SVG/Edit.svg";
 import Delete from "../components/SVG/Delete.svg";
 import Feeds from "../components/SVG/Feeds.svg";
 import Logo from "../components/SVG/Logo.svg";
-import Setting from "../components/SVG/Setting.svg";
-import Archive from "../components/SVG/Archive.svg";
-import Time from "../components/SVG/Time.svg";
-import ScanQRCode from "../components/SVG/ScanQRCode.svg";
-import Saved from "../components/SVG/Saved.svg";
-import CloseFriends from "../components/SVG/CloseFriends.svg";
-import Heart from "../components/SVG/Heart.svg";
-import InformationCenter from "../components/SVG/InformationCenter.svg";
-
 
 import styles from "./UserProfile.module.scss";
 import { Link } from "react-router-dom";
@@ -25,12 +16,6 @@ import UserContext from "../contexts/UserContext.jsx";
 import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
 
 const UserProfile = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const togglePopup = () => {
-    setIsOpen(!isOpen);
-  };
-
   const [accessToken] = useContext(AuthorizationContext);
   const [user] = useContext(UserContext);
   const [feeds, setFeeds] = useState([]);
@@ -64,7 +49,7 @@ const UserProfile = () => {
     fetchAllFeedsFromUser();
   }, [accessToken, user]);
 
-  if (!user) return null;
+  if (!user) return;
 
   return (
     <>
@@ -79,57 +64,9 @@ const UserProfile = () => {
               <img src={Edit} alt="edit" />
             </Link>
 
-            <img  src={MoreSettings} alt="moreSettings" onClick={togglePopup} />
+            <img src={MoreSettings} alt="moreSettings" />
           </div>
         </div>
-        {isOpen && (
-          <>
-            <div className={styles.overlay} onClick={togglePopup}></div>
-            <div className={styles.popup}>
-              <div className={styles.popup_content}>
-                {/* Hier können Sie Ihre Einstellungen platzieren */}
-                <button className={styles.button} onClick={togglePopup}>____</button>
-                <div>
-                  <img src={Setting} alt="" />
-                  <p>Settings</p>
-                </div>
-                <div>
-                  <img src={Archive}alt="" />
-                  <p>Archive</p>
-                </div>
-                <div>
-                  <img src={Time} alt="" />
-                  <p>Your Activity</p>
-                </div>
-                <div>
-                  <img src={ScanQRCode} alt="" />
-                  <p>QR Code</p>
-                </div>
-                <Link className={styles.link} to="/saved">
-                  <div>
-                    <img src={Saved} alt="" />
-                    <p>Saved</p>
-                  </div>
-                </Link>
-                <div>
-                  <img src={CloseFriends} alt="" />
-                  <p>Close Friends</p>
-                </div>
-                <Link className={styles.link} to="/favoriten" >
-                  <div>
-                    <img src={Heart} alt="" />
-                    <p>Favorites</p>
-                  </div>
-                </Link>
-                <div>
-                  <img src={InformationCenter} alt="" />
-                  <p>Information Center</p>
-                </div>
-              </div>
-            </div>
-          </>
-        )}
-
         <div className={styles.infos}>
           <Avatar avatar={user.avatar} large />
 
@@ -139,9 +76,9 @@ const UserProfile = () => {
             </h1>
             <h5>{user.profession}</h5>
             <h5>{user.bio}</h5>
-            <Link to={user.website}>
-              <h5 className={styles.personalWeb}>{user.website}</h5>
-            </Link>
+            <a target="_blank" href={user.website}>
+              {user.website}
+            </a>
           </div>
           <div className={styles.socialInfo}>
             <div>
