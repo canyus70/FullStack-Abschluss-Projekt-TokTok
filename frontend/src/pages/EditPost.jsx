@@ -1,5 +1,4 @@
 import Header from "../components/header/Header";
-import Navbar from "../components/navbar/Navbar";
 import Avatar from "../components/avatar/Avatar";
 import SwitchButton from "../components/switchButton/SwitchButton";
 

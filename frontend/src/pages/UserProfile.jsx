@@ -1,5 +1,5 @@
 import Header from "../components/header/Header";
-import Navbar from "../components/navbar/Navbar.jsx";
+// import Navbar from "../components/navbar/Navbar.jsx";
 import Avatar from "../components/avatar/Avatar";
 
 import Post from "../components/SVG/Post.svg";
@@ -193,7 +193,7 @@ const UserProfile = () => {
           </div>
         </div>
       </main>
-      <Navbar />
+      {/* <Navbar /> */}
     </>
   );
 };

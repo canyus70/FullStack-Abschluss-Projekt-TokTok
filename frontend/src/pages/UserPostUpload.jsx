@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import Webcam from "react-webcam";
 import Header from "../components/header/Header.jsx";
-import Navbar from "../components/navbar/Navbar.jsx";
+// import Navbar from "../components/navbar/Navbar.jsx";
 import styles from "./UserPostUpload.module.scss";
 
 import Setting from "../components/SVG/Setting.svg";
@@ -165,7 +165,7 @@ const UserPostUpload = () => {
           Upload
         </button>
       </main>
-      <Navbar />
+      {/* <Navbar /> */}
     </>
   );
 };
