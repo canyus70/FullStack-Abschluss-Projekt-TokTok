@@ -24,6 +24,12 @@ import UserContext from "../contexts/UserContext.jsx";
 import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
 
 const UserProfile = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
+
   const [accessToken] = useContext(AuthorizationContext);
   const [user] = useContext(UserContext);
   const [feeds, setFeeds] = useState([]);
@@ -72,12 +78,12 @@ const UserProfile = () => {
               <img src={Edit} alt="edit" />
             </Link>
 
-            <img src={MoreSettings} alt="moreSettings" />
+            <img src={MoreSettings} alt="moreSettings"onClick={togglePopup} />
           </div>
         </div>
         {isOpen && (
           <>
-            <div className={styles.overlay} onClick={togglePopup}></div>
+            <div className={styles.overlay} ></div>
             <div className={styles.popup}>
               <div className={styles.popup_content}>
                 {/* Hier können Sie Ihre Einstellungen platzieren */}
