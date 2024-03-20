@@ -2,7 +2,7 @@ import { UserOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import IconMimik from "../SVG/IconMimik.svg";
 import "./Search.scss";
-import Navbar from "../navbar/Navbar";
+// import Navbar from "../navbar/Navbar";
 import { useEffect, useState } from "react";
 import Avatar from "../avatar/Avatar";
 import { backendUrl } from "../../api";
@@ -64,7 +64,7 @@ const Search = () => {
           ))}
         </ul>
       )}
-      <Navbar />
+      {/* <Navbar /> */}
     </>
   );
 };
