@@ -10,25 +10,34 @@ import Location from "../components/SVG/Location.svg";
 
 import styles from "./UserPostUpload.module.scss";
 import { useState, useRef, useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import AuthorizationContext from "../contexts/AuthorizationContext";
 import UserContext from "../contexts/UserContext";
+import fetchPost from "../services/fetchPost";
 
 const EditPost = () => {
-  const [image, setImage] = useState("");
+  const [post, setPost] = useState(undefined);
+  const [image, setImage] = useState(post?.images[0]);
   const imageRef = useRef(null);
   const textRef = useRef(null);
   const [accessToken] = useContext(AuthorizationContext);
   const [user, setUser] = useContext(UserContext);
   const { postId } = useParams();
-  const [post, setPost] = useState(undefined);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!accessToken) return;
+
+    fetchPost(postId, accessToken, setPost);
+  }, [accessToken]);
+
+  useEffect(() => {
+    if (post) {
+      setImage(post.images[0]);
+    }
+  }, [post]);
 
   if (!user) return null;
-
-  // useEffect(() => {
-  //   if (!accessToken || !post) return;
-  //   fetchPost(postId, accessToken, setPost);
-  // }, []);
 
   const onSelectPhotos = (event) => {
     if (event.target.files) {
@@ -56,6 +65,7 @@ const EditPost = () => {
     });
 
     await response.json();
+    navigate("/profile");
   };
 
   return (
@@ -89,7 +99,7 @@ const EditPost = () => {
             ref={textRef}
             cols="30"
             rows="1"
-            // defaultValue={post.description}
+            defaultValue={post?.description}
           ></textarea>
         </div>
         <hr />

@@ -42,8 +42,6 @@ const OtherUserProfile = () => {
 
   if (!user) return null;
 
-  console.log(user.username);
-
   return (
     <>
       <main className={styles.userProfilePage}>

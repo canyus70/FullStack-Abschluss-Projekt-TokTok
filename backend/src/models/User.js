@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema(
     phonenumber: { type: Number },
     bio: { type: String },
     gender: { type: String, enum: ["male", "female", "divers"] },
-    birthday: { type: Date, required: true },
+    birthday: { type: Date },
     website: { type: String },
     sixDigitCode: {
       type: String,
@@ -46,6 +46,8 @@ userSchema.methods.toProfileInfo = function () {
     bio: this.bio,
     birthday: this.birthday,
     phonenumber: this.phonenumber,
+    likes: this.likes,
+    saved: this.saved,
     website: this.website,
     gender: this.gender,
     followers: this.followers,

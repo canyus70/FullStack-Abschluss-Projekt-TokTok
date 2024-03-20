@@ -30,25 +30,10 @@ const FunctionButtons = ({ transparent, post }) => {
 
   const [shareLink, setShareLink] = useState("");
 
-  const getShareLink = async () => {
-    try {
-      const response = await fetch(`/api/v1/posts/${post._id}/share`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch share link");
-      }
-      const result = await response.json();
-      console.log(result);
-      const shareLink = result.result;
-      setShareLink(shareLink);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <div className={styles.functionButtons}>
       <div>
-        <ToggleLike onClick={onClickLike} postId={post._id} />
+        <ToggleLike onClick={onClickLike} post={post} />
         <p>{liked}</p>
       </div>
       <div>
