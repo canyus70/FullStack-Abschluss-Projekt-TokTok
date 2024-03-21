@@ -70,7 +70,7 @@ const UserProfile = () => {
     <>
       <main className={styles.userProfilePage}>
         <div className={styles.profileHeader}>
-          <Header image={Logo} large title={user.username} />
+          <Header image={Logo} large title={user.username} path="/" />
           <div>
             <Link to="/upload">
               <img src={Post} alt="post" />

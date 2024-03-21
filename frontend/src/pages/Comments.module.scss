@@ -48,11 +48,13 @@
     gap: 1rem;
 
     .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       img {
         cursor: pointer;
-
         &:nth-of-type(2) {
-          margin-left: 90px;
+          align-self: center;
+          justify-self: center;
         }
       }
     }

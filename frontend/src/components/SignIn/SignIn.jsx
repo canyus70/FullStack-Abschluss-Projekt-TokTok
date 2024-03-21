@@ -73,20 +73,20 @@ const SignIn = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <Input
-          type="submit"
-          value="SignIn"
-          className="registration-button1"
-          onClick={loginUser}
-        />
+        <button className="registrationButton" onClick={loginUser}>
+          SignIn
+        </button>
+
         <Link className="Only1" to="/resend-password">
           <div className="forgot1">
-            <p>Forgot the password?</p>
+            <p style={{ color: "#3f51b2" }}>Forgot the password?</p>
           </div>
         </Link>
       </form>
-      <p style={{ color: "red" }}>{errorMessage}</p>
-      <p style={{ color: "green" }}>{successMessage}</p>
+      <div className="message">
+        <p style={{ color: "#ff4d67" }}>{errorMessage}</p>
+        <p style={{ color: "#27C39E" }}>{successMessage}</p>
+      </div>
       <div className="SigIn1">
         <p>Don’t have an account?</p>
         <Link className="Only1" to="/SignUp">

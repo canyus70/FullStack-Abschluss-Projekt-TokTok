@@ -1,85 +1,85 @@
 header {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 .text1 {
-    position: absolute;
-    top: 20px;
-    left: 20px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
 }
 
 .logoTok1 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 40px; /* Erhöhen Sie den Abstand unter dem Logo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px; /* Erhöhen Sie den Abstand unter dem Logo */
 }
 
 .logoTok1 img {
-    padding-top: 200px;
-    width: 180px; /* Ändern Sie die Breite des Logos */
-    height: auto; /* Automatische Höhe beibehalten, um das Seitenverhältnis zu bewahren */
+  padding-top: 200px;
+  width: 180px; /* Ändern Sie die Breite des Logos */
+  height: auto; /* Automatische Höhe beibehalten, um das Seitenverhältnis zu bewahren */
 }
 
 h1 {
-    text-align: center;
+  text-align: center;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
 }
 
 .reg-input1 {
-    margin-bottom: 20px; // Erhöhen Sie den Abstand zwischen den Eingabefeldern
-    width: 100%;
-    padding: 10px;
-    border: 2px solid rgba(0, 0, 0, 0.063);
-    border-radius: 10px;
-    color:black;
+  margin-bottom: 20px; // Erhöhen Sie den Abstand zwischen den Eingabefeldern
+  width: 100%;
+  padding: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.063);
+  border-radius: 10px;
+  color: black;
 }
 
-.forgot1{
-    margin-top: 20px; /* Abstand zwischen den Eingabefeldern für das Vergessen des Passworts und das Anmelden */
-    width: 100%;
-text-align: center;
-    padding: 10px;
-    color: #E98090;
-    font-size: 18px;
+.forgot1 {
+  margin-top: 20px; /* Abstand zwischen den Eingabefeldern für das Vergessen des Passworts und das Anmelden */
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  color: #e98090;
+  font-size: 18px;
 }
 
 .registration-button1 {
-    width: 18.75rem;
-    border: 3px solid #e98090;
-    background-color: #E98090;
-    padding: 15px;
-    border-radius: 20px;
-    font-size: 16px;
-    color: white;
+  width: 18.75rem;
+  border: 3px solid #e98090;
+  background-color: #e98090;
+  padding: 15px;
+  border-radius: 20px;
+  font-size: 16px;
+  color: white;
 }
 
 .SigIn1 {
-    text-align: center;
-    display: flex;
-    padding: 10px;
+  text-align: center;
+  display: flex;
+  padding: 10px;
 }
 
-.Only1{
-    font-size: 18px;
-    padding-top: 9px;
-    color: #E98090;
-    text-decoration: none;
-    font-weight: 700;
+.Only1 {
+  font-size: 18px;
+  padding-top: 9px;
+  color: #e98090;
+  text-decoration: none;
+  font-weight: 700;
 }
 
 .SigIn1 p {
-    margin-top: 100px; /* Verschieben Sie den Text etwas weiter nach unten */
-    padding-left: 10px;
+  margin-top: 100px; /* Verschieben Sie den Text etwas weiter nach unten */
+  padding-left: 10px;
 }

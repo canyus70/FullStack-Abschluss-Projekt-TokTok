@@ -103,31 +103,7 @@ const EditPost = () => {
           ></textarea>
         </div>
         <hr />
-        <div className={styles.location}>
-          <img src={Location} alt="location" />
-          <h2>Add Location</h2>
-        </div>
-        <hr />
-        <div className={styles.socialMedia}>
-          <h2>Also post to</h2>
-          <div>
-            <h2>Facebook</h2>
-            <SwitchButton />
-          </div>
-          <div>
-            <h2>Twitter</h2>
-            <SwitchButton />
-          </div>
-          <div>
-            <h2>Tumblr</h2>
-            <SwitchButton />
-          </div>
-        </div>
-        <hr />
-        <div className={styles.setting}>
-          <img src={Setting} alt="setting" />
-          <h2>Advanced Settings</h2>
-        </div>
+
         <button className="primaryButton" onClick={uploadPost}>
           Upload
         </button>

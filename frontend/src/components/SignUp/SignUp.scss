@@ -1,94 +1,104 @@
 header {
-    position: relative;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  .text {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+
+  .logoTok {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px; // Erhöhen Sie den Abstand unter dem Logo
+  }
+
+  .logoTok img {
+    padding-top: 150px;
+    width: 180px; // Ändern Sie die Breite des Logos
+    height: auto; // Automatische Höhe beibehalten, um das Seitenverhältnis zu bewahren
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
-  
-    .text {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-    }
-  
-    .logoTok {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 40px; // Erhöhen Sie den Abstand unter dem Logo
-    }
-  
-    .logoTok img {
-        padding-top: 150px;
-      width: 180px; // Ändern Sie die Breite des Logos
-      height: auto; // Automatische Höhe beibehalten, um das Seitenverhältnis zu bewahren
-    }
-  
-    h1 {
-      text-align: center;
-    }
-  
-    form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 300px;
+    width: 300px;
 
-      
-      .reg-input {
-        margin-bottom: 20px; // Erhöhen Sie den Abstand zwischen den Eingabefeldern
-        width: 100%;
-        padding: 10px;
-        border: 1px solid rgba(0, 0, 0, 0.063);
-        border-radius: 10px;
-        color:black;
-      }
-
-      .reg-input:hover{
-        border-color: #E98090;
-        background-color: #e9809080;
-      }
-
-  
-      .registration-button {
-        width: 18.75rem;
-        border: 3px solid #e98090;
-        background-color: #E98090;
-        padding: 15px;
-        border-radius: 20px;
-        color: white;
-      }
-      .registration-button:hover{
-        border-color: #e98090;
-        background-color: #e9809049;
-        color: black;
-      }
-    }
-  
-    .SigIn {
-      text-align: center;
-      display: flex;
+    .reg-input {
+      margin-bottom: 20px; // Erhöhen Sie den Abstand zwischen den Eingabefeldern
+      width: 100%;
       padding: 10px;
-      
-  
-      p {
-        padding-left: 10px;
-        
-      }
-      .Only{
-        font-size: 18px;
-        padding-top: 9px;
-        color: #E98090;
-        text-decoration: none;
-        font-weight: 700;
+      border: 1px solid rgba(0, 0, 0, 0.063);
+      border-radius: 10px;
+      color: black;
     }
+
+    .reg-input:hover {
+      border-color: #e98090;
+      background-color: #e9809080;
     }
-    .select-reg{
-      padding: 40px;
+
+    .registration-button {
+      width: 18.75rem;
+      border: 3px solid #e98090;
+      background-color: #e98090;
+      padding: 15px;
+      border-radius: 20px;
+      color: white;
     }
-  
+    .registration-button:hover {
+      border-color: #e98090;
+      background-color: #e9809049;
+      color: black;
+    }
   }
-  
 
+  .registrationButton {
+    width: 100%;
+    padding: 0.75rem 5rem;
+    background-color: #e98090;
+    border-radius: 5rem;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+  }
 
+  .registrationButton :active {
+    transform: scale(1.025);
+  }
+
+  .message {
+    margin-top: 1rem;
+  }
+
+  .SigIn {
+    text-align: center;
+    display: flex;
+    padding: 10px;
+
+    p {
+      padding-left: 10px;
+    }
+    .Only {
+      font-size: 18px;
+      padding-top: 9px;
+      color: #e98090;
+      text-decoration: none;
+      font-weight: 700;
+    }
+  }
+  .select-reg {
+    padding: 40px;
+  }
+}

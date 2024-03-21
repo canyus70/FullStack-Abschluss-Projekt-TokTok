@@ -1,17 +1,10 @@
-import React, {
-  useState,
-  useRef,
-  useContext,
-  useCallback,
-  useEffect,
-} from "react";
+import React, { useState, useRef, useContext, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import Webcam from "react-webcam";
 import Header from "../components/header/Header.jsx";
 import Navbar from "../components/navbar/Navbar.jsx";
 import styles from "./UserPostUpload.module.scss";
 
-import Camera from "../components/SVG/Camera.svg";
-import CameraGreen from "../components/SVG/CameraGreen.svg";
 import photographFill from "../images/photographFill.png";
 import photographLine from "../images/photographLine.png";
 import Logo from "../components/SVG/Logo.svg";
@@ -19,7 +12,6 @@ import switchButton from "../images/switchButton.png";
 
 import photograph from "../images/photograph.png";
 
-import Location from "../components/SVG/Location.svg";
 import Avatar from "../components/avatar/Avatar";
 import { convertDataURLToBlob } from "../utils/convertDataURLtoBlob.js";
 
@@ -36,6 +28,7 @@ const UserPostUpload = () => {
   const [accessToken] = useContext(AuthorizationContext);
   const [user, setUser] = useContext(UserContext);
   const textRef = useRef(null);
+  const navigate = useNavigate();
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -102,6 +95,8 @@ const UserPostUpload = () => {
     } catch (error) {
       console.error("Fehler beim Upload:", error);
     }
+
+    navigate("/profile");
   };
 
   if (!user) return null;
@@ -109,7 +104,7 @@ const UserPostUpload = () => {
   return (
     <>
       <main className={styles.uploadPage}>
-        <Header title="New Post" image={Logo} large />
+        <Header title="New Post" image={Logo} large path="/" />
         <div className={styles.uploadField}>
           {showWebcam ? (
             <div className={styles.webcam}>
@@ -179,7 +174,7 @@ const UserPostUpload = () => {
           ></textarea>
         </div>
         <hr />
-        <button className={styles.primaryButton} onClick={uploadPost}>
+        <button className="primaryButton" onClick={uploadPost}>
           Upload
         </button>
       </main>
