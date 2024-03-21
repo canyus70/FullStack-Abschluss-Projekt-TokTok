@@ -163,3 +163,24 @@ textarea {
     background-color: #ff4d6714;
   }
 }
+
+.landing {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  text-align: center;
+  padding-top: 10rem;
+  align-items: center;
+
+  img {
+    width: 140px;
+  }
+  h2 {
+    font-size: 1.25rem;
+    span {
+      color: var(--indigo);
+    }
+  }
+}

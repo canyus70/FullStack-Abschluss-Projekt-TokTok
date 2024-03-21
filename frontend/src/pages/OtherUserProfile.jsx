@@ -16,6 +16,7 @@ import fetchUser from "../services/fetchUser.js";
 import { backendUrl } from "../api/index.js";
 import ToggleFollowButton from "../components/toggleButtons/ToggleFollowButton.jsx";
 import UserContext from "../contexts/UserContext.jsx";
+import LandingPage from "../components/LandingPage.jsx";
 
 const OtherUserProfile = () => {
   const { userId } = useParams();
@@ -56,7 +57,7 @@ const OtherUserProfile = () => {
     fetchAllFeedsFromUser();
   }, [userId, accessToken]);
 
-  if (!user) return null;
+  if (!user || !accessToken) return <LandingPage />;
 
   console.log(user);
 
