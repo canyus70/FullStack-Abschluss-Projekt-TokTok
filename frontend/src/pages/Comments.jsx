@@ -29,8 +29,8 @@ const Comments = () => {
   const postComment = async () => {
     try {
       const fetchUrl = selectedComment
-        ? `/api/v1/posts/${post._id}/comment/${selectedComment}`
-        : `/api/v1/posts/${post._id}/comment`;
+        ? `${backendUrl}/api/v1/posts/${post._id}/comment/${selectedComment}`
+        : `${backendUrl}/api/v1/posts/${post._id}/comment`;
 
       const response = await fetch(fetchUrl, {
         method: selectedComment ? "PATCH" : "POST",
@@ -60,7 +60,7 @@ const Comments = () => {
   const deleteComment = async (commentId) => {
     try {
       const response = await fetch(
-        `/api/v1/posts/${post._id}/comment/${commentId}`,
+        `${backendUrl}/api/v1/posts/${post._id}/comment/${commentId}`,
         {
           method: "DELETE",
           headers: {
@@ -86,9 +86,12 @@ const Comments = () => {
 
     const fetchAllCommentsForPost = async () => {
       try {
-        const response = await fetch(`/api/v1/posts/${postId}/comments`, {
-          headers: { authorization: `Bearer ${accessToken}` },
-        });
+        const response = await fetch(
+          `${backendUrl}/api/v1/posts/${postId}/comments`,
+          {
+            headers: { authorization: `Bearer ${accessToken}` },
+          }
+        );
 
         const { result } = await response.json();
 

@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import TokTokLogo from "../SVG/TokTokLogo.svg";
 import { Input } from "antd";
 import "./SixDigit.scss";
+import { backendUrl } from "../../api";
 
 const SixDigit = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -20,7 +21,7 @@ const SixDigit = () => {
       return;
     }
 
-    fetch("http://localhost:4444/api/v1/users/verify-email", {
+    fetch(`${backendUrl}/api/v1/users/verify-email`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userId, sixDigitCode }),

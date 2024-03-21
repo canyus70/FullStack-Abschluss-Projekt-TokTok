@@ -23,7 +23,7 @@ function calcRefreshTokenAfterMs(token) {
 
 export async function doSilentRefresh() {
     try {
-        const response = await fetch(backendUrl + "/api/v1/users/refreshToken", {
+        const response = await fetch(backendUrl + `${backendUrl}/api/v1/users/refreshToken`, {
             method: "POST",
             credentials: "include", // nimm den httpOnly cookies und sende sie in der request mit
         });

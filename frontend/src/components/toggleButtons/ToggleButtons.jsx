@@ -6,6 +6,7 @@ import RedSaved from "../SVG/RedSaved.svg";
 import Saved from "../SVG/Saved.svg";
 import UserContext from "../../contexts/UserContext";
 import AuthorizationContext from "../../contexts/AuthorizationContext";
+import { backendUrl } from "../../api";
 
 export const ToggleLike = ({ post, onClick = () => {} }) => {
   const [user] = useContext(UserContext);
@@ -25,8 +26,8 @@ export const ToggleLike = ({ post, onClick = () => {} }) => {
     if (!accessToken) window.alert("Please sign in");
 
     const next = !liked;
-    const addLikedEndPoint = `/api/v1/posts/${post._id}/like`;
-    const removeLikedEndPoint = `/api/v1/posts/${post._id}/unlike`;
+    const addLikedEndPoint = `${backendUrl}/api/v1/posts/${post._id}/like`;
+    const removeLikedEndPoint = `${backendUrl}//api/v1/posts/${post._id}/unlike`;
 
     try {
       console.log(next);
@@ -80,8 +81,8 @@ export const ToggleSaved = ({ postId, onClick = () => {} }) => {
     if (!accessToken) window.alert("Please sign in");
 
     const next = !saved;
-    const addSavedEndPoint = `/api/v1/posts/${postId}/saved`;
-    const removeSavedEndPoint = `/api/v1/posts/${postId}/remove-saved`;
+    const addSavedEndPoint = `${backendUrl}//api/v1/posts/${postId}/saved`;
+    const removeSavedEndPoint = `${backendUrl}//api/v1/posts/${postId}/remove-saved`;
 
     try {
       console.log(next);
