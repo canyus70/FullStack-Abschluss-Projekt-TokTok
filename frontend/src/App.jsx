@@ -44,7 +44,11 @@ function App() {
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/:postId/comment" element={<Comments />} />
             <Route path="/edit-profile" element={<EditProfile />} />
-            <Route path="/saved" element={<Saved />} />
+
+            <Route path="/saved/:userId" element={<Saved />} />
+
+            
+
             <Route path="/favoriten" element={<Favo />} />
             <Route
               path="/:userId/other-user-profile"

@@ -73,7 +73,7 @@ const EditProfile = () => {
             </div>
             <Input
               type="text"
-              name="firstName"
+              name="firstname"
               id="firstName"
               placeholder="First Name"
               defaultValue={user.firstname}
@@ -81,14 +81,14 @@ const EditProfile = () => {
 
             <Input
               type="text"
-              name="lastName"
+              name="lastname"
               id="lastName"
               placeholder="Last Name"
               defaultValue={user.lastname}
             />
             <Input
               type="text"
-              name="userName"
+              name="username"
               id="userName"
               placeholder="User Name"
               defaultValue={user.username}
@@ -134,7 +134,7 @@ const EditProfile = () => {
             />
             <Input
               type="text"
-              name="telephoneNumber"
+              name="phonenumber"
               id="telephoneNumber"
               placeholder="Telephone Number"
               defaultValue={user.phonenumber}
