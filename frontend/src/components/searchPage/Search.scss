@@ -31,22 +31,27 @@
   border: 3px solid #ff4d67;
   border-radius: 10px;
 }
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-inline: 2rem;
+}
 
 .vallhalla {
   display: flex;
-  // align-items: center;
-  margin-inline: 1rem;
-  // text-align: center;
 }
 
 .tengu {
   display: flex;
-  margin-left: 1rem;
-  margin-inline: 1rem;
-  margin-top: 1rem;
-  // text-align: center;
+
   align-items: center;
-  padding-top: 1rem;
 }
 
 .shinto {

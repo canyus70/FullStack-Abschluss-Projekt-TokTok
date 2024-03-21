@@ -3,10 +3,10 @@ import Header from "../components/header/Header.jsx";
 
 import Avatar from "../components/avatar/Avatar.jsx";
 
-import Checked from "../components/SVG/Checked.svg";
+import verified from "../components/SVG/verified.svg";
+import verifiedNot from "../components/SVG/verifiedNot.svg";
 import Feeds from "../components/SVG/Feeds.svg";
 import Back from "../components/SVG/Back.svg";
-import FollowUser from "../components/SVG/FollowUser.svg";
 
 import styles from "./UserProfile.module.scss";
 
@@ -14,12 +14,24 @@ import { useContext, useEffect, useState } from "react";
 import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
 import fetchUser from "../services/fetchUser.js";
 import { backendUrl } from "../api/index.js";
+import ToggleFollowButton from "../components/toggleButtons/ToggleFollowButton.jsx";
+import UserContext from "../contexts/UserContext.jsx";
 
 const OtherUserProfile = () => {
   const { userId } = useParams();
   const [accessToken] = useContext(AuthorizationContext);
   const [feeds, setFeeds] = useState([]);
   const [user, setUser] = useState(undefined);
+  const [authorizedUser, setAuthorizedUser] = useContext(UserContext);
+
+  const onClickFollow = () => {
+    if (!accessToken || !userId) return;
+
+    fetchUser(userId, setUser, accessToken);
+
+    if (!accessToken || !authorizedUser) return;
+    fetchUser(authorizedUser._id, setAuthorizedUser, accessToken);
+  };
 
   useEffect(() => {
     if (!accessToken || !userId) return;
@@ -46,12 +58,18 @@ const OtherUserProfile = () => {
 
   if (!user) return null;
 
+  console.log(user);
+
   return (
     <>
       <main className={styles.userProfilePage}>
         <div className={styles.profileHeader}>
           <Header image={Back} title={user.username} path="/" />
-          <img src={Checked} alt="Checked" />
+          {user.emailVerified ? (
+            <img src={verified} alt="verified" />
+          ) : (
+            <img src={verifiedNot} alt="notVerified" />
+          )}
         </div>
         <div className={styles.infos}>
           <Avatar avatar={user.avatar} large />
@@ -75,14 +93,12 @@ const OtherUserProfile = () => {
               <h5>Followers</h5>
             </div>
             <div>
-              <h1>{user.follows?.length ?? 0}</h1>
+              <h1>{user.following?.length ?? 0}</h1>
               <h5>Following</h5>
             </div>
           </div>
         </div>
-        <button className="primaryButton">
-          <img src={FollowUser} alt="followUser" /> Follow
-        </button>
+        <ToggleFollowButton user={user} icon onClick={onClickFollow} />
         <hr />
         <div className={styles.feeds}>
           <div className={styles.title}>

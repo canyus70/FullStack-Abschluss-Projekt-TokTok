@@ -129,19 +129,18 @@ const SignUp = () => {
             onChange={(e) => setConfirmedPassword(e.target.value)}
           />
 
-          <Input
-            type="submit"
-            value="SignUp"
-            className="registration-button"
-            onClick={registerUser}
-          />
+          <button className="registrationButton" onClick={registerUser}>
+            SignUp
+          </button>
         </form>
-        <p style={{ color: "red" }}>{errorMessage}</p>
-        <p style={{ color: "green" }}>{successMessageRegister}</p>
+        <div className="message">
+          <p style={{ color: "#ff4d67" }}>{errorMessage}</p>
+          <p style={{ color: "#27C39E" }}>{successMessageRegister}</p>
+        </div>
         <div className="SigIn">
           <p>Already have an account?</p>
           <Link className="Only" to="/SignIn">
-            <p>SignIn</p>
+            <p style={{ color: "#3f51b2" }}>SignIn</p>
           </Link>
         </div>
       </header>

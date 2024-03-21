@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 
 import Avatar from "../avatar/Avatar";
-import Checked from "../SVG/Checked.svg";
+import verified from "../SVG/verified.svg";
+import verifiedNot from "../SVG/verifiedNot.svg";
 import styles from "./UserConciseInfos.module.scss";
 
 const UserConciseInfos = ({ user }) => {
@@ -18,7 +19,12 @@ const UserConciseInfos = ({ user }) => {
           <h4>{user.profession}</h4>
         </div>
       </div>
-      <img src={Checked} alt="checked" />
+
+      {user.emailVerified ? (
+        <img src={verified} alt="verified" />
+      ) : (
+        <img src={verifiedNot} alt="notVerified" />
+      )}
     </div>
   );
 };

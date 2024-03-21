@@ -1,11 +1,8 @@
 import Header from "../components/header/Header";
 import Avatar from "../components/avatar/Avatar";
-import SwitchButton from "../components/switchButton/SwitchButton";
 
-import Setting from "../components/SVG/Setting.svg";
 import Back from "../components/SVG/Back.svg";
 import Camera from "../components/SVG/Camera.svg";
-import Location from "../components/SVG/Location.svg";
 
 import styles from "./UserPostUpload.module.scss";
 import { useState, useRef, useContext, useEffect } from "react";
@@ -13,6 +10,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import AuthorizationContext from "../contexts/AuthorizationContext";
 import UserContext from "../contexts/UserContext";
 import fetchPost from "../services/fetchPost";
+import { backendUrl } from "../api";
 
 const EditPost = () => {
   const [post, setPost] = useState(undefined);
@@ -58,7 +56,7 @@ const EditPost = () => {
     post.append("description", textRef.current.value);
 
     const response = await fetch(`${backendUrl}/api/v1/posts/${postId}`, {
-      method: "PATCH",
+      method: "POST",
       headers: { authorization: `Bearer ${accessToken}` },
       body: post,
     });
@@ -102,31 +100,7 @@ const EditPost = () => {
           ></textarea>
         </div>
         <hr />
-        <div className={styles.location}>
-          <img src={Location} alt="location" />
-          <h2>Add Location</h2>
-        </div>
-        <hr />
-        <div className={styles.socialMedia}>
-          <h2>Also post to</h2>
-          <div>
-            <h2>Facebook</h2>
-            <SwitchButton />
-          </div>
-          <div>
-            <h2>Twitter</h2>
-            <SwitchButton />
-          </div>
-          <div>
-            <h2>Tumblr</h2>
-            <SwitchButton />
-          </div>
-        </div>
-        <hr />
-        <div className={styles.setting}>
-          <img src={Setting} alt="setting" />
-          <h2>Advanced Settings</h2>
-        </div>
+
         <button className="primaryButton" onClick={uploadPost}>
           Upload
         </button>

@@ -47,9 +47,7 @@ function App() {
 
             <Route path="/saved/:userId" element={<Saved />} />
 
-            
-
-            <Route path="/favoriten" element={<Favo />} />
+            <Route path="/favoriten/:userId" element={<Favo />} />
             <Route
               path="/:userId/other-user-profile"
               element={<OtherUserProfile />}

@@ -98,6 +98,42 @@ button {
   justify-content: center;
 }
 
+.primaryButtonInSearch {
+  background-color: var(--primary-red);
+  padding: 0.5rem 1rem;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// .primaryButton:active,
+// .primaryButtonInSearch:active,
+// .outlineButton:active,
+// .outlineButtonInSearch:active {
+//   transform: scale(1.025);
+// }
+
+.outlineButton {
+  padding: 0.625rem 4rem;
+  border-radius: 5rem;
+  border: 2px solid var(--primary-red);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--primary-red);
+}
+
+.outlineButtonInSearch {
+  padding: 0.5rem 1rem;
+  border-radius: 5rem;
+  border: 2px solid var(--primary-red);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--primary-red);
+}
 .iconButton {
   width: 2rem;
   height: 2rem;

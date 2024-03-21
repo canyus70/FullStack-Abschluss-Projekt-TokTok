@@ -34,7 +34,7 @@ const Comments = () => {
         : `${backendUrl}/api/v1/posts/${post._id}/comment`;
 
       const response = await fetch(fetchUrl, {
-        method: selectedComment ? "PATCH" : "POST",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${accessToken}`,
@@ -106,6 +106,7 @@ const Comments = () => {
   }, [accessToken, setPost, setMessage]);
 
   if (!post) return null;
+  console.log(post);
 
   return (
     <>
@@ -135,18 +136,20 @@ const Comments = () => {
               <UserConciseInfos user={comment.author} />
               <p>{comment.message}</p>
               <p className={styles.timeStamp}>{comment.createdAt}</p>
-              <div className={styles.buttons}>
-                <img
-                  src={Edit}
-                  alt="edit"
-                  onClick={() => editComment(comment._id)}
-                />
-                <img
-                  src={Delete}
-                  alt="delete"
-                  onClick={() => deleteComment(comment._id)}
-                />
-              </div>
+              {authorizedUser?._id === comment.author?._id && (
+                <div className={styles.buttons}>
+                  <img
+                    src={Edit}
+                    alt="edit"
+                    onClick={() => editComment(comment._id)}
+                  />
+                  <img
+                    src={Delete}
+                    alt="delete"
+                    onClick={() => deleteComment(comment._id)}
+                  />
+                </div>
+              )}
             </div>
           ))}
       </main>

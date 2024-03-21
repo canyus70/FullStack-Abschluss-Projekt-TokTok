@@ -13,13 +13,13 @@ UserRouter.post("/logout", doJwtAuth, UserController.postLogoutCtrl);
 
 UserRouter.get("/", UserController.getAllUsersCtrl);
 
-UserRouter.patch("/refresh-token", doJwtAuth, UserController.refreshTokenCtrl);
+UserRouter.post("/refresh-token", doJwtAuth, UserController.refreshTokenCtrl);
 UserRouter.get(
   "/:userId/profile",
   doJwtAuth,
   UserController.getUserProfileByIdCtrl
 );
-UserRouter.patch(
+UserRouter.post(
   "/:userId/profile",
   upload.single("avatar"),
   doJwtAuth,
