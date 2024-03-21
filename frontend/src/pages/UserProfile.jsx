@@ -79,12 +79,12 @@ const UserProfile = () => {
               <img src={Edit} alt="edit" />
             </Link>
 
-            <img src={MoreSettings} alt="moreSettings"onClick={togglePopup} />
+            <img src={MoreSettings} alt="moreSettings" onClick={togglePopup} />
           </div>
         </div>
         {isOpen && (
           <>
-            <div className={styles.overlay} ></div>
+            <div className={styles.overlay}></div>
             <div className={styles.popup}>
               <div className={styles.popup_content}>
                 {/* Hier können Sie Ihre Einstellungen platzieren */}

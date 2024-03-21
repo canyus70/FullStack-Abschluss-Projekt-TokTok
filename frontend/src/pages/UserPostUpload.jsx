@@ -10,15 +10,22 @@ import Header from "../components/header/Header.jsx";
 import Navbar from "../components/navbar/Navbar.jsx";
 import styles from "./UserPostUpload.module.scss";
 
-import Setting from "../components/SVG/Setting.svg";
-import Logo from "../components/SVG/Logo.svg";
 import Camera from "../components/SVG/Camera.svg";
+import CameraGreen from "../components/SVG/CameraGreen.svg";
+import photographFill from "../images/photographFill.png";
+import photographLine from "../images/photographLine.png";
+import Logo from "../components/SVG/Logo.svg";
+import switchButton from "../images/switchButton.png";
+
+import photograph from "../images/photograph.png";
+
 import Location from "../components/SVG/Location.svg";
 import Avatar from "../components/avatar/Avatar";
 import { convertDataURLToBlob } from "../utils/convertDataURLtoBlob.js";
 
 import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
 import UserContext from "../contexts/UserContext.jsx";
+import fetchUser from "../services/fetchUser.js";
 
 const UserPostUpload = () => {
   const [image, setImage] = useState("");
@@ -90,6 +97,8 @@ const UserPostUpload = () => {
 
       const result = await response.json();
       console.log("Upload erfolgreich:", result);
+
+      fetchUser(user._id, setUser, accessToken);
     } catch (error) {
       console.error("Fehler beim Upload:", error);
     }
@@ -109,14 +118,9 @@ const UserPostUpload = () => {
                 ref={webcamRef}
                 screenshotFormat="image/jpeg"
                 width="100%"
+                style={{ aspectRatio: 1 }}
                 videoConstraints={{ facingMode: camera }}
               />
-              <div className={styles.cameraButtons}>
-                <button onClick={capture} className={styles.capture}>
-                  Capture
-                </button>
-                <button onClick={switchCamera}>Switch Camera</button>
-              </div>
             </div>
           ) : (
             image && (
@@ -144,11 +148,25 @@ const UserPostUpload = () => {
             </>
           )}
         </div>
-        <div
-          className={styles.uploadButton}
-          onClick={() => setShowWebcam(!showWebcam)}
-        >
-          {showWebcam ? "Close Camera" : "Open Camera"}
+        <div className={styles.cameraButtons}>
+          {showWebcam && (
+            <div className={styles.captureSwitchCamera}>
+              <img
+                src={switchButton}
+                alt="switchCamera"
+                onClick={switchCamera}
+              />
+              <img src={photograph} alt="switchCamera" onClick={capture} />
+            </div>
+          )}
+
+          <div onClick={() => setShowWebcam(!showWebcam)}>
+            {showWebcam ? (
+              <img src={photographFill} alt="close camera" width="28px" />
+            ) : (
+              <img src={photographLine} alt="open camera" width="28px" />
+            )}
+          </div>
         </div>
         <div className={styles.description}>
           <Avatar avatar={user.avatar} />

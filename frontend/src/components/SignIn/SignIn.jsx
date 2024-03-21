@@ -43,9 +43,9 @@ const SignIn = () => {
           navigate("/");
         }, "2500");
         localStorage.setItem("refreshToken", result.tokens.refreshToken);
-
       });
   };
+
   return (
     <header>
       <div className="text1">

@@ -8,8 +8,8 @@ export async function addFollowCtrl(req, res) {
     console.log(authenticatedUserId);
 
     const result = await UserService.addFollow(
-      userFollowId,
-      authenticatedUserId
+      authenticatedUserId,
+      userFollowId
     );
     res.json({ success: true, result });
   } catch (error) {

@@ -54,6 +54,7 @@ userSchema.methods.toProfileInfo = function () {
     following: this.following,
     blogs: this.blogs,
     _id: this._id,
+    emailVerified: this.emailVerified,
   };
 };
 

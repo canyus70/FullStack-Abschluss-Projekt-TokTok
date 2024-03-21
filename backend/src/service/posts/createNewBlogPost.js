@@ -10,10 +10,12 @@ export async function createNewBlogPost(authenticatedUserId, postInfo) {
     author: authenticatedUserId,
   };
 
-  console.log(postInfo);
-  foundUser.blogs.push(postInfo.id);
-
   const newBlogPost = new Post(newBlogPostInfo);
+
+  foundUser.blogs.push(newBlogPost._id);
+
+  await foundUser.save();
+
   await newBlogPost.save();
   return newBlogPost;
 }
