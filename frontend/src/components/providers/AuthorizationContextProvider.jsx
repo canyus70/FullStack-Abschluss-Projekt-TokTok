@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import AuthorizationContext from "../../contexts/AuthorizationContext";
+import { backendUrl } from "../../api";
 
 const AuthorizationContextProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState(undefined);
 
   const fetchToken = async () => {
     const refreshToken = localStorage.getItem("refreshToken");
-    const response = await fetch("/api/v1/users/refresh-token", {
-      method: "PATCH",
+    const response = await fetch(`${backendUrl}/api/v1/users/refresh-token`, {
+      method: "POST",
       credentials: "include",
       headers: { authorization: `Bearer ${refreshToken}` },
     });

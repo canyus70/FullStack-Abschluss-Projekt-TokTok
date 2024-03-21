@@ -5,12 +5,13 @@ import Navbar from "../components/navbar/Navbar.jsx";
 import styles from "./Home.module.scss";
 import Header from "../components/header/Header.jsx";
 import { useEffect, useState } from "react";
+import { backendUrl } from "../api/index.js";
 const Home = () => {
   const [posts, setPosts] = useState([]);
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch("/api/v1/posts/");
+      const response = await fetch(`${backendUrl}/api/v1/posts/`);
       const { result } = await response.json();
 
       setPosts(result);

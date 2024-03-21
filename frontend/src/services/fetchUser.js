@@ -1,6 +1,8 @@
+import { backendUrl } from "../api";
+
 const fetchUser = async (id, setUser, accessToken) => {
   try {
-    const response = await fetch(`/api/v1/users/${id}/profile`, {
+    const response = await fetch(`${backendUrl}/api/v1/users/${id}/profile`, {
       headers: { authorization: `Bearer ${accessToken}` },
     });
 

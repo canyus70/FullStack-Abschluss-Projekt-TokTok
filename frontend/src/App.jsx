@@ -1,7 +1,7 @@
 import "./App.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
-import Search from "./components/search page/Search.jsx";
+import Search from "./components/searchPage/Search.jsx";
 import UserPostUpload from "./pages/UserPostUpload.jsx";
 import UserProfile from "./pages/UserProfile.jsx";
 import SignUp from "./components/SignUp/SignUp.jsx";
@@ -16,11 +16,10 @@ import ForgotPassword from "./components/forgotpassword/ForgotPassword.jsx";
 
 import EditPost from "./pages/EditPost.jsx";
 
-import Splash from "./pages/splashscreen/SplashScreen.jsx"
-import  { useState, useEffect } from 'react';
+import Splash from "./pages/splashscreen/SplashScreen.jsx";
+import { useState, useEffect } from "react";
 import Favo from "./components/Favo/Favo.jsx";
 import Saved from "./components/Saved/Saved.jsx";
-
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -34,7 +33,7 @@ function App() {
       <AuthorizationContextProvider>
         <UserContextProvider>
           <Routes>
-            <Route path="/splash" element={<Splash/>}/>
+            <Route path="/splash" element={<Splash />} />
             <Route path="/" element={<Home />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={loading ? <Splash /> : <SignUp />} />
@@ -45,8 +44,10 @@ function App() {
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/:postId/comment" element={<Comments />} />
             <Route path="/edit-profile" element={<EditProfile />} />
-            <Route path="/saved" element={<Saved/>} />
-            <Route path="/favoriten" element={<Favo/>} />
+
+            <Route path="/saved/:userId" element={<Saved />} />
+
+            <Route path="/favoriten/:userId" element={<Favo />} />
             <Route
               path="/:userId/other-user-profile"
               element={<OtherUserProfile />}

@@ -1,12 +1,8 @@
 import Header from "../components/header/Header";
-import Navbar from "../components/navbar/Navbar";
 import Avatar from "../components/avatar/Avatar";
-import SwitchButton from "../components/switchButton/SwitchButton";
 
-import Setting from "../components/SVG/Setting.svg";
 import Back from "../components/SVG/Back.svg";
 import Camera from "../components/SVG/Camera.svg";
-import Location from "../components/SVG/Location.svg";
 
 import styles from "./UserPostUpload.module.scss";
 import { useState, useRef, useContext, useEffect } from "react";
@@ -14,6 +10,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import AuthorizationContext from "../contexts/AuthorizationContext";
 import UserContext from "../contexts/UserContext";
 import fetchPost from "../services/fetchPost";
+import { backendUrl } from "../api";
 
 const EditPost = () => {
   const [post, setPost] = useState(undefined);
@@ -58,8 +55,8 @@ const EditPost = () => {
     }
     post.append("description", textRef.current.value);
 
-    const response = await fetch(`/api/v1/posts/${postId}`, {
-      method: "PATCH",
+    const response = await fetch(`${backendUrl}/api/v1/posts/${postId}`, {
+      method: "POST",
       headers: { authorization: `Bearer ${accessToken}` },
       body: post,
     });

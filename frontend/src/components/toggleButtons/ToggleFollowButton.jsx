@@ -3,6 +3,8 @@ import UserContext from "../../contexts/UserContext";
 import AuthorizationContext from "../../contexts/AuthorizationContext";
 import FollowUser from "../../components/SVG/FollowUser.svg";
 
+import { backendUrl } from "../../api";
+
 const ToggleFollowButton = ({ user, onClick = () => {}, icon }) => {
   const [authorizedUser] = useContext(UserContext);
   const [accessToken] = useContext(AuthorizationContext);
@@ -17,8 +19,8 @@ const ToggleFollowButton = ({ user, onClick = () => {}, icon }) => {
     if (!accessToken) window.alert("Please sign in");
 
     const next = !isFollowed;
-    const addFollowEndPoint = `/api/v1/users/${user._id}/add-follow`;
-    const removeFollowEndPoint = `/api/v1/users/${user._id}/not-follow`;
+    const addFollowEndPoint = `${backendUrl}/api/v1/users/${user._id}/add-follow`;
+    const removeFollowEndPoint = `${backendUrl}/api/v1/users/${user._id}/not-follow`;
 
     try {
       const response = await fetch(

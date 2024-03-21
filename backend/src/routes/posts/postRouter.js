@@ -16,7 +16,7 @@ const PostRouter = express
     PostController.createNewBlogPostCtrl
   )
 
-  .patch(
+  .post(
     "/:postId",
     upload.array("images", 7),
     doJwtAuth,
@@ -39,7 +39,7 @@ const PostRouter = express
 
   .get("/:postId/comments", doJwtAuth, PostController.getAllCommentsForPostCtrl)
 
-  .patch(
+  .post(
     "/:postId/comment/:commentId",
     doJwtAuth,
     PostController.updateCommentCtrl

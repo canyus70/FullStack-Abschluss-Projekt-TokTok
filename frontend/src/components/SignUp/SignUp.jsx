@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Input } from "antd";
 import "./SignUp.scss";
 import { useState } from "react";
+import { backendUrl } from "../../api";
 
 const SignUp = () => {
   const [firstname, setFirstName] = useState("");
@@ -33,7 +34,7 @@ const SignUp = () => {
       setErrorMessage("Password confirmation missmatches");
       return;
     }
-    fetch("http://localhost:4444/api/v1/users/register", {
+    fetch(`${backendUrl}/api/v1/users/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

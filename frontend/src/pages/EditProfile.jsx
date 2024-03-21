@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
 import AuthorizationContext from "../contexts/AuthorizationContext";
 import fetchUser from "../services/fetchUser";
+import { backendUrl } from "../api";
 
 const EditProfile = () => {
   const ref = useRef();
@@ -38,11 +39,14 @@ const EditProfile = () => {
 
     const profile = new FormData(ref.current);
 
-    const response = await fetch(`api/v1/users/${user._id}/profile`, {
-      method: "PATCH",
-      headers: { authorization: `Bearer ${accessToken}` },
-      body: profile,
-    });
+    const response = await fetch(
+      `${backendUrl}/api/v1/users/${user._id}/profile`,
+      {
+        method: "POST",
+        headers: { authorization: `Bearer ${accessToken}` },
+        body: profile,
+      }
+    );
 
     await response.json();
     await fetchUser(user._id, setUser, accessToken);
@@ -70,7 +74,7 @@ const EditProfile = () => {
             </div>
             <Input
               type="text"
-              name="firstName"
+              name="firstname"
               id="firstName"
               placeholder="First Name"
               defaultValue={user.firstname}
@@ -78,14 +82,14 @@ const EditProfile = () => {
 
             <Input
               type="text"
-              name="lastName"
+              name="lastname"
               id="lastName"
               placeholder="Last Name"
               defaultValue={user.lastname}
             />
             <Input
               type="text"
-              name="userName"
+              name="username"
               id="userName"
               placeholder="User Name"
               defaultValue={user.username}
@@ -131,7 +135,7 @@ const EditProfile = () => {
             />
             <Input
               type="text"
-              name="telephoneNumber"
+              name="phonenumber"
               id="telephoneNumber"
               placeholder="Telephone Number"
               defaultValue={user.phonenumber}

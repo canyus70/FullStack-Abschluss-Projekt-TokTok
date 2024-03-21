@@ -12,16 +12,19 @@ import Setting from "../components/SVG/Setting.svg";
 import Archiv from "../components/SVG/Archiv.svg";
 import Time from "../components/SVG/Time.svg";
 import ScanQRCode from "../components/SVG/ScanQRCode.svg";
-import Saved from "../components/SVG/Saved.svg";
+import RedSaved from "../components/SVG/RedSaved.svg";
 import CloseFriends from "../components/SVG/CloseFriends.svg";
-import Heart from "../components/SVG/Heart.svg";
+import HeartRed from "../components/SVG/HeartRed.svg";
 import InformationCenter from "../components/SVG/InformationCenter.svg";
+import LogoutIcon from "../components/SVG/logout.svg";
 
 import styles from "./UserProfile.module.scss";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext.jsx";
 import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
+import { useNavigate } from "react-router-dom";
+import { backendUrl } from "../api/index.js";
 
 const UserProfile = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,17 +32,27 @@ const UserProfile = () => {
   const togglePopup = () => {
     setIsOpen(!isOpen);
   };
-
-  const [accessToken] = useContext(AuthorizationContext);
-  const [user] = useContext(UserContext);
+  const navigate = useNavigate();
+  const [accessToken, setAccessToken] = useContext(AuthorizationContext);
+  const [user, setUser] = useContext(UserContext);
   const [feeds, setFeeds] = useState([]);
+
+  const handleLogout = async () => {
+    setAccessToken(null);
+    setUser(null);
+    localStorage.removeItem("refreshToken");
+    navigate("/signin");
+  };
 
   const fetchAllFeedsFromUser = async () => {
     if (!accessToken || !user) return;
 
-    const response = await fetch(`api/v1/posts/${user._id}/feed`, {
-      headers: { authorization: `Bearer ${accessToken}` },
-    });
+    const response = await fetch(
+      `${backendUrl}/api/v1/posts/${user._id}/feed`,
+      {
+        headers: { authorization: `Bearer ${accessToken}` },
+      }
+    );
     const { result } = await response.json();
 
     setFeeds(result.posts);
@@ -47,7 +60,7 @@ const UserProfile = () => {
 
   const deletePost = async (feedId) => {
     try {
-      const response = fetch(`api/v1/posts/${feedId}`, {
+      const response = fetch(`${backendUrl}/api/v1/posts/${feedId}`, {
         method: "DELETE",
         headers: { authorization: `Bearer ${accessToken}` },
       });
@@ -64,7 +77,6 @@ const UserProfile = () => {
   }, [accessToken, user]);
 
   if (!user) return;
-  console.log(user);
 
   return (
     <>
@@ -91,42 +103,31 @@ const UserProfile = () => {
                 <button className={styles.button} onClick={togglePopup}>
                   ____
                 </button>
-                <div>
-                  <img src={Setting} alt="" />
-                  <p>Settings</p>
+                <div onClick={handleLogout}>
+                  <img src={LogoutIcon} alt="" />
+                  <p>Logout</p>
                 </div>
-                <div>
-                  <img src={Archiv} alt="" />
-                  <p>Archive</p>
-                </div>
-                <div>
-                  <img src={Time} alt="" />
-                  <p>Your Activity</p>
-                </div>
+
                 <div>
                   <img src={ScanQRCode} alt="" />
                   <p>QR Code</p>
                 </div>
-                <Link className={styles.link} to="/saved">
+                <Link className={styles.link} to={`/saved/${user._id}`}>
                   <div>
-                    <img src={Saved} alt="" />
-                    <p>Saved</p>
+                    <img src={RedSaved} alt="" />
+                    <p>Saved: {user.saved?.length}</p>
                   </div>
                 </Link>
                 <div>
                   <img src={CloseFriends} alt="" />
                   <p>Close Friends</p>
                 </div>
-                <Link className={styles.link} to="/favoriten">
+                <Link className={styles.link} to={`/favoriten/${user._id}`}>
                   <div>
-                    <img src={Heart} alt="" />
-                    <p>Favorites</p>
+                    <img src={HeartRed} alt="" />
+                    <p>Favorites: {user.likes?.length}</p>
                   </div>
                 </Link>
-                <div>
-                  <img src={InformationCenter} alt="" />
-                  <p>Information Center</p>
-                </div>
               </div>
             </div>
           </>

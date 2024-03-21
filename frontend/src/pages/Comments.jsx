@@ -14,6 +14,7 @@ import UserContext from "../contexts/UserContext";
 import Edit from "../components/SVG/Edit.svg";
 import Delete from "../components/SVG/Delete.svg";
 import fetchPost from "../services/fetchPost";
+import { backendUrl } from "../api";
 
 const Comments = () => {
   const [post, setPost] = useState(undefined);
@@ -29,11 +30,11 @@ const Comments = () => {
   const postComment = async () => {
     try {
       const fetchUrl = selectedComment
-        ? `/api/v1/posts/${post._id}/comment/${selectedComment}`
-        : `/api/v1/posts/${post._id}/comment`;
+        ? `${backendUrl}/api/v1/posts/${post._id}/comment/${selectedComment}`
+        : `${backendUrl}/api/v1/posts/${post._id}/comment`;
 
       const response = await fetch(fetchUrl, {
-        method: selectedComment ? "PATCH" : "POST",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${accessToken}`,
@@ -60,7 +61,7 @@ const Comments = () => {
   const deleteComment = async (commentId) => {
     try {
       const response = await fetch(
-        `/api/v1/posts/${post._id}/comment/${commentId}`,
+        `${backendUrl}/api/v1/posts/${post._id}/comment/${commentId}`,
         {
           method: "DELETE",
           headers: {
@@ -86,9 +87,12 @@ const Comments = () => {
 
     const fetchAllCommentsForPost = async () => {
       try {
-        const response = await fetch(`/api/v1/posts/${postId}/comments`, {
-          headers: { authorization: `Bearer ${accessToken}` },
-        });
+        const response = await fetch(
+          `${backendUrl}/api/v1/posts/${postId}/comments`,
+          {
+            headers: { authorization: `Bearer ${accessToken}` },
+          }
+        );
 
         const { result } = await response.json();
 

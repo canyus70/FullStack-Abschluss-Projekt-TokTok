@@ -17,6 +17,7 @@ import { convertDataURLToBlob } from "../utils/convertDataURLtoBlob.js";
 
 import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
 import UserContext from "../contexts/UserContext.jsx";
+import { backendUrl } from "../api/index.js";
 import fetchUser from "../services/fetchUser.js";
 
 const UserPostUpload = () => {
@@ -76,7 +77,7 @@ const UserPostUpload = () => {
     formData.append("description", textRef.current?.value);
 
     try {
-      const response = await fetch("/api/v1/posts/add", {
+      const response = await fetch(`${backendUrl}/api/v1/posts/add`, {
         method: "POST",
         headers: {
           authorization: `Bearer ${accessToken}`,
