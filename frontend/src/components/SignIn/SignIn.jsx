@@ -11,7 +11,7 @@ const SignIn = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
-  //const [_, setAccessToken] = useContext(AuthorizationContext);
+  const [_, setAccessToken] = useContext(AuthorizationContext);
 
   const loginUser = (event) => {
     event.preventDefault();
@@ -38,12 +38,11 @@ const SignIn = () => {
         );
 
         console.log(result);
-        //setAccessToken(result.tokens.accessToken);
+        setAccessToken(result.tokens.accessToken);
         setTimeout(() => {
           navigate("/");
         }, "2500");
         localStorage.setItem("refreshToken", result.tokens.refreshToken);
-
       });
   };
   return (

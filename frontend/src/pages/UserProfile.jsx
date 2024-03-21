@@ -12,16 +12,18 @@ import Setting from "../components/SVG/Setting.svg";
 import Archiv from "../components/SVG/Archiv.svg";
 import Time from "../components/SVG/Time.svg";
 import ScanQRCode from "../components/SVG/ScanQRCode.svg";
-import Saved from "../components/SVG/Saved.svg";
+import RedSaved from "../components/SVG/RedSaved.svg";
 import CloseFriends from "../components/SVG/CloseFriends.svg";
-import Heart from "../components/SVG/Heart.svg";
+import HeartRed from "../components/SVG/HeartRed.svg";
 import InformationCenter from "../components/SVG/InformationCenter.svg";
+import LogoutIcon from "../components/SVG/logout.svg";
 
 import styles from "./UserProfile.module.scss";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext.jsx";
 import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,10 +31,17 @@ const UserProfile = () => {
   const togglePopup = () => {
     setIsOpen(!isOpen);
   };
-
-  const [accessToken] = useContext(AuthorizationContext);
-  const [user] = useContext(UserContext);
+  const navigate = useNavigate();
+  const [accessToken, setAccessToken] = useContext(AuthorizationContext);
+  const [user, setUser] = useContext(UserContext);
   const [feeds, setFeeds] = useState([]);
+
+  const handleLogout = async () => {
+    setAccessToken(null);
+    setUser(null);
+    localStorage.removeItem("refreshToken");
+    navigate("/signin");
+  };
 
   const fetchAllFeedsFromUser = async () => {
     if (!accessToken || !user) return;
@@ -62,7 +71,7 @@ const UserProfile = () => {
   useEffect(() => {
     fetchAllFeedsFromUser();
   }, [accessToken, user]);
-
+  console.log(user);
   if (!user) return;
 
   return (
@@ -78,18 +87,22 @@ const UserProfile = () => {
               <img src={Edit} alt="edit" />
             </Link>
 
-            <img src={MoreSettings} alt="moreSettings"onClick={togglePopup} />
+            <img src={MoreSettings} alt="moreSettings" onClick={togglePopup} />
           </div>
         </div>
         {isOpen && (
           <>
-            <div className={styles.overlay} ></div>
+            <div className={styles.overlay}></div>
             <div className={styles.popup}>
               <div className={styles.popup_content}>
                 {/* Hier können Sie Ihre Einstellungen platzieren */}
                 <button className={styles.button} onClick={togglePopup}>
                   ____
                 </button>
+                <div onClick={handleLogout}>
+                  <img src={LogoutIcon} alt="" />
+                  <p>Logout</p>
+                </div>
                 <div>
                   <img src={Setting} alt="" />
                   <p>Settings</p>
@@ -106,10 +119,10 @@ const UserProfile = () => {
                   <img src={ScanQRCode} alt="" />
                   <p>QR Code</p>
                 </div>
-                <Link className={styles.link} to="/saved">
+                <Link className={styles.link} to={`/saved/${user._id}`}>
                   <div>
-                    <img src={Saved} alt="" />
-                    <p>Saved</p>
+                    <img src={RedSaved} alt="" />
+                    <p>Saved: {user.saved?.length}</p>
                   </div>
                 </Link>
                 <div>
@@ -118,8 +131,8 @@ const UserProfile = () => {
                 </div>
                 <Link className={styles.link} to="/favoriten">
                   <div>
-                    <img src={Heart} alt="" />
-                    <p>Favorites</p>
+                    <img src={HeartRed} alt="" />
+                    <p>Favorites: {user.likes?.length}</p>
                   </div>
                 </Link>
                 <div>
