@@ -8,6 +8,7 @@ import Back from "../components/SVG/Back.svg";
 
 import styles from "./Comments.module.scss";
 import { useContext, useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import AuthorizationContext from "../contexts/AuthorizationContext";
 import UserContext from "../contexts/UserContext";
 
@@ -15,6 +16,8 @@ import Edit from "../components/SVG/Edit.svg";
 import Delete from "../components/SVG/Delete.svg";
 import fetchPost from "../services/fetchPost";
 import { backendUrl } from "../api";
+import Logo from "../components/SVG/Logo.svg";
+import LandingPage from "../components/LandingPage";
 
 const Comments = () => {
   const [post, setPost] = useState(undefined);
@@ -105,8 +108,7 @@ const Comments = () => {
     fetchAllCommentsForPost();
   }, [accessToken, setPost, setMessage]);
 
-  if (!post) return null;
-  console.log(post);
+  if (!accessToken || !post) return <LandingPage />;
 
   return (
     <>

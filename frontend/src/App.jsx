@@ -20,6 +20,7 @@ import Splash from "./pages/splashscreen/SplashScreen.jsx";
 import { useState, useEffect } from "react";
 import Favo from "./components/Favo/Favo.jsx";
 import Saved from "./components/Saved/Saved.jsx";
+import CloseFriends from "./components/closeFriends/CloseFriends.jsx";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -48,6 +49,8 @@ function App() {
             <Route path="/saved/:userId" element={<Saved />} />
 
             <Route path="/favoriten/:userId" element={<Favo />} />
+
+            <Route path="/close-friends/:userId" element={<CloseFriends />} />
             <Route
               path="/:userId/other-user-profile"
               element={<OtherUserProfile />}

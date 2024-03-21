@@ -2,7 +2,7 @@ import React, { useState, useRef, useContext, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Webcam from "react-webcam";
 import Header from "../components/header/Header.jsx";
-import Navbar from "../components/navbar/Navbar.jsx";
+
 import styles from "./UserPostUpload.module.scss";
 
 import photographFill from "../images/photographFill.png";
@@ -19,6 +19,8 @@ import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
 import UserContext from "../contexts/UserContext.jsx";
 import { backendUrl } from "../api/index.js";
 import fetchUser from "../services/fetchUser.js";
+import NewBar from "../components/newBar/NewBar.jsx";
+import LandingPage from "../components/LandingPage.jsx";
 
 const UserPostUpload = () => {
   const [image, setImage] = useState("");
@@ -100,7 +102,7 @@ const UserPostUpload = () => {
     navigate("/profile");
   };
 
-  if (!user) return null;
+  if (!user || !accessToken) return <LandingPage />;
 
   return (
     <>
@@ -179,7 +181,8 @@ const UserPostUpload = () => {
           Upload
         </button>
       </main>
-      <Navbar />
+
+      <NewBar />
     </>
   );
 };

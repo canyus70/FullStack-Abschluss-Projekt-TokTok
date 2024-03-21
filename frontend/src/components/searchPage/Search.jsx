@@ -3,7 +3,6 @@ import { Input } from "antd";
 import IconMimik from "../SVG/IconMimik.svg";
 import "./Search.scss";
 
-import Navbar from "../navbar/Navbar.jsx";
 import { useContext, useState, useEffect } from "react";
 import Avatar from "../avatar/Avatar";
 import ToggleFollowButton from "../toggleButtons/ToggleFollowButton.jsx";
@@ -12,6 +11,7 @@ import UserContext from "../../contexts/UserContext.jsx";
 import fetchUser from "../../services/fetchUser.js";
 
 import { backendUrl } from "../../api";
+import NewBar from "../newBar/NewBar.jsx";
 
 const Search = () => {
   const [query, setQuery] = useState("");
@@ -84,7 +84,7 @@ const Search = () => {
           ))}
         </ul>
       )}
-      <Navbar />
+      <NewBar />
     </>
   );
 };
