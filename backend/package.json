@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.js",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "node src/index.js"
   },
   "keywords": [],
   "author": "Runhong Huang, Nehbi Ramadani, Nikola Sretkovic, Yusuf Can ",
