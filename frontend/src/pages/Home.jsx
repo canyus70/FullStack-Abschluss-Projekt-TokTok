@@ -11,9 +11,7 @@ const Home = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch(
-        `${import.meta.VITE_BACKEND_URL}/api/v1/posts/`
-      );
+      const response = await fetch(`${backendUrl}/api/v1/posts/`);
       const { result } = await response.json();
 
       setPosts(result);
