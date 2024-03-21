@@ -1,3 +1,3 @@
 
 export const backendUrl =
-    "https://fullstack-abschluss-projekt-toktok.onrender.com" 
+    import.meta.VITE_BACKEND_URL || "http://localhost:4444" 
