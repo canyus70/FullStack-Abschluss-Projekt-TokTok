@@ -19,6 +19,7 @@ import { convertDataURLToBlob } from "../utils/convertDataURLtoBlob.js";
 
 import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
 import UserContext from "../contexts/UserContext.jsx";
+import { backendUrl } from "../api/index.js";
 
 const UserPostUpload = () => {
   const [image, setImage] = useState("");

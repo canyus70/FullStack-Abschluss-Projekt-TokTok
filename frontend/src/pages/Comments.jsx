@@ -14,6 +14,7 @@ import UserContext from "../contexts/UserContext";
 import Edit from "../components/SVG/Edit.svg";
 import Delete from "../components/SVG/Delete.svg";
 import fetchPost from "../services/fetchPost";
+import { backendUrl } from "../api";
 
 const Comments = () => {
   const [post, setPost] = useState(undefined);

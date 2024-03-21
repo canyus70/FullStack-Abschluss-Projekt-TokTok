@@ -24,6 +24,7 @@ import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext.jsx";
 import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
 import { useNavigate } from "react-router-dom";
+import { backendUrl } from "../api/index.js";
 
 const UserProfile = () => {
   const [isOpen, setIsOpen] = useState(false);

@@ -13,6 +13,7 @@ import styles from "./UserProfile.module.scss";
 import { useContext, useEffect, useState } from "react";
 import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
 import fetchUser from "../services/fetchUser.js";
+import { backendUrl } from "../api/index.js";
 
 const OtherUserProfile = () => {
   const { userId } = useParams();
