@@ -1,4 +1,5 @@
-import { useContext } from "react";
+
+import { useContext, useEffect, useState } from "react";
 
 import HeartRed from "../SVG/HeartRed.svg";
 import Heart from "../SVG/Heart.svg";
@@ -7,7 +8,11 @@ import Saved from "../SVG/Saved.svg";
 import UserContext from "../../contexts/UserContext";
 import AuthorizationContext from "../../contexts/AuthorizationContext";
 import { backendUrl } from "../../api";
+
+import styles from "./ToggleButtons.module.scss";
+
 import fetchUser from "../../services/fetchUser";
+
 
 export const ToggleLike = ({ post }) => {
   const [user, setUser] = useContext(UserContext);

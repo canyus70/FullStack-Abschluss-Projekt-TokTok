@@ -10,7 +10,10 @@ import styles from "./FunctionButtons.module.scss";
 const FunctionButtons = ({ transparent, post }) => {
   const [copied, setCopied] = useState(false);
 
+
+
   if (!post) return null;
+
 
   const copyToClipboard = () => {
     const url = `${document.location.origin}/${post?._id}/comment`;
