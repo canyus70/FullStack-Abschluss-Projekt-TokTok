@@ -29,8 +29,6 @@ const cookieSessionOptions = {
   secure: isFrontendLocalHost ? false : true,
 };
 
-
-
 app.use(cookieSession(cookieSessionOptions));
 app.use(morgan("dev"));
 app.use(express.json());
