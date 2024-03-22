@@ -63,12 +63,6 @@ const SignUp = () => {
   return (
     <>
       <header>
-        <div className="text">
-          <h1>
-            Create your <br />
-            Account
-          </h1>
-        </div>
         <div className="logoTok">
           <img src={TokTokLogo} alt="" />
         </div>

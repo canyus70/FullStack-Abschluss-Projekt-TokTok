@@ -49,12 +49,6 @@ const SignIn = () => {
 
   return (
     <header>
-      <div className="text1">
-        <h1>
-          Login to your <br />
-          Account
-        </h1>
-      </div>
       <div className="logoTok1">
         <img src={TokTokLogo} alt="" />
       </div>
