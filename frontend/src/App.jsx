@@ -1,7 +1,7 @@
 import "./App.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
-import Search from "./components/search page/Search.jsx";
+import Search from "./components/searchPage/Search.jsx";
 import UserPostUpload from "./pages/UserPostUpload.jsx";
 import UserProfile from "./pages/UserProfile.jsx";
 import SignUp from "./components/SignUp/SignUp.jsx";
@@ -44,7 +44,11 @@ function App() {
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/:postId/comment" element={<Comments />} />
             <Route path="/edit-profile" element={<EditProfile />} />
+
             <Route path="/saved/:userId" element={<Saved />} />
+
+            
+
             <Route path="/favoriten" element={<Favo />} />
             <Route
               path="/:userId/other-user-profile"

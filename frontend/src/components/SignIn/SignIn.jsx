@@ -4,6 +4,7 @@ import { Input } from "antd";
 import "./SignIn.scss";
 import { useContext, useState } from "react";
 import AuthorizationContext from "../../contexts/AuthorizationContext";
+import { backendUrl } from "../../api";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -20,7 +21,7 @@ const SignIn = () => {
       return;
     }
 
-    fetch("http://localhost:4444/api/v1/users/login", {
+    fetch(`${backendUrl}/api/v1/users/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),

@@ -2,9 +2,10 @@ import { UserOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import IconMimik from "../SVG/IconMimik.svg";
 import "./Search.scss";
-import Navbar from "../navbar/Navbar";
+// import Navbar from "../navbar/Navbar";
 import { useEffect, useState } from "react";
 import Avatar from "../avatar/Avatar";
+import { backendUrl } from "../../api";
 
 const Search = () => {
   const [query, setQuery] = useState("");
@@ -17,7 +18,7 @@ const Search = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:4444/api/v1/users/search-users?filter=${newQuery}`
+        `${backendUrl}/api/v1/users/search-users?filter=${newQuery}`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -63,7 +64,7 @@ const Search = () => {
           ))}
         </ul>
       )}
-      <Navbar />
+      {/* <Navbar /> */}
     </>
   );
 };

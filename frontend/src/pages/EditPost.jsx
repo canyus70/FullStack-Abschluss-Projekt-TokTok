@@ -1,5 +1,4 @@
 import Header from "../components/header/Header";
-import Navbar from "../components/navbar/Navbar";
 import Avatar from "../components/avatar/Avatar";
 import SwitchButton from "../components/switchButton/SwitchButton";
 
@@ -58,7 +57,7 @@ const EditPost = () => {
     }
     post.append("description", textRef.current.value);
 
-    const response = await fetch(`/api/v1/posts/${postId}`, {
+    const response = await fetch(`${backendUrl}/api/v1/posts/${postId}`, {
       method: "PATCH",
       headers: { authorization: `Bearer ${accessToken}` },
       body: post,
