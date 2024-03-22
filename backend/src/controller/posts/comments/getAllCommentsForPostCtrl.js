@@ -1,7 +1,6 @@
 import { PostService } from "../../../service/index.js";
 import { catchAsync } from "../../../utils/catchAsync.js";
 
-// added by Runhong
 export const getAllCommentsForPostCtrl = catchAsync(
   async (req, res) => {
     const postId = req.params.postId;

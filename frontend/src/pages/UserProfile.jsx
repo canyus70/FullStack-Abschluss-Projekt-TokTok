@@ -1,5 +1,5 @@
 import Header from "../components/header/Header";
-// import Navbar from "../components/navbar/Navbar.jsx";
+
 import Avatar from "../components/avatar/Avatar";
 
 import Post from "../components/SVG/Post.svg";
@@ -8,14 +8,13 @@ import Edit from "../components/SVG/Edit.svg";
 import Delete from "../components/SVG/Delete.svg";
 import Feeds from "../components/SVG/Feeds.svg";
 import Logo from "../components/SVG/Logo.svg";
-import Setting from "../components/SVG/Setting.svg";
-import Archiv from "../components/SVG/Archiv.svg";
-import Time from "../components/SVG/Time.svg";
-import ScanQRCode from "../components/SVG/ScanQRCode.svg";
-import RedSaved from "../components/SVG/RedSaved.svg";
+
 import CloseFriends from "../components/SVG/CloseFriends.svg";
-import HeartRed from "../components/SVG/HeartRed.svg";
-import InformationCenter from "../components/SVG/InformationCenter.svg";
+import settingHeart from "../components/SVG/settingHeart.svg";
+import settingLogout from "../components/SVG/settingLogout.svg";
+import settingQR from "../components/SVG/settingQR.svg";
+import settingSaved from "../components/SVG/settingSaved.svg";
+
 import LogoutIcon from "../components/SVG/logout.svg";
 
 import styles from "./UserProfile.module.scss";
@@ -24,6 +23,9 @@ import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext.jsx";
 import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
 import { useNavigate } from "react-router-dom";
+import { backendUrl } from "../api/index.js";
+import NewBar from "../components/newBar/NewBar.jsx";
+import LandingPage from "../components/LandingPage.jsx";
 
 const UserProfile = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,6 +45,8 @@ const UserProfile = () => {
     navigate("/signin");
   };
 
+  console.log(!!accessToken);
+
   const fetchAllFeedsFromUser = async () => {
     if (!accessToken || !user) return;
 
@@ -59,7 +63,7 @@ const UserProfile = () => {
 
   const deletePost = async (feedId) => {
     try {
-      const response = fetch(`api/v1/posts/${feedId}`, {
+      const response = fetch(`${backendUrl}/api/v1/posts/${feedId}`, {
         method: "DELETE",
         headers: { authorization: `Bearer ${accessToken}` },
       });
@@ -74,14 +78,18 @@ const UserProfile = () => {
   useEffect(() => {
     fetchAllFeedsFromUser();
   }, [accessToken, user]);
-  console.log(user);
-  if (!user) return;
+
+  if (!user || !accessToken) return <LandingPage />;
+
+  const closeFriends = user.followers.filter((follower) =>
+    user.following.some((follow) => follow._id === follower._id)
+  );
 
   return (
     <>
       <main className={styles.userProfilePage}>
         <div className={styles.profileHeader}>
-          <Header image={Logo} large title={user.username} />
+          <Header image={Logo} large title={user.username} path="/" />
           <div>
             <Link to="/upload">
               <img src={Post} alt="post" />
@@ -103,45 +111,32 @@ const UserProfile = () => {
                   ____
                 </button>
                 <div onClick={handleLogout}>
-                  <img src={LogoutIcon} alt="" />
+                  <img src={settingLogout} alt="" />
                   <p>Logout</p>
                 </div>
+
                 <div>
-                  <img src={Setting} alt="" />
-                  <p>Settings</p>
-                </div>
-                <div>
-                  <img src={Archiv} alt="" />
-                  <p>Archive</p>
-                </div>
-                <div>
-                  <img src={Time} alt="" />
-                  <p>Your Activity</p>
-                </div>
-                <div>
-                  <img src={ScanQRCode} alt="" />
+                  <img src={settingQR} alt="" />
                   <p>QR Code</p>
                 </div>
                 <Link className={styles.link} to={`/saved/${user._id}`}>
                   <div>
-                    <img src={RedSaved} alt="" />
-                    <p>Saved: {user.saved?.length}</p>
+                    <img src={settingSaved} alt="" />
+                    <p>Saved</p>
                   </div>
                 </Link>
-                <div>
-                  <img src={CloseFriends} alt="" />
-                  <p>Close Friends</p>
-                </div>
-                <Link className={styles.link} to="/favoriten">
+                <Link className={styles.link} to={`/close-friends/${user._id}`}>
                   <div>
-                    <img src={HeartRed} alt="" />
-                    <p>Favorites: {user.likes?.length}</p>
+                    <img src={CloseFriends} alt="" />
+                    <p>Close Friends </p>
                   </div>
                 </Link>
-                <div>
-                  <img src={InformationCenter} alt="" />
-                  <p>Information Center</p>
-                </div>
+                <Link className={styles.link} to={`/favoriten/${user._id}`}>
+                  <div>
+                    <img src={settingHeart} alt="" />
+                    <p>Favorites</p>
+                  </div>
+                </Link>
               </div>
             </div>
           </>
@@ -162,7 +157,7 @@ const UserProfile = () => {
           </div>
           <div className={styles.socialInfo}>
             <div>
-              <h1>{user.blogs ?? 0}</h1>
+              <h1>{user.blogs?.length ?? 0}</h1>
               <h5>Posts</h5>
             </div>
             <div>
@@ -206,7 +201,7 @@ const UserProfile = () => {
           </div>
         </div>
       </main>
-      {/* <Navbar /> */}
+      <NewBar />
     </>
   );
 };

@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
 import AuthorizationContext from "../contexts/AuthorizationContext";
 import fetchUser from "../services/fetchUser";
+import { backendUrl } from "../api";
 
 const EditProfile = () => {
   const ref = useRef();
@@ -41,7 +42,7 @@ const EditProfile = () => {
     const response = await fetch(
       `${backendUrl}/api/v1/users/${user._id}/profile`,
       {
-        method: "PATCH",
+        method: "POST",
         headers: { authorization: `Bearer ${accessToken}` },
         body: profile,
       }

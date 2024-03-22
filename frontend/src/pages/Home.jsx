@@ -1,11 +1,11 @@
 import BlogCard from "../components/blogCard/BlogCard";
 import Logo from "../components/SVG/Logo.svg";
-// import Navbar from "../components/Navbar/Navbar.jsx";
 
 import styles from "./Home.module.scss";
 import Header from "../components/header/Header.jsx";
 import { useEffect, useState } from "react";
 import { backendUrl } from "../api/index.js";
+import NewBar from "../components/newBar/NewBar.jsx";
 const Home = () => {
   const [posts, setPosts] = useState([]);
 
@@ -41,7 +41,7 @@ const Home = () => {
             />
           ))}
       </main>
-      {/* <Navbar /> */}
+      <NewBar />
     </>
   );
 };

@@ -1,24 +1,26 @@
-import React, {
-  useState,
-  useRef,
-  useContext,
-  useCallback,
-  useEffect,
-} from "react";
+import React, { useState, useRef, useContext, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import Webcam from "react-webcam";
 import Header from "../components/header/Header.jsx";
-// import Navbar from "../components/navbar/Navbar.jsx";
+
 import styles from "./UserPostUpload.module.scss";
 
-import Setting from "../components/SVG/Setting.svg";
+import photographFill from "../images/photographFill.png";
+import photographLine from "../images/photographLine.png";
 import Logo from "../components/SVG/Logo.svg";
-import Camera from "../components/SVG/Camera.svg";
-import Location from "../components/SVG/Location.svg";
+import switchButton from "../images/switchButton.png";
+
+import photograph from "../images/photograph.png";
+
 import Avatar from "../components/avatar/Avatar";
 import { convertDataURLToBlob } from "../utils/convertDataURLtoBlob.js";
 
 import AuthorizationContext from "../contexts/AuthorizationContext.jsx";
 import UserContext from "../contexts/UserContext.jsx";
+import { backendUrl } from "../api/index.js";
+import fetchUser from "../services/fetchUser.js";
+import NewBar from "../components/newBar/NewBar.jsx";
+import LandingPage from "../components/LandingPage.jsx";
 
 const UserPostUpload = () => {
   const [image, setImage] = useState("");
@@ -29,6 +31,7 @@ const UserPostUpload = () => {
   const [accessToken] = useContext(AuthorizationContext);
   const [user, setUser] = useContext(UserContext);
   const textRef = useRef(null);
+  const navigate = useNavigate();
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -90,17 +93,21 @@ const UserPostUpload = () => {
 
       const result = await response.json();
       console.log("Upload erfolgreich:", result);
+
+      fetchUser(user._id, setUser, accessToken);
     } catch (error) {
       console.error("Fehler beim Upload:", error);
     }
+
+    navigate("/profile");
   };
 
-  if (!user) return null;
+  if (!user || !accessToken) return <LandingPage />;
 
   return (
     <>
       <main className={styles.uploadPage}>
-        <Header title="New Post" image={Logo} large />
+        <Header title="New Post" image={Logo} large path="/" />
         <div className={styles.uploadField}>
           {showWebcam ? (
             <div className={styles.webcam}>
@@ -109,14 +116,9 @@ const UserPostUpload = () => {
                 ref={webcamRef}
                 screenshotFormat="image/jpeg"
                 width="100%"
+                style={{ aspectRatio: 1 }}
                 videoConstraints={{ facingMode: camera }}
               />
-              <div className={styles.cameraButtons}>
-                <button onClick={capture} className={styles.capture}>
-                  Capture
-                </button>
-                <button onClick={switchCamera}>Switch Camera</button>
-              </div>
             </div>
           ) : (
             image && (
@@ -144,11 +146,25 @@ const UserPostUpload = () => {
             </>
           )}
         </div>
-        <div
-          className={styles.uploadButton}
-          onClick={() => setShowWebcam(!showWebcam)}
-        >
-          {showWebcam ? "Close Camera" : "Open Camera"}
+        <div className={styles.cameraButtons}>
+          {showWebcam && (
+            <div className={styles.captureSwitchCamera}>
+              <img
+                src={switchButton}
+                alt="switchCamera"
+                onClick={switchCamera}
+              />
+              <img src={photograph} alt="switchCamera" onClick={capture} />
+            </div>
+          )}
+
+          <div onClick={() => setShowWebcam(!showWebcam)}>
+            {showWebcam ? (
+              <img src={photographFill} alt="close camera" width="28px" />
+            ) : (
+              <img src={photographLine} alt="open camera" width="28px" />
+            )}
+          </div>
         </div>
         <div className={styles.description}>
           <Avatar avatar={user.avatar} />
@@ -161,11 +177,12 @@ const UserPostUpload = () => {
           ></textarea>
         </div>
         <hr />
-        <button className={styles.primaryButton} onClick={uploadPost}>
+        <button className="primaryButton" onClick={uploadPost}>
           Upload
         </button>
       </main>
-      {/* <Navbar /> */}
+
+      <NewBar />
     </>
   );
 };

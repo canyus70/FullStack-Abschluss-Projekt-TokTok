@@ -5,11 +5,11 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
 
-  server: {
-    proxy: {
-      "/api": "http://localhost:4444",
-    },
-  },
+  // server: {
+  //   proxy: {
+  //     "/api": "http://localhost:4444",
+  //   },
+  // },
 });
 
 //  hier habe ich ein proxy eingefügt, damit können wir das Cors-Problom bei PATCH löschen.

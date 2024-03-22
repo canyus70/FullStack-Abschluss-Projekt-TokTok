@@ -1,11 +1,11 @@
-import "./navbar.scss";
 import IconHome from "../SVG/IconHome.svg";
 import IconSearch from "../SVG/IconSearch.svg";
 import IconUpload from "../SVG/IconUpload.svg";
 import IconProfile from "../SVG/IconProfile.svg";
 import { Link, useLocation } from "react-router-dom";
+import "./NewBar.scss";
 
-const Navbar = () => {
+const NewBar = () => {
   const location = useLocation();
 
   return (
@@ -60,4 +60,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NewBar;

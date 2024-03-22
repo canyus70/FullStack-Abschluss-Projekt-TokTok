@@ -8,12 +8,16 @@ import Back from "../components/SVG/Back.svg";
 
 import styles from "./Comments.module.scss";
 import { useContext, useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import AuthorizationContext from "../contexts/AuthorizationContext";
 import UserContext from "../contexts/UserContext";
 
 import Edit from "../components/SVG/Edit.svg";
 import Delete from "../components/SVG/Delete.svg";
 import fetchPost from "../services/fetchPost";
+import { backendUrl } from "../api";
+import Logo from "../components/SVG/Logo.svg";
+import LandingPage from "../components/LandingPage";
 
 const Comments = () => {
   const [post, setPost] = useState(undefined);
@@ -33,7 +37,7 @@ const Comments = () => {
         : `${backendUrl}/api/v1/posts/${post._id}/comment`;
 
       const response = await fetch(fetchUrl, {
-        method: selectedComment ? "PATCH" : "POST",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${accessToken}`,
@@ -104,7 +108,7 @@ const Comments = () => {
     fetchAllCommentsForPost();
   }, [accessToken, setPost, setMessage]);
 
-  if (!post) return null;
+  if (!accessToken || !post) return <LandingPage />;
 
   return (
     <>
@@ -134,18 +138,20 @@ const Comments = () => {
               <UserConciseInfos user={comment.author} />
               <p>{comment.message}</p>
               <p className={styles.timeStamp}>{comment.createdAt}</p>
-              <div className={styles.buttons}>
-                <img
-                  src={Edit}
-                  alt="edit"
-                  onClick={() => editComment(comment._id)}
-                />
-                <img
-                  src={Delete}
-                  alt="delete"
-                  onClick={() => deleteComment(comment._id)}
-                />
-              </div>
+              {authorizedUser?._id === comment.author?._id && (
+                <div className={styles.buttons}>
+                  <img
+                    src={Edit}
+                    alt="edit"
+                    onClick={() => editComment(comment._id)}
+                  />
+                  <img
+                    src={Delete}
+                    alt="delete"
+                    onClick={() => deleteComment(comment._id)}
+                  />
+                </div>
+              )}
             </div>
           ))}
       </main>

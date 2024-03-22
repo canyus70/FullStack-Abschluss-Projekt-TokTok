@@ -12,6 +12,7 @@ const Favo = () => {
   const [accessToken] = useContext(AuthorizationContext);
   const [user, setUser] = useContext(UserContext);
   const { userId } = useParams();
+  console.log(userId);
 
   useEffect(() => {
     fetchUser(userId, setUser, accessToken);
