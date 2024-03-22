@@ -30,7 +30,6 @@ const FunctionButtons = ({ transparent, post }) => {
 
   const [copied, setCopied] = useState(false);
 
-
   const copyToClipboard = () => {
     const url = `${document.location.origin}/${post?._id}/comment`;
     navigator.clipboard
@@ -53,7 +52,6 @@ const FunctionButtons = ({ transparent, post }) => {
       }, 1000);
     }
   }, [copied]);
-
 
   return (
     <div className={styles.functionButtons}>
