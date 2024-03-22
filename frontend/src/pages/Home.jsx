@@ -13,6 +13,7 @@ const Home = () => {
     try {
       const response = await fetch(`${backendUrl}/api/v1/posts/`);
       const { result } = await response.json();
+      console.log(result);
 
       setPosts(result);
     } catch (error) {
