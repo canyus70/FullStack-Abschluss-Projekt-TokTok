@@ -19,6 +19,7 @@ const PORT = process.env.PORT || 4444;
 const app = express();
 
 app.use(cors({ origin: [process.env.FRONTEND_URL], credentials: true }));
+// app.use(cors({ origin: true, credentials: true }));//nur zum testen erlaubt alle anfragen
 app.set("trust proxy", 1);
 const cookieSessionOptions = {
   name: "session",

@@ -13,9 +13,12 @@ const Home = () => {
     try {
       const response = await fetch(`${backendUrl}/api/v1/posts/`);
       const { result } = await response.json();
-      console.log(result);
 
-      setPosts(result);
+      const sortedPosts = result.sort(
+        (a, b) => new Date(b.creadetAt) - new Date(a.creadetAt)
+      );
+
+      setPosts(sortedPosts);
     } catch (error) {
       console.log(error);
     }
